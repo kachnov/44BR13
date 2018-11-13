@@ -31,6 +31,9 @@
 	// the Mutt is a slow, lumbering beast
 	stats.setStat(STAT_SPEED, 0.75)
 
+	// WIP 
+	stats.setStat(STAT_IQ, 60)
+
 	amerimutts += src
 
 	mutt_hivemind.announce("[name] has been born.")
