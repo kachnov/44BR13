@@ -128,7 +128,7 @@ var/global/controller/processScheduler/processScheduler = null
 /controller/processScheduler/proc/runQueuedProcesses()
 
 	// run high-priority processes first
-	for (var/process in queued)
+	for (var/process in reverse_list(queued)) // temporary hack to make movement run before chairs
 		var/controller/process/P = process
 		if (P.is_high_priority)
 			runProcess(P)
