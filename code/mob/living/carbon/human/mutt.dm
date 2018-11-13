@@ -30,6 +30,14 @@
 	// the Mutt is a slow, lumbering beast
 	stats.setStat(STAT_SPEED, 0.75)
 
+	amerimutts += src
+
+	mutt_hivemind.announce("[name] has been born.")
+
+/mob/living/carbon/human/mutt/dispose()
+	amerimutts -= src 
+	..()
+
 /mob/living/carbon/human/mutt/Life(controller/process/mobs/parent)
 	..(parent)
 
@@ -79,6 +87,10 @@
 	update_icon()
 #undef BASIC_HEAL_AMOUNT
 
+/mob/living/carbon/human/mutt/death()
+	mutt_hivemind.announce("[name] has been slain.")
+	return ..()
+	
 /mob/living/carbon/human/mutt/get_stam_mod_regen()
 	var/weeds = locate(/obj/mutt/weeds) in get_turf(src)
 	if (weeds)
