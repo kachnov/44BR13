@@ -77,6 +77,9 @@
 
 	var/moving_in_dir = 0
 
+	// hotkeys
+	var/hotkey_mode = FALSE
+
 /client/Del()
 	if (ticker && ticker.current_state < GAME_STATE_FINISHED)
 		ircbot.event("logout", key)
@@ -472,6 +475,19 @@ var/global/curr_day = null
 	if (!mob.stat && isliving(mob) && !mob.restrained())
 		mob:toggle_point_mode(force_off)
 	return
+
+/client/verb/hotkeyMode()
+	set hidden = TRUE
+	set name = ".hotkeyMode"
+	hotkey_mode = !hotkey_mode 
+	boutput(src, "<span style = \"color: purple\">Hotkey mode is [hotkey_mode ? "now on" : "no longer on"].</span>")
+
+/client/verb/hotkeyModeExecute(arg as text)
+	set hidden = TRUE
+	set instant = TRUE
+	set name = ".hotkeyModeExecute"
+	if (hotkey_mode)
+		call(src, arg)()
 /*
 /client/verb/togglewasdzqsd()
 	set hidden = 1
