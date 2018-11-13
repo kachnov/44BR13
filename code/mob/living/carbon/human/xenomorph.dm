@@ -36,7 +36,7 @@
 	abilityHolder.addAbility(/targetable/xenomorph/evolve)
 	update_icon()
 	// hivemind message
-	xenomorph_hivemind.announce("[name] has been born!")
+	xenomorph_hivemind.announce("[name] has evolved!")
 	
 /mob/living/carbon/human/xenomorph/dispose()
 	grown_xenomorphs -= src 
