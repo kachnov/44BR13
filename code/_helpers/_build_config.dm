@@ -1,8 +1,5 @@
 // Compile-time config flags
 
-// Enable if btime is installed
-//#define PRECISE_TIMER_AVAILABLE
-
 // Debug flags
 
 // Delete queue debug toggle
