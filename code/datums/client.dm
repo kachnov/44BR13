@@ -72,7 +72,7 @@
 	var/chatOutput/chatOutput = null
 	var/resourcesLoaded = 0 //Has this client done the mass resource downloading yet?
 	var/tooltip/tooltip = null
-	
+
 	var/delete_state = DELETE_STOP
 
 	var/moving_in_dir = 0
@@ -137,7 +137,7 @@
 
 			if (src)
 				del(src)
-				
+
 			return
 
 
@@ -362,12 +362,12 @@ var/global/curr_day = null
 ///client/Southwest()
 	//
 	//return
-	
+
 // new epic movement system by Kachnov, hope it fixes movement lag for me
 #define fastMove(dir) set instant = TRUE; \
 	set hidden = TRUE; \
 	moving_in_dir |= dir
-	
+
 #define fastStopMoving(dir) set instant = TRUE; \
 	set hidden = TRUE; \
 	moving_in_dir &= ~dir
@@ -388,7 +388,7 @@ var/global/curr_day = null
 	fastStopMoving(EAST)
 /client/verb/westUp()
 	fastStopMoving(WEST)
-	
+
 #undef fastMove
 #undef fastStopMoving
 
@@ -479,7 +479,7 @@ var/global/curr_day = null
 /client/verb/hotkeyMode()
 	set hidden = TRUE
 	set name = ".hotkeyMode"
-	hotkey_mode = !hotkey_mode 
+	hotkey_mode = !hotkey_mode
 	boutput(src, "<span style = \"color: purple\">Hotkey mode is [hotkey_mode ? "now on" : "no longer on"].</span>")
 
 /client/verb/hotkeyModeExecute(arg as text)
@@ -1141,3 +1141,10 @@ var/global/curr_day = null
 	set desc = "Open the Forum in your browser"
 	set hidden = 1
 	src << link("http://forum.ss13.co")
+
+/client/verb/discord()
+	set category = "Commands"
+	set name = "Discord"
+	set desc = "Open the Discord invite link in your browser"
+	set hidden = 1
+	src << link("https://discord.gg/zrr9wYf")
