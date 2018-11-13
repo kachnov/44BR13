@@ -1,0 +1,6 @@
+<h1>Welcome to 44BR13!</h1>
+<i>Based on the official release of goonstation from 2016-03-04</i><br><br>
+Got a question about game mechanics? Use <b>mentorhelp</b> or consult the <a href="http://wiki.ss13.co/">wiki</a>.<br>
+Got a problem? Use <b>adminhelp</b> if you want to complain about it, not deadchat or OOC.</b><br>
+<h1>USE THE "RULES" COMMAND TO READ THE RULES</h1>
+<h2>Visit our <a href = "https://discord.gg/zrr9wYf"><span style = "color: blue">Discord</span></a></h2>

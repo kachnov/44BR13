@@ -1,0 +1,1 @@
+#define LOBBY_MUSIC_CHANNEL 44

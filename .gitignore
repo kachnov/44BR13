@@ -1,0 +1,9 @@
+*.rsc
+*.rsc.lk
+*.dyn.rsc
+*.dyn.rsc.lk
+*.int
+*.lk
+*.dmb
+*.log
+data/

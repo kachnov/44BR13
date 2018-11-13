@@ -1,0 +1,2 @@
+#define ADMIN_CHECK(source) if (!source:holder) {boutput(source, "Only administrators may use this command."); return}
+#define MENTOR_CHECK(source) if (!source:mentor) {boutput(source, "Only mentors may use this command."); return}

@@ -1,0 +1,364 @@
+/obj/item/audio_tape
+	name = "compact tape"
+	desc = "A small audio tape.  You could make some rad mix-tapes with this!"
+	icon = 'icons/obj/device.dmi'
+	icon_state = "recordertape"
+	w_class = 1.0
+	mats = 3
+
+	var/log_line = 1 //Which line of the log it's on.
+	var/max_lines = 60
+	var/list/messages = list()
+	var/list/speakers = list()
+
+	proc
+		add_message(speaker="Unknown",message, continuous)
+			if (!speaker || !message)
+				return FALSE
+
+			if (!continuous && (log_line >= max_lines))
+				return FALSE
+
+			log_line++
+			messages += "[message]"
+			speakers += "[speaker]"
+			if (continuous && (log_line > max_lines))
+				messages.Cut(1,2)
+				speakers.Cut(1,2)
+				log_line = messages.len
+
+			return TRUE
+
+		get_message(continuous)
+			if (log_line > messages.len)
+				if (continuous && messages.len)
+					log_line = 1
+				else
+					return null
+
+			return "[speakers.len < log_line ? "Unknown" : speakers[log_line]]|[messages[log_line]]"
+
+		next(continuous)
+			if (log_line >= messages.len)
+				if (continuous && messages.len)
+					log_line = 1
+				else
+					return FALSE
+
+			log_line++
+			return TRUE
+
+		reset()
+			if (messages)
+				messages.len = 0
+			else
+				messages = list()
+
+			if (speakers)
+				speakers.len = 0
+			else
+				speakers = list()
+
+			log_line = 1
+			return
+
+		use_percentage()
+			if (!messages)
+				return FALSE
+
+			return round((messages.len /  max_lines) * 100)
+
+
+/obj/item/device/audio_log
+	name = "Audio log"
+	desc = "A fairly spartan recording device."
+	icon_state = "recorder"
+	item_state = "electronic"
+	w_class = 2.0
+	var/obj/item/audio_tape/tape = null
+	var/mode = 0 //1 recording, 2 playing back
+	var/max_lines = 60
+	var/continuous = 1
+	var/list/audiolog_messages = list()
+	var/list/audiolog_speakers = list()
+	var/self_destruct = 0 //This message will self-destruct in five seconds...
+	mats = 4
+
+	//nuclear mode briefing log
+	nuke_briefing
+		name = "Mission Briefing"
+		desc = "The standard for covert mission briefing."
+		continuous = 0
+		//self_destruct = 1
+
+		New(newloc, var/nuke_area)
+			..()
+			if (!nuke_area)
+				nuke_area = "an unknown area. I think mission control fucked up somewhere."
+			audiolog_messages += "Your mission this time is simple, team."
+			audiolog_messages += "NanoTrasen has been causing us significant trouble recently."
+			audiolog_messages += "You are to detonate their station with a nuclear device."
+			audiolog_messages += "You must arm the bomb in [nuke_area]. Good luck and god speed."
+			audiolog_speakers.len = audiolog_messages.len
+
+			if (!tape)
+				tape = new /obj/item/audio_tape(src)
+
+			tape.messages = audiolog_messages
+			audiolog_messages = null
+
+			tape.speakers = audiolog_speakers
+			audiolog_speakers = null
+
+			return
+
+	//researchstat log #1
+	researchstat_log
+		name = "Bloody log"
+		desc = "There's blood on it."
+		continuous = 0
+
+		New(newloc)
+			..()
+			audiolog_speakers += "Scientist #1"
+			audiolog_messages += "Earlier today we began research on the Artifact recovered by our exploration team."
+			audiolog_speakers += "Scientist #1"
+			audiolog_messages += "It looks pretty unremarkable by all standards, but we've been getting some very strange readings."
+			audiolog_speakers += "Scientist #1"
+			audiolog_messages += "There seems to be some sort of energy source in it but our scans show nothing."
+			audiolog_speakers += "Scientist #1"
+			audiolog_messages += "When I say nothing, I mean literally nothing. There seems to be nothing AT ALL in it."
+			audiolog_speakers += "Scientist #1"
+			audiolog_messages += "Some crew members have reported strange noises on the station ever since we recovered the artifact, but I'm su---"
+			audiolog_speakers += "*static*"
+			audiolog_messages += "ZZZZZZZZZZZZZZZZZZZZZZZ"
+			audiolog_speakers.len = audiolog_messages.len
+			return
+
+	wjam_office_log
+		continuous = 0
+		audiolog_messages = list("Must I remind you, Dr. Garriott, that you are under contract?",
+								"You weren't there! You didn't see what I-",
+								"Your tone is not appreciated.  If you are unable to control yourself I suggest you leave.",
+								"In fact, I insist.  Our business is concluded-",
+								"Speak with me face to face you son of a bitch!",
+								"So you can murder me with whatever plague you have engineered in my labs? Using MY funds?",
+								"If you are not willing to leave I will have security escort you out, with neither suit nor shuttle to shield you.",
+								"Think carefully, Bruce.")
+		audiolog_speakers = list("Willard Jam",
+								"Dr. Garriott",
+								"Willard Jam",
+								"Willard Jam",
+								"Dr. Garriott",
+								"Willard Jam",
+								"Willard Jam",
+								"Willard Jam")
+
+	wall_mounted
+		name = "Mounted Logger"
+		desc = "A wall-mounted audio log device."
+		max_lines = 30
+
+		attack_hand(mob/user as mob)
+			return attack_self(user)
+
+		updateSelfDialog()
+			return updateUsrDialog()
+
+	attack_self(mob/user as mob)
+		..()
+		if (user.stat || user.restrained() || user.lying)
+			return
+		if ((user.contents.Find(src) || user.contents.Find(master) || get_dist(src, user) <= 1 && istype(loc, /turf)))
+			user.machine = src
+
+			var/dat = "<TT><strong>Audio Logger</strong><br>"
+			if (tape)
+				dat += "Memory [tape.use_percentage()]% Full -- <a href='byond://?src=\ref[src];command=eject'>Eject</a><br>"
+			else
+				dat += "No Tape Loaded<br>"
+
+			dat += "<table cellspacing=5><tr>"
+			dat += "<td><a href='byond://?src=\ref[src];command=rec'>[mode == 1 ? "Recording" : "Not Recording"]</a></td>"
+			dat += "<td><a href='byond://?src=\ref[src];command=play'>[mode == 2 ? "Playing" : "Not Playing"]</a></td>"
+			dat += "<td><a href='byond://?src=\ref[src];command=stop'>Stop</a></td>"
+			dat += "<td><a href='byond://?src=\ref[src];command=clear'>Clear Log</a></td>"
+			dat += "<td><a href='byond://?src=\ref[src];command=continuous_mode'>[continuous ? "Looping" : "No Loop"]</a></td></table></tt>"
+
+			user << browse(dat, "window=audiolog;size=400x140")
+			onclose(user, "audiolog")
+		else
+			user << browse(null, "window=audiolog")
+			user.machine = null
+
+		return
+
+	attackby(obj/item/I as obj, mob/user as mob)
+		if (istype(I, /obj/item/audio_tape))
+			if (tape)
+				boutput(user, "There is already a tape loaded.")
+				return
+
+			user.drop_item()
+			I.set_loc(src)
+			tape = I
+			tape.log_line = 1
+			icon_state = initial(icon_state)
+			updateSelfDialog()
+
+			user.visible_message("[user] loads a tape into [src].", "You load a tape into [src].")
+
+		else
+			..()
+
+	New()
+		..()
+		spawn (10)
+			if (!tape)
+				tape = new /obj/item/audio_tape(src)
+			if (audiolog_messages && audiolog_messages.len)
+				tape.messages = audiolog_messages
+				audiolog_messages = null
+			if (audiolog_speakers && audiolog_speakers.len)
+				tape.speakers = audiolog_speakers
+				audiolog_speakers = null
+
+	Topic(href, href_list)
+		..()
+		if (usr.stat || usr.restrained() || usr.lying)
+			return
+		if ((usr.contents.Find(src) || usr.contents.Find(master) || in_range(src, usr) && istype(loc, /turf)))
+			usr.machine = src
+			switch(href_list["command"])
+				if ("rec")
+					mode = 1
+					processing_items.Remove(src)
+				if ("play")
+					mode = 2
+					if (!(src in processing_items))
+						processing_items.Add(src)
+				if ("stop")
+					mode = 0
+					processing_items.Remove(src)
+					if (tape)
+						tape.log_line = 1
+				if ("clear")
+					mode = 0
+					processing_items.Remove(src)
+					if (tape)
+						tape.reset()
+					//audiolog_messages = list()
+					//audiolog_speakers = list()
+
+				if ("continuous_mode")
+					continuous = !continuous
+
+				if ("eject")
+					mode = 0
+					processing_items.Remove(src)
+					icon_state = "[initial(icon_state)]-empty"
+
+					tape.set_loc(get_turf(src))
+
+					tape.log_line = 1
+					tape = null
+
+			add_fingerprint(usr)
+			updateSelfDialog()
+		else
+			usr << browse(null, "window=audiolog")
+			return
+		return
+
+	hear_talk(var/mob/living/carbon/speaker, messages, real_name, lang_id)
+		if ((mode != 1) || !tape)
+			return
+
+		if (speaker.mind && speaker.mind.assigned_role == "Captain")
+			speaker.unlock_medal("Captain's Log", 1)
+
+		var/speaker_name = speaker.real_name
+		if (real_name)
+			speaker_name = real_name
+
+		if (ishuman(speaker) && speaker.wear_mask && speaker.wear_mask.vchange)//istype(speaker.wear_mask, /obj/item/clothing/mask/gas/voice))
+			if (speaker:wear_id)
+				speaker_name = speaker:wear_id:registered
+			else
+				speaker_name = "Unknown"
+
+		var/message = (lang_id == "english" || lang_id == "") ? messages[1] : messages[2]
+		if (tape.add_message(speaker_name, message, continuous) == 0)
+			speak(name, "Memory full. Have a nice day.")
+			mode = 0
+			processing_items.Remove(src)
+			updateSelfDialog()
+
+		return
+
+	process()
+		if ((mode != 2) || !tape)
+			mode = 0
+			processing_items.Remove(src)
+			updateSelfDialog()
+			if (self_destruct)
+				spawn (20)
+					explode()
+			return
+
+		var/speak_message = tape.get_message(continuous)
+		if (!speak_message)
+			mode = 0
+			processing_items.Remove(src)
+			updateSelfDialog()
+			if (self_destruct)
+				spawn (20)
+					explode()
+			return
+		var/separator = findtext(speak_message,"|")
+		if (!separator)
+			mode = 0
+			processing_items.Remove(src)
+			updateSelfDialog()
+			if (self_destruct)
+				spawn (20)
+					explode()
+			return
+
+		var/speaker = copytext(speak_message, 1, separator)
+		speak_message = copytext(speak_message, separator+1)
+
+		speak(speaker, speak_message)
+		if (!tape.next(continuous))
+			mode = 0
+			processing_items.Remove(src)
+			updateSelfDialog()
+		return
+
+
+	proc
+		speak(speaker, message)
+			if (!message)
+				return
+			if (!speaker)
+				speaker = "Unknown"
+
+			for (var/mob/O in all_hearers(5, loc))
+				O.show_message("<span class='game radio'><span class='name'>[speaker]</span><strong> [bicon(src)]\[Log\]</strong> <span class='message'>\"[message]\"</span></span>",2)
+			return
+
+		explode()
+
+			var/turf/T = get_turf(loc)
+
+			if (ismob(loc))
+				var/mob/M = loc
+				M.show_message("<span style=\"color:red\">Your [src] explodes!</span>", 1)
+
+			if (T)
+				T.hotspot_expose(700,125)
+
+				explosion(src, T, -1, -1, 2, 3)
+
+			qdel(src)
+			return
