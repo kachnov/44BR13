@@ -1,3 +1,4 @@
+#define NO_AGENT "N/A"
 /neural_net_account
 	var/static/id = 0
 	var/name = ""
@@ -23,11 +24,12 @@
 	.["Mutts Fathered"] = mutts
 
 /neural_net_account/proc/conceived_mutt(var/mob/living/carbon/human/mutt/M)
-	var/_points = M.good_boy_points
-	boutput(owner, "Congratulations on fathering a new [M.caste_name], [name]! Your agent, <strong>[agent]</strong> " + \
-		"has deposited [_points] GBP into your account.")
-	points += _points
-	++mutts
+	if (agent != NO_AGENT)
+		var/_points = M.good_boy_points
+		boutput(owner, "Congratulations on fathering a new [M.caste_name], [name]! " + \
+			"Your agent, <strong>[agent]</strong> has deposited [_points] GBP into your account.")
+		points += _points
+		++mutts
 	
 // subtypes
 /neural_net_account/boomer_soldier
@@ -45,7 +47,7 @@
 	// name is our actual name
 	name = owner.name
 	// no agent
-	agent = "N/A"
+	agent = NO_AGENT
 	// plenty of GBP
 	points = 500
 	// increment the number of jews
@@ -79,3 +81,4 @@
 
 /neural_net_account/jew/proc/number_of_jews_to_send()
 	return max(1, round(length(jews)/2))
+#undef NO_AGENT
