@@ -1,5 +1,6 @@
 /mob/living/carbon/human/mutt
 	icon = 'icons/mob/mutt.dmi'
+	abilityHolder = /abilityHolder/mutt
 
 	var/base_icon_state = null
 	var/good_boy_points = 50
@@ -33,6 +34,8 @@
 	amerimutts += src
 
 	mutt_hivemind.announce("[name] has been born.")
+
+	abilityHolder.addAbility(/targetable/mutt/communicate)
 
 /mob/living/carbon/human/mutt/dispose()
 	amerimutts -= src 
