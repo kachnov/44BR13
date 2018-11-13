@@ -9,8 +9,8 @@ else
   cd "$HOME/BYOND-${BYOND_VERSION}.${BYOND_BUILD}"
   echo "Installing BYOND to $PWD"
   curl "http://www.byond.com/download/build/${BYOND_VERSION}/${BYOND_VERSION}.${BYOND_BUILD}_byond_linux.zip" -o byond.zip
-  apt-get update
-  apt-get install zip unzip
+  sudo apt-get update
+  sudo apt-get install zip unzip
   unzip -o byond.zip
   cd byond
   make here
