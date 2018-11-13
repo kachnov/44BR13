@@ -181,7 +181,8 @@
 		W.set_loc(src)
 
 		if (istype(oldloc, /obj/item/storage)) //For removing items from containers with the tractor
-			oldloc:hud:remove_item(W) // ugh
+			var/obj/item/storage/S = oldloc
+			S.hud.remove_item(W)
 			W.layer = 3 //why is this necessary aaaaa!.
 
 		holding = W

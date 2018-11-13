@@ -517,7 +517,8 @@
 	var/atom/oldloc = loc
 	set_loc(user) // this is to fix some bugs with storage items
 	if (istype(oldloc, /obj/item/storage))
-		oldloc:hud:remove_item(src) // ugh
+		var/obj/item/storage/S = oldloc 
+		S.hud.remove_item(src)
 	if (src in bible_contents)
 		bible_contents.Remove(src) // UNF
 		for (var/obj/item/storage/bible/bible in world)
