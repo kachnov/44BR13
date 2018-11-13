@@ -148,7 +148,8 @@
 			--y
 		sleep(world.tick_lag)
 
-	animate(transform = null)
+	// stop spinning
+	animate_spin(src, T = 0.3 SECONDS, looping = 1)
 
 	nodamage = FALSE
 	canmove = TRUE
