@@ -15,8 +15,7 @@
 /targetable/facehugger/communicate/cast()
 	var/x = trim(copytext(sanitize(input(usr, "Say what?") as text), 1, MAX_MESSAGE_LEN))
 	if (x)
-		for (var/mob in facehuggers|xenomorph_larvae|grown_xenomorphs)
-			boutput(mob, "<em><strong>[usr.name]</strong>: [x]</em>")
+		xenomorph_hivemind.communicate("<em><strong>[usr.name]</strong>: [x]</em>")
 
 /obj/screen/ability/facehugger/communicate
 /obj/screen/ability/facehugger/communicate/clicked(params)

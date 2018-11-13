@@ -25,10 +25,17 @@
 			var/game_mode/_44BR13/mode = ticker.mode
 			if (!mode.facehugger_traitors.len)
 				mode.add_facehugger_traitor(src)
+				
+	// hivemind message
+	xenomorph_hivemind.announce("[name] has been born!")
 	
 /mob/living/critter/facehugger/dispose()
 	facehuggers -= src 
 	..()
+
+/mob/living/critter/facehugger/death()
+	xenomorph_hivemind.announce("[name] has been slain!")
+	return ..()
 	
 /mob/living/critter/facehugger/setup_healths()
 	add_hh_flesh(25, 25, 1)

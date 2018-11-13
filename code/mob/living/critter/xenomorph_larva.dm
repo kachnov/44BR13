@@ -36,6 +36,9 @@
 	abilityHolder.addAbility(/targetable/xenomorph_larva/communicate)
 	abilityHolder.addAbility(/targetable/xenomorph_larva/crawl)
 	abilityHolder.addAbility(/targetable/xenomorph_larva/hide)
+	
+	// hivemind message
+	xenomorph_hivemind.announce("[name] has been born!")
 
 /mob/living/critter/xenomorph_larva/dispose()
 	xenomorph_larvae -= src 
@@ -77,6 +80,10 @@
 				
 			// begone thot (funny because all xenos are female!1)
 			qdel(src)
+
+/mob/living/critter/xenomorph_larva/death()
+	xenomorph_hivemind.announce("[name] has been slain!")
+	return ..()
 					
 /mob/living/critter/xenomorph_larva/hand_attack(var/mob/living/L)
 	if (istype(L) && !isxenomorph(L) && !isxenomorphlarva(L))

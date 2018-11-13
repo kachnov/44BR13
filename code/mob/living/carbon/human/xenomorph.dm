@@ -35,6 +35,8 @@
 	// also evolution regardless of ability flags 
 	abilityHolder.addAbility(/targetable/xenomorph/evolve)
 	update_icon()
+	// hivemind message
+	xenomorph_hivemind.announce("[name] has been born!")
 	
 /mob/living/carbon/human/xenomorph/dispose()
 	grown_xenomorphs -= src 
@@ -62,6 +64,10 @@
 			
 	update_icon()
 #undef BASIC_HEAL_AMOUNT
+
+/mob/living/carbon/human/xenomorph/death()
+	xenomorph_hivemind.announce("[name] has been slain!")
+	return ..()
 
 // regenerate stamina 3x as fast as a normal human (6x as fast on weeds)
 /mob/living/carbon/human/xenomorph/get_stam_mod_regen()

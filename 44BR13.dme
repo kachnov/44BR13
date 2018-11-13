@@ -146,6 +146,7 @@ var/preMapLoad/preMapLoad = new
 #include "code\datums\updateQueueWorker.dm"
 #include "code\datums\vote.dm"
 #include "code\datums\Vspace.dm"
+#include "code\datums\xenomorph_hivemind.dm"
 #include "code\datums\abilities\ability_parent.dm"
 #include "code\datums\abilities\changeling.dm"
 #include "code\datums\abilities\critter.dm"
