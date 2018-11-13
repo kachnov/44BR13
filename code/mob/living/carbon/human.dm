@@ -2463,7 +2463,7 @@
 		tally += mutantrace.movement_delay()
 
 	// divide the movement delay by our STAT_SPEED
-	if (stats)
+	if (stats && tally != -1)
 		tally /= stats.getStat(STAT_SPEED)
 
 	if (bioHolder)
