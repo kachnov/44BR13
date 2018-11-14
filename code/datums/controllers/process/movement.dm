@@ -1,7 +1,6 @@
 /controller/process/movement
 	is_high_priority = TRUE
 	var/list/clients = null
-	var/list/animation_locked = list()
 
 /controller/process/movement/setup()
 	name = "Client Movement"
@@ -46,14 +45,14 @@
 #define WADDLE_TIME 0.20 SECONDS
 /controller/process/movement/proc/makeWaddle(var/mob/living/carbon/human/H)
 	set waitfor = FALSE
-	if (animation_locked[H])
+	var/static/list/animation_locked = list()
+	if (!animation_locked[H])
+		animation_locked[H] = TRUE
+		animate(H, pixel_z = 6, time = 0 SECONDS)
+		animate(pixel_z = 0, transform = getMatrixFromPool(nextWaddle(H)), time = WADDLE_TIME)
+		animate(pixel_z = 0, transform = getMatrixFromPool(0), time = 0 SECONDS)
 		sleep(WADDLE_TIME)
-	animation_locked[H] = TRUE
-	animate(H, pixel_z = 6, time = 0 SECONDS)
-	animate(pixel_z = 0, transform = getMatrixFromPool(nextWaddle(H)), time = WADDLE_TIME)
-	animate(pixel_z = 0, transform = getMatrixFromPool(0), time = 0 SECONDS)
-	sleep(WADDLE_TIME)
-	animation_locked[H] = FALSE
+		animation_locked[H] = FALSE
 #undef WADDLE_TIME
 
 /controller/process/movement/proc/nextWaddle(var/mob/living/carbon/human/H)
