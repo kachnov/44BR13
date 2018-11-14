@@ -6523,7 +6523,7 @@
 	if (gender == MALE && stat == CONSCIOUS)
 		for (var/mob/living/carbon/human/xenomorph/X in get_step(src, dir))
 			visible_message("[SPANSEX][src] [pick("shoves", "thrusts", "pushes", "forces")] his [schlong] [pick("schlong", "weiner", "dong")] into [X]'s pussy!</span>")
-			X.weakened = max(X.weakened+2, X.weakened)
+			X.weakened = max(4, X.weakened)
 			if (prob(10))
 				visible_message("[SPANSEX2]<strong>[src] busts a fat nut in [X]'s pussy!</strong></span>")
 				X.contract_disease(/ailment/parasite/mutt)
