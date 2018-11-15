@@ -14,11 +14,13 @@
 	name = "[name] ([++xenomorph_number])"
 	real_name = name
 
+	abilityHolder.addAbility(/targetable/facehugger/hivemind)
 	abilityHolder.addAbility(/targetable/facehugger/communicate)
 	abilityHolder.addAbility(/targetable/facehugger/crawl)
 	abilityHolder.addAbility(/targetable/facehugger/hide)
 	abilityHolder.addAbility(/targetable/facehugger/leap)
 	abilityHolder.addAbility(/targetable/facehugger/scream)
+
 	facehuggers += src
 	spawn (50)
 		if (facehuggers.len >= 3 && src == shuffle(facehuggers)[1])
@@ -28,6 +30,9 @@
 				
 	// hivemind message
 	xenomorph_hivemind.announce_after("[name] has been born!", 0.3 SECONDS)
+
+	// hivemind stuff 
+	xenomorph_hivemind.on_birth(src)
 	
 /mob/living/critter/facehugger/dispose()
 	facehuggers -= src 
@@ -35,6 +40,7 @@
 
 /mob/living/critter/facehugger/death()
 	xenomorph_hivemind.announce("[name] has been slain!")
+	xenomorph_hivemind.on_death(src)
 	return ..()
 	
 /mob/living/critter/facehugger/setup_healths()

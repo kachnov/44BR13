@@ -22,7 +22,8 @@
 	name = "[caste_name] ([++xenomorph_number])"
 	real_name = name
 	grown_xenomorphs += src
-	// add EPIC abilities 
+	// add EPIC abilities
+	abilityHolder.addAbility(/targetable/xenomorph/hivemind)
 	abilityHolder.addAbility(/targetable/xenomorph/communicate)
 	if (abilities & ABILITY_PLANT_WEEDS)
 		abilityHolder.addAbility(/targetable/xenomorph/plant_weeds)
@@ -32,11 +33,14 @@
 		abilityHolder.addAbility(/targetable/xenomorph/build_resin_structure)
 	if (abilities & ABILITY_CRAFT_RESIN)
 		abilityHolder.addAbility(/targetable/xenomorph/craft)
-	// also evolution regardless of ability flags 
 	abilityHolder.addAbility(/targetable/xenomorph/evolve)
 	update_icon()
+
 	// hivemind message
 	xenomorph_hivemind.announce_after("[name] has evolved!", 0.3 SECONDS)
+
+	// hivemind stuff 
+	xenomorph_hivemind.on_birth(src)
 	
 /mob/living/carbon/human/xenomorph/dispose()
 	grown_xenomorphs -= src 
@@ -67,6 +71,7 @@
 
 /mob/living/carbon/human/xenomorph/death()
 	xenomorph_hivemind.announce("[name] has been slain!")
+	xenomorph_hivemind.on_death(src)
 	return ..()
 
 // regenerate stamina 3x as fast as a normal human (6x as fast on weeds)
@@ -127,6 +132,8 @@
 	switch (type)
 		if (/mob/living/carbon/human/xenomorph/hunter)
 			mind.transfer_to((new /mob/living/carbon/human/xenomorph/praetorian(get_turf(src))))
+	xenomorph_hivemind.on_death(src)
+	--xenomorph_hivemind.total_xenomorphs
 	qdel(src)
 
 /mob/living/carbon/human/xenomorph/proc/spawn_mutt()
@@ -220,7 +227,7 @@
 	stats.setStat(STAT_SPEED, 1.3)
 	stats.setStat(STAT_STRENGTH, 2.2)
 	stats.setStat(STAT_IQ, 60)
-	
+
 /mob/living/carbon/human/xenomorph/praetorian/death()
 	. = ..()
 	var/game_mode/_44BR13/mode = ticker.mode

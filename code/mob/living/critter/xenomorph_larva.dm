@@ -33,12 +33,16 @@
 	spawn (300)
 		nodamage = FALSE
 		
+	abilityHolder.addAbility(/targetable/xenomorph_larva/hivemind)
 	abilityHolder.addAbility(/targetable/xenomorph_larva/communicate)
 	abilityHolder.addAbility(/targetable/xenomorph_larva/crawl)
 	abilityHolder.addAbility(/targetable/xenomorph_larva/hide)
 	
 	// hivemind message
 	xenomorph_hivemind.announce_after("[name] has been born!", 0.3 SECONDS)
+
+	// hivemind stuff 
+	xenomorph_hivemind.on_birth(src)
 
 /mob/living/critter/xenomorph_larva/dispose()
 	xenomorph_larvae -= src 
@@ -71,6 +75,9 @@
 					mind.transfer_to((new /mob/living/carbon/human/xenomorph/crafter(get_turf(src))))
 				if ("Hunter")
 					mind.transfer_to((new /mob/living/carbon/human/xenomorph/hunter(get_turf(src))))
+
+			// we no longer exist so yeah
+			xenomorph_hivemind.on_death(src)
 					
 			// if the larva was a traitor, add our objective
 			var/game_mode/_44BR13/mode = ticker.mode
@@ -83,6 +90,7 @@
 
 /mob/living/critter/xenomorph_larva/death()
 	xenomorph_hivemind.announce("[name] has been slain!")
+	xenomorph_hivemind.on_death(src)
 	return ..()
 					
 /mob/living/critter/xenomorph_larva/hand_attack(var/mob/living/L)
