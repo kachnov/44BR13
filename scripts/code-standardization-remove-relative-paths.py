@@ -9,6 +9,15 @@ from pathlib import Path
 import os
 import re
 
+def strip_comments_and_whitespace(string):
+	newstring = ""
+	for char in string:
+		if char != "\t":
+			newstring += char
+		else:
+			break
+	return newstring
+
 # gets the main 44BR13 directory
 dir = os.path.abspath(os.path.join(os.getcwd(), os.pardir)) + "/44BR13"
 
@@ -53,7 +62,7 @@ for path in pathlist:
 
 		sline = line.strip().strip("\t")
 
-		tabcount = line.rstrip().count("\t")
+		tabcount = strip_comments_and_whitespace(line.lstrip()).count("\t")
 		if searching and defcheck(sline) and tabcount == 0:
 			searching = False
 
