@@ -706,7 +706,8 @@ var/global/curr_day = null
 						if (!isnull(mob:ion_trail))
 							mob:ion_trail.stop()
 							mob:jeton = 0
-			move_delay = world.time
+
+			move_delay = 0
 			if ((j_pack && j_pack < 1))
 				move_delay += 2
 
@@ -777,6 +778,8 @@ var/global/curr_day = null
 				// moving in ordinal directions is a bit slower to compensate for moving more tiles
 				if (direct == NORTHEAST || direct == NORTHWEST || direct == SOUTHEAST || direct == SOUTHWEST)
 					move_delay *= sqrt(2)
+
+				move_delay += world.time
 
 				if (istype(mob,/mob/living))
 					var/mob/living/L = mob
