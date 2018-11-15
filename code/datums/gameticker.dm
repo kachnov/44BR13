@@ -193,6 +193,8 @@ var/global/controller/gameticker/ticker = null
 				command_alert("Reports indicate that the engine on-board [station_name()] has not yet been started. Setting up the engine is strongly recommended, or else stationwide power failures may occur.", "Power Grid Warning")
 			break
 
+	processScheduler.start()
+
 /controller/gameticker
 
 	proc/create_characters()

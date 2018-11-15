@@ -175,9 +175,6 @@ var/f_color_selector_handler/F_Color_Selector = null
 	..()
 	
 	tick_lag = 0.5
-
-	processScheduler.start()
-
 //	loop_checks = 0
 
 	diary = file("data/logs/[time2text(world.realtime, "YYYY/MM-Month/DD-Day")].log")
