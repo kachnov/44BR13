@@ -17,7 +17,7 @@
 		var/turf/target = get_step(C.mob, C.moving_in_dir)
 		if (checkTurf(target, C))
 			C.Move(target, C.moving_in_dir)
-			if (ishuman(C.mob))
+			if (ishuman(C.mob) && C.mob.loc == target)
 				var/mob/living/carbon/human/H = C.mob
 				makeWaddle(H)
 
