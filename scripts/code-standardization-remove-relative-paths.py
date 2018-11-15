@@ -53,7 +53,7 @@ for path in pathlist:
 
 		sline = line.strip().strip("\t")
 
-		tabcount = line.count("\t")
+		tabcount = line.rstrip().count("\t")
 		if searching and defcheck(sline) and tabcount == 0:
 			searching = False
 
