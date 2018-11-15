@@ -2464,8 +2464,8 @@
 		tally += mutantrace.movement_delay()
 
 	// divide the movement delay by our STAT_SPEED
-	if (stats && tally > 0)
-		tally /= stats.getStat(STAT_SPEED)
+	if (stats)
+		tally += stats.getSpeedTallyIncrease()
 
 	if (bioHolder)
 		if (bioHolder.HasEffect("fat"))
