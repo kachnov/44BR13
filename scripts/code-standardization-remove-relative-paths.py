@@ -19,7 +19,7 @@ def strip_comments_and_whitespace(string):
 				allow_tabs = False
 		else:
 			break
-	return newstring
+	return newstring.split("//", 1)[0]
 
 # gets the main 44BR13 directory
 dir = os.path.abspath(os.path.join(os.getcwd(), os.pardir)) + "/44BR13"
