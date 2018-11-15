@@ -713,13 +713,14 @@ var/global/curr_day = null
 				if ("run")
 					if (mob.drowsyness > 0)
 						move_delay += 6
-					move_delay += 2.00 // 3.20
+					move_delay += 1.00 // 2.20
 				if ("face")
 					mob.dir = direct
 					return
 				if ("walk")
-					move_delay += 8
+					move_delay += 4.00 // 5.20
 
+				
 			if (istype (mob, /mob/living/carbon/human/))
 				var/mob/living/carbon/human/H = mob
 				if (H.find_ailment_by_type(/ailment/disease/vamplague))
