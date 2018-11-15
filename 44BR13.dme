@@ -16,6 +16,7 @@ var/preMapLoad/preMapLoad = new
 // END_PREFERENCES
 
 // BEGIN_INCLUDE
+#include "code\_helpers\__REPO.dm"
 #include "code\_helpers\_build_config.dm"
 #include "code\_helpers\_layer.dm"
 #include "code\_helpers\_macros.dm"
