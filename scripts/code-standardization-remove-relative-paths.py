@@ -95,10 +95,11 @@ for path in pathlist:
 
 					if (not "=" in line) or (procargscheck(sline) and procargscheck2(sline)):
 
+						varmode = False
+
 						if not sline in ["var", "proc"]:
 
 							procmode = False
-							varmode = False
 
 							# stuff like var/const
 							if "var/" in sline:
@@ -137,10 +138,7 @@ for path in pathlist:
 						#remove one tab
 						line = line.replace("\t", "", 1)
 						# make the line absolutely pathed
-						if varmode.endswith("/"):
-							line = varmode+line
-						else:
-							line = varmode+"/"+line
+						line = varmode+"/"+line
 				else:
 					# remove one tab
 					line = line.replace("\t", "", 1)
