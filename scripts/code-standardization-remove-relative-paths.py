@@ -57,7 +57,7 @@ for path in pathlist:
 	varmode = False
 
 	# stuff like var/const
-	varmode_enabled = False
+	varmode_enabled = True
 
 	for line in lines:
 
@@ -98,12 +98,12 @@ for path in pathlist:
 						if not sline in ["var", "proc"]:
 
 							procmode = False
-							varmode = False
 
 							# stuff like var/const
 							if "var/" in sline:
-								varmode = True
-								# not yet implemented
+								if varmode_enabled:
+									line = ""
+								varmode = sline
 							else:
 								# remove one tab 
 								line = line.replace("\t", "", 1)
@@ -118,7 +118,7 @@ for path in pathlist:
 							else:
 								if varmode_enabled:
 									line = ""
-								varmode = True
+								varmode = "var"
 
 			# something in the definition
 			elif tabcount > 1:
@@ -136,7 +136,10 @@ for path in pathlist:
 						#remove one tab
 						line = line.replace("\t", "", 1)
 						# make the line absolutely pathed
-						line = "var/"+line
+						if varmode.endswith("/"):
+							line = varmode+line
+						else:
+							line = varmode+"/"+line
 				else:
 					# remove one tab
 					line = line.replace("\t", "", 1)
