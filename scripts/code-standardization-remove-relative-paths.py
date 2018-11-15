@@ -56,6 +56,9 @@ for path in pathlist:
 	procmode = False
 	varmode = False
 
+	# bugs with stuff like var/const
+	varmode_enabled = False
+
 	for line in lines:
 
 		defcheck = lambda line: line.startswith("/") and not line.startswith("//") and not line.startswith("/*")
@@ -108,7 +111,8 @@ for path in pathlist:
 								line = ""
 								procmode = True
 							else:
-								line = ""
+								if varmode_enabled:
+									line = ""
 								varmode = True
 
 			# something in the definition
@@ -123,10 +127,11 @@ for path in pathlist:
 						# remove two tabs
 						line = line.replace("\t", "", 2)
 				elif varmode:
-					#remove one tab
-					line = line.replace("\t", "", 1)
-					# make the line absolutely pathed
-					line = "var/"+line
+					if varmode_enabled:
+						#remove one tab
+						line = line.replace("\t", "", 1)
+						# make the line absolutely pathed
+						line = "var/"+line
 				else:
 					# remove one tab
 					line = line.replace("\t", "", 1)
