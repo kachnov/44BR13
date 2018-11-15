@@ -62,6 +62,7 @@ for path in pathlist:
 		comcheck = lambda line: line.startswith("//") or line.startswith("/*") or line.startswith("*/")
 		linecheck = lambda line : not "(" in line and not ")" in line and not "=" in line and not "\\" in line and not "," in line
 		procargscheck = lambda line: "(" in line and ")" in line and line.rfind(")") > line.rfind("=")
+		procargscheck2 = lambda line: not "list(" in line or line.count(")") > 1
 
 		sline = line.strip().strip("\t")
 
@@ -89,7 +90,7 @@ for path in pathlist:
 				# since var/ absolute pathing is ok, these cases are completely ignored.
 				if not sline.startswith("var/"):
 
-					if (not "=" in line) or procargscheck(sline):
+					if (not "=" in line) or (procargscheck(sline) and procargscheck2(sline)):
 
 						if not sline in ["var", "proc"]:
 
