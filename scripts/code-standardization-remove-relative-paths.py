@@ -10,10 +10,13 @@ import os
 import re
 
 def strip_comments_and_whitespace(string):
+	allow_tabs = True # once a non-tab character is counted, disallow further tabs
 	newstring = ""
 	for char in string:
-		if char != "\t":
+		if char != "\t" or allow_tabs:
 			newstring += char
+			if char != "\t":
+				allow_tabs = False
 		else:
 			break
 	return newstring
@@ -62,7 +65,7 @@ for path in pathlist:
 
 		sline = line.strip().strip("\t")
 
-		tabcount = strip_comments_and_whitespace(line.lstrip()).count("\t")
+		tabcount = strip_comments_and_whitespace(line).count("\t")
 		if searching and defcheck(sline) and tabcount == 0:
 			searching = False
 
