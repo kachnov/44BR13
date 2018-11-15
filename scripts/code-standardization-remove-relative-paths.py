@@ -88,8 +88,9 @@ for path in pathlist:
 
 						else:
 
-							line = ""
-							procmode = True
+							if sline == "proc":
+								line = ""
+								procmode = True
 
 			# something in the definition
 			elif tabcount > 1:
@@ -97,7 +98,7 @@ for path in pathlist:
 					# remove all tabs
 					line = line.replace("\t", "")
 					# make the line absolutely pathed
-					line = searching+"/"+line
+					line = searching+"/proc/"+line
 				else:
 					# remove one tab
 					line = line.replace("\t", "", 1)
