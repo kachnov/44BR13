@@ -1280,6 +1280,7 @@
 	return health
 
 /mob/bullet_act(var/obj/projectile/P)
+
 	var/damage = 0
 	damage = round((P.power*P.proj_data.ks_ratio), 1.0)
 	var/stun = 0
