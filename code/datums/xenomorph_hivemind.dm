@@ -14,3 +14,8 @@ var/global/xenomorph_hivemind/xenomorph_hivemind = new
 
 /xenomorph_hivemind/proc/announce(x)
 	return communicate("<big><strong>Hivemind: [x]</strong></big>")
+
+/xenomorph_hivemind/proc/announce_after(x, time)
+	set waitfor = FALSE 
+	sleep(time)
+	return announce(x)

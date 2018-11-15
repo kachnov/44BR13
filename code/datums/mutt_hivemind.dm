@@ -14,3 +14,8 @@ var/global/mutt_hivemind/mutt_hivemind = new
 
 /mutt_hivemind/proc/announce(x)
 	return communicate("<big><strong>La Mente: [x]</strong></big>")
+
+/mutt_hivemind/proc/announce_after(x, time)
+	set waitfor = FALSE 
+	sleep(time)
+	return announce(x)

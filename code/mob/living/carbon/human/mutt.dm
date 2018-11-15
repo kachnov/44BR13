@@ -36,7 +36,7 @@
 
 	amerimutts += src
 
-	mutt_hivemind.announce("[name] has been born.")
+	mutt_hivemind.announce_after("[name] has been born.", 0.3 SECONDS)
 
 	abilityHolder.addAbility(/targetable/mutt/communicate)
 
@@ -162,7 +162,7 @@
 
 /mob/living/carbon/human/mutt/proc/parent_client_check(var/client/parent)
 	set waitfor = FALSE 
-	sleep(0.5 SECONDS)
+	sleep(0.2 SECONDS)
 	if (!client && parent && isobserver(parent.mob))
 		parent.mob.mind.transfer_to(src)
 

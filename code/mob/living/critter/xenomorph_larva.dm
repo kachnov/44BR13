@@ -38,7 +38,7 @@
 	abilityHolder.addAbility(/targetable/xenomorph_larva/hide)
 	
 	// hivemind message
-	xenomorph_hivemind.announce("[name] has been born!")
+	xenomorph_hivemind.announce_after("[name] has been born!", 0.3 SECONDS)
 
 /mob/living/critter/xenomorph_larva/dispose()
 	xenomorph_larvae -= src 

@@ -27,7 +27,7 @@
 				mode.add_facehugger_traitor(src)
 				
 	// hivemind message
-	xenomorph_hivemind.announce("[name] has been born!")
+	xenomorph_hivemind.announce_after("[name] has been born!", 0.3 SECONDS)
 	
 /mob/living/critter/facehugger/dispose()
 	facehuggers -= src 
