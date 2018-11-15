@@ -49,7 +49,7 @@
 	 
 /mob/living/critter/xenomorph_larva/Life(controller/process/mobs/parent)
 	. = ..(parent)
-	if (evolution)
+	if (stat == CONSCIOUS && evolution)
 		++progress
 		switch (progress)
 			if (10 to 24)
