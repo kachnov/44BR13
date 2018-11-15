@@ -16,6 +16,7 @@
 	var/abilities = 0
 	var/next_evolution = -1
 	var/mob/living/carbon/human/babydaddy = null 
+	var/strength = 1.00
 
 /mob/living/carbon/human/xenomorph/New()
 	..()
@@ -96,14 +97,15 @@
 /mob/living/carbon/human/xenomorph/melee_attack(var/mob/living/target)
 	visible_message("<span style = \"color:red\"><strong>[src]</strong> slashes [target]!</span>")
 	playsound(target, 'sound/weapons/slashcut.ogg', 100, 1)
-	if (!random_brute_damage(target, rand(12,15)))
+
+	if (!random_brute_damage(target, strength * rand(12,15)))
 		if (isbot(target))
 			var/obj/machinery/bot/B = target 
 			B.explode()
 	else
 		target.emote("scream")
 		target.weakened = max(target.weakened+1, 1)
-		take_bleeding_damage(target, null, 5, DAMAGE_STAB, 1, get_turf(target))
+		take_bleeding_damage(target, null, strength * 5, DAMAGE_STAB, 1, get_turf(target))
 
 // self explanatory
 /mob/living/carbon/human/xenomorph/proc/update_icon()
@@ -177,6 +179,7 @@
 	caste_name = "Xenomorph Drone"
 	abilities = ABILITY_REGENERATION|ABILITY_PLANT_WEEDS|ABILITY_SECRETE_RESIN|ABILITY_BUILD_RESIN
 	max_health = 225
+	strength = 1.10 // 10% stronger than the crafter but nothing special
 
 /mob/living/carbon/human/xenomorph/drone/New()
 	..()
@@ -190,6 +193,7 @@
 	caste_name = "Xenomorph Crafter"
 	abilities = ABILITY_REGENERATION|ABILITY_CRAFT_RESIN
 	max_health = 200
+	// default strength - weakest ayy
 	
 /mob/living/carbon/human/xenomorph/crafter/New()
 	..()
@@ -203,6 +207,7 @@
 	caste_name = "Xenomorph Hunter"
 	abilities = ABILITY_REGENERATION
 	max_health = 275
+	strength = 1.40 // far stronger than crafters and drones
 
 /mob/living/carbon/human/xenomorph/hunter/New()
 	..()
@@ -221,6 +226,7 @@
 	abilities = ABILITY_REGENERATION
 	pixel_x = -16
 	max_health = 325
+	strength = 1.60 // considerably stronger than the hunter
 
 /mob/living/carbon/human/xenomorph/praetorian/New()
 	..()
@@ -241,6 +247,7 @@
 	abilities = ABILITY_REGENERATION|ABILITY_PLANT_WEEDS|ABILITY_SECRETE_RESIN|ABILITY_BUILD_RESIN
 	pixel_x = -16
 	max_health = 400
+	strength = 1.30 // a bit weaker than the hunter
 
 #undef ABILITY_CRAFT_RESIN
 #undef ABILITY_BUILD_RESIN
