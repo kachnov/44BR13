@@ -1,13 +1,13 @@
-/controller/process/chemistry
-	var/tmp/updateQueue/chemistryUpdateQueue
+PROCESS(chemistry)
+	var/updateQueue/chemistryUpdateQueue
 
-	setup()
-		name = "Chemistry"
-		schedule_interval = 10
-		chemistryUpdateQueue = new
+/controller/process/chemistry/setup()
+	name = "Chemistry"
+	schedule_interval = 10
+	chemistryUpdateQueue = new
 
-	doWork()
-		for (var/reagents in active_reagent_holders)
-			var/reagents/R = reagents
-			R.process_reactions()
-			scheck()
+/controller/process/chemistry/doWork()
+	for (var/reagents in active_reagent_holders)
+		var/reagents/R = reagents
+		R.process_reactions()
+		scheck()

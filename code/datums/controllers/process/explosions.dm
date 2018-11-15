@@ -1,12 +1,10 @@
-// handles timed player actions
-/controller/process/explosions
+PROCESS(explosions)
 	var/explosion_controller/explosion_controller
 
-	setup()
-		name = "Explosions"
-		schedule_interval = 5
+/controller/process/explosions/setup()
+	name = "Explosions"
+	schedule_interval = 5
+	explosion_controller = explosions
 
-		explosion_controller = explosions
-
-	doWork()
-		explosion_controller.process()
+/controller/process/explosions/doWork()
+	explosion_controller.process()

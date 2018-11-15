@@ -1,29 +1,29 @@
 // handles various global init and the position of the sun.
-/controller/process/world
+PROCESS(world)
 	var/shuttle
 
-	setup()
-		name = "World"
-		schedule_interval = 23
+/controller/process/world/setup()
+	name = "World"
+	schedule_interval = 23
 
-		setupgenetics()
-		if (genResearch) genResearch.setup()
+	setupgenetics()
+	if (genResearch) genResearch.setup()
 
-		setup_radiocodes()
+	setup_radiocodes()
 
-		emergency_shuttle = new /shuttle_controller/emergency_shuttle()
-		shuttle = emergency_shuttle
+	emergency_shuttle = new /shuttle_controller/emergency_shuttle()
+	shuttle = emergency_shuttle
 
-		generate_access_name_lookup()
+	generate_access_name_lookup()
 
-	doWork()
-		sun.calc_position()
+/controller/process/world/doWork()
+	sun.calc_position()
 
-		if (genResearch) genResearch.progress()
+	if (genResearch) genResearch.progress()
 
-		for (var/byondkey in muted_keys)
-			var/value = muted_keys[byondkey]
-			if (value > 1)
-				muted_keys[byondkey] = value - 1
-			else if (value == 1 || value == 0)
-				muted_keys -= byondkey
+	for (var/byondkey in muted_keys)
+		var/value = muted_keys[byondkey]
+		if (value > 1)
+			muted_keys[byondkey] = value - 1
+		else if (value == 1 || value == 0)
+			muted_keys -= byondkey

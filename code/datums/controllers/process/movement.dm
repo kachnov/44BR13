@@ -1,5 +1,6 @@
 REPO_LIST(movement_queue, list())
-/controller/process/movement
+
+PROCESS(movement)
 	is_high_priority = TRUE
 	var/list/clients = null
 

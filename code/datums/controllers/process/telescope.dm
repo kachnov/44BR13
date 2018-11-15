@@ -1,12 +1,12 @@
 // handles telescope signals and whatnot
-/controller/process/telescope
+PROCESS(telescope)
 	var/telescope_manager/manager
 
-	setup()
-		name = "Telescope"
-		schedule_interval = 100
+/controller/process/telescope/setup()
+	name = "Telescope"
+	schedule_interval = 100
 
-	doWork()
-		if (tele_man)
-			if (!manager) manager = tele_man
-			tele_man.tick()
+/controller/process/telescope/doWork()
+	if (tele_man)
+		if (!manager) manager = tele_man
+		tele_man.tick()

@@ -1,5 +1,5 @@
 // the process for mutt and xeno weeds
-/controller/process/weeds
+PROCESS(weeds)
 	var/tmp/list/weeds = null
 
 /controller/process/weeds/setup()

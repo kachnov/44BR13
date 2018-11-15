@@ -1,16 +1,16 @@
-/controller/process/arena
+PROCESS(arena)
 	var/list/arenas = list()
 
-	setup()
-		name = "Arena"
-		schedule_interval = 8 // 0.8 seconds
+/controller/process/arena/setup()
+	name = "Arena"
+	schedule_interval = 8 // 0.8 seconds
 
-		arenas += gauntlet_controller
-		arenas += colosseum_controller
+	arenas += gauntlet_controller
+	arenas += colosseum_controller
 
-	doWork()
-		for (var/arena/A in arenas)
-			A.tick()
+/controller/process/arena/doWork()
+	for (var/arena/A in arenas)
+		A.tick()
 				
-	tickDetail()
-		boutput(usr, "No statistics available.")
+/controller/process/arena/tickDetail()
+	boutput(usr, "No statistics available.")
