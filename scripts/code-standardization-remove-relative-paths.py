@@ -41,7 +41,8 @@ for path in pathlist:
 	file2lines[path] = []
 
 	searching = False
-	procmode = None
+	procmode = False
+	varmode = False
 
 	for line in lines:
 
@@ -81,6 +82,8 @@ for path in pathlist:
 						if not sline in ["var", "proc"]:
 
 							procmode = False
+							varmode = False
+
 							# remove one tab 
 							line = line.replace("\t", "", 1)
 							# make the line absolutely pathed
@@ -91,6 +94,9 @@ for path in pathlist:
 							if sline == "proc":
 								line = ""
 								procmode = True
+							else:
+								line = ""
+								varmode = True
 
 			# something in the definition
 			elif tabcount > 1:
@@ -103,6 +109,11 @@ for path in pathlist:
 					else:
 						# remove two tabs
 						line = line.replace("\t", "", 2)
+				elif varmode:
+					#remove one tab
+					line = line.replace("\t", "", 1)
+					# make the line absolutely pathed
+					line = "var/"+line
 				else:
 					# remove one tab
 					line = line.replace("\t", "", 1)
