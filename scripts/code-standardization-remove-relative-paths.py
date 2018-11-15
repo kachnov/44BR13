@@ -72,7 +72,11 @@ for path in pathlist:
 		else:
 			# probably a subtype (that doesn't start with /) or a proc definition/override
 			# no vars allowed
-			if tabcount == 1 and (sline[:1].isalpha() or sline[:1] == "_"):
+			if (tabcount == 0 or tabcount == 1) and (sline[:1].isalpha() or sline[:1] == "_"):
+
+				# spaces can fuck off
+				if tabcount == 0:
+					line = "\t{}".format(sline)
 
 				# since var/ absolute pathing is ok, these cases are completely ignored.
 				if not sline.startswith("var/"):
