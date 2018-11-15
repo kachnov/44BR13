@@ -5,7 +5,7 @@
 /controller/process/movement/setup()
 	name = "Client Movement"
 	schedule_interval = world.tick_lag
-	clients = global.clients
+	clients = global.movement_queue
 
 /controller/process/movement/doWork()
 	for (var/client in clients)

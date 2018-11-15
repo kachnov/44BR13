@@ -366,11 +366,15 @@ var/global/curr_day = null
 // new epic movement system by Kachnov, hope it fixes movement lag for me
 #define fastMove(dir) set instant = TRUE; \
 	set hidden = TRUE; \
-	moving_in_dir |= dir
+	moving_in_dir |= dir; \
+	movement_queue[src] = TRUE
 
 #define fastStopMoving(dir) set instant = TRUE; \
 	set hidden = TRUE; \
-	moving_in_dir &= ~dir
+	moving_in_dir &= ~dir; \
+	if (movement_queue[src]) { \
+		movement_queue -= src; \
+	}
 
 /client/verb/fastNorth()
 	fastMove(NORTH)
@@ -479,8 +483,17 @@ var/global/curr_day = null
 /client/verb/hotkeyMode()
 	set hidden = TRUE
 	set name = ".hotkeyMode"
+
+	// swap hotkey mode
+	var/hotkey_mode_was = hotkey_mode
 	hotkey_mode = !hotkey_mode
 	boutput(src, "<span style = \"color: purple\">Hotkey mode is [hotkey_mode ? "now on" : "no longer on"].</span>")
+
+	// stop moving or we might move in one direction forever
+	if (hotkey_mode_was)
+		moving_in_dir &= ~(NORTH|SOUTH|EAST|WEST)
+		if (movement_queue[src])
+			movement_queue -= src
 
 /client/verb/hotkeyModeExecute(arg as text)
 	set hidden = TRUE
