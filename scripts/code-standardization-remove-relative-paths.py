@@ -102,7 +102,7 @@ for path in pathlist:
 						line = searching+"/proc/"+line
 					else:
 						# remove two tabs
-						line = line.replace("\t", "")
+						line = line.replace("\t", "", 2)
 				else:
 					# remove one tab
 					line = line.replace("\t", "", 1)
