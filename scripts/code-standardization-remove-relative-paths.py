@@ -56,7 +56,7 @@ for path in pathlist:
 	procmode = False
 	varmode = False
 
-	# bugs with stuff like var/const
+	# stuff like var/const
 	varmode_enabled = False
 
 	for line in lines:
@@ -100,10 +100,15 @@ for path in pathlist:
 							procmode = False
 							varmode = False
 
-							# remove one tab 
-							line = line.replace("\t", "", 1)
-							# make the line absolutely pathed
-							line = searching+"/"+line
+							# stuff like var/const
+							if "var/" in sline:
+								varmode = True
+								# not yet implemented
+							else:
+								# remove one tab 
+								line = line.replace("\t", "", 1)
+								# make the line absolutely pathed
+								line = searching+"/"+line
 
 						else:
 
