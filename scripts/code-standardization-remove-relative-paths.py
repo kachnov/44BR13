@@ -105,7 +105,7 @@ for path in pathlist:
 							if "var/" in sline:
 								if varmode_enabled:
 									line = ""
-								varmode = sline
+								varmode = sline.strip("\n")
 							else:
 								# remove one tab 
 								line = line.replace("\t", "", 1)
@@ -135,10 +135,8 @@ for path in pathlist:
 						line = line.replace("\t", "", 2)
 				elif varmode:
 					if varmode_enabled:
-						#remove one tab
-						line = line.replace("\t", "", 1)
 						# make the line absolutely pathed
-						line = varmode+"/"+sline.lstrip()
+						line = "\t"+varmode+"/"+sline.lstrip()
 				else:
 					# remove one tab
 					line = line.replace("\t", "", 1)
