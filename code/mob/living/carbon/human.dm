@@ -6529,7 +6529,7 @@
 		if (nut >= 0)
 			for (var/mob/living/carbon/human/xenomorph/X in get_step(src, dir))
 				visible_message("[SPANSEX][src] [pick("shoves", "thrusts", "pushes", "forces")] his [schlong] [pick("schlong", "weiner", "dong")] into [X]'s pussy!</span>")
-				X.weakened = min(4, X.weakened+1)
+				X.weakened = max(X.weakened, min(4, X.weakened+1))
 				if (++nut >= rand(10,20))
 					visible_message("[SPANSEX2]<strong>[src] busts a fat nut in [X]'s pussy!</strong></span>")
 					X.contract_disease(/ailment/parasite/mutt)
