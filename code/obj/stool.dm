@@ -63,6 +63,11 @@
 		buckled_guy.forceMove(_loc)
 	..(_loc)
 
+/obj/stool/set_dir(_dir)
+	..(_dir)
+	if (buckled_guy)
+		buckled_guy.dir = dir
+
 /obj/stool/proc/buckle_in(mob/living/to_buckle, var/stand = 0) //Handles the actual buckling in
 	return
 
@@ -663,7 +668,7 @@
 
 			// we will always stay two tiles behind the next mower
 			if (!istype(test, /obj/chair_path_helper/stop) && !mowercheck)
-				dir = dirto
+				set_dir(dirto)
 				last_move_was_northsouth = (dir in list(NORTH, SOUTH))
 				if (buckled_guy)
 					buckled_guy.dir = dir
@@ -676,7 +681,7 @@
 						L.gib()
 			else
 				moving = !moving
-				dir = opposite_dir(dir)
+				ste_dir(opposite_dir(dir))
 			break
 
 /* ========================================================== */
