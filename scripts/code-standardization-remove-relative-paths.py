@@ -98,6 +98,7 @@ for path in pathlist:
 						if not sline in ["var", "proc"]:
 
 							procmode = False
+							varmode = False
 
 							# stuff like var/const
 							if "var/" in sline:
