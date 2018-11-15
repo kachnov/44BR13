@@ -48,7 +48,7 @@ for path in pathlist:
 		defcheck = lambda line: line.startswith("/") and not line.startswith("//") and not line.startswith("/*")
 		comcheck = lambda line: line.startswith("//") or line.startswith("/*") or line.startswith("*/")
 		linecheck = lambda line : not "(" in line and not ")" in line and not "=" in line and not "\\" in line and not "," in line
-		procargscheck = lambda line: "(" in line and ")" in line and not "list(" in line 
+		procargscheck = lambda line: "(" in line and ")" in line and line.rfind(")") > line.rfind("=")
 
 		sline = line.strip()
 
@@ -71,7 +71,7 @@ for path in pathlist:
 		else:
 			# probably a subtype (that doesn't start with /) or a proc definition/override
 			# no vars allowed
-			if tabcount == 1 and sline[:1].isalpha() or sline[:1] == "_":
+			if tabcount == 1 and (sline[:1].isalpha() or sline[:1] == "_"):
 
 				# since var/ absolute pathing is ok, these cases are completely ignored.
 				if not sline.startswith("var/"):
@@ -101,7 +101,7 @@ for path in pathlist:
 						line = searching+"/"+line
 					else:
 						# remove one tab
-						line = line.replace("\t", "", 2)
+						line = line.replace("\t", "", 1)
 				else:
 					# remove one tab
 					line = line.replace("\t", "", 1)
