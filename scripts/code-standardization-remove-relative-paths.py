@@ -129,7 +129,7 @@ for path in pathlist:
 						# remove all tabs
 						line = line.replace("\t", "")
 						# make the line absolutely pathed
-						line = searching+"/proc/"+line
+						line = searching+"/proc/"+line.lstrip()
 					else:
 						# remove two tabs
 						line = line.replace("\t", "", 2)
@@ -138,7 +138,7 @@ for path in pathlist:
 						#remove one tab
 						line = line.replace("\t", "", 1)
 						# make the line absolutely pathed
-						line = varmode+"/"+line
+						line = varmode+"/"+sline.lstrip()
 				else:
 					# remove one tab
 					line = line.replace("\t", "", 1)
