@@ -199,8 +199,8 @@
 
 /mob/living/carbon/human/xenomorph/hunter/New()
 	..()
-	// 25 minutes
-	next_evolution = world.time + 15000
+	// 15 minutes
+	next_evolution = world.time + 9000
 	// stats
 	stats.setStat(STAT_SPEED, 1.5)
 	stats.setStat(STAT_STRENGTH, 1.9)
