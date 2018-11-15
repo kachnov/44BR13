@@ -91,7 +91,7 @@ for path in pathlist:
 			if tabcount == 1 and (sline[:1].isalpha() or sline[:1] == "_"):
 
 				# since var/ absolute pathing is ok, these cases are completely ignored.
-				if not sline.startswith("var/"):
+				if not sline.startswith("var/") or (sline.startswith("var/static") or sline.startswith("var/const") or sline.startswith("var/global")):
 
 					if (not "=" in line) or (procargscheck(sline) and procargscheck2(sline)):
 
