@@ -94,7 +94,7 @@ for path in pathlist:
 
 			# something in the definition
 			elif tabcount > 1:
-				if procmode:
+				if procmode and tabcount == 2:
 					# remove all tabs
 					line = line.replace("\t", "")
 					# make the line absolutely pathed
