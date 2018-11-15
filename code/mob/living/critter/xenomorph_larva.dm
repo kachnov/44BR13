@@ -1,5 +1,6 @@
 #define MIN_MAX_PROGRESS 45
 #define MAX_MAX_PROGRESS 55
+REPO_LIST(xenomorph_larvae, list())
 /mob/living/critter/xenomorph_larva
 	icon = 'icons/mob/xeno/xeno.dmi'
 	icon_state = "larva0"
@@ -27,7 +28,7 @@
 		else 
 			may_redo_evolution = TRUE 
 			
-	xenomorph_larvae += src
+	REPO.xenomorph_larvae += src
 	
 	nodamage = TRUE 
 	spawn (300)
@@ -39,13 +40,13 @@
 	abilityHolder.addAbility(/targetable/xenomorph_larva/hide)
 	
 	// hivemind message
-	xenomorph_hivemind.announce_after("[name] has been born!", 0.3 SECONDS)
+	REPO.xenomorph_hivemind.announce_after("[name] has been born!", 0.3 SECONDS)
 
 	// hivemind stuff 
-	xenomorph_hivemind.on_birth(src)
+	REPO.xenomorph_hivemind.on_birth(src)
 
 /mob/living/critter/xenomorph_larva/dispose()
-	xenomorph_larvae -= src 
+	REPO.xenomorph_larvae -= src 
 	..()
 	
 /mob/living/critter/xenomorph_larva/setup_healths()
@@ -77,7 +78,7 @@
 					mind.transfer_to((new /mob/living/carbon/human/xenomorph/hunter(get_turf(src))))
 
 			// we no longer exist so yeah
-			xenomorph_hivemind.on_death(src)
+			REPO.xenomorph_hivemind.on_death(src)
 					
 			// if the larva was a traitor, add our objective
 			var/game_mode/_44BR13/mode = ticker.mode
@@ -89,8 +90,8 @@
 			qdel(src)
 
 /mob/living/critter/xenomorph_larva/death()
-	xenomorph_hivemind.announce("[name] has been slain!")
-	xenomorph_hivemind.on_death(src)
+	REPO.xenomorph_hivemind.announce("[name] has been slain!")
+	REPO.xenomorph_hivemind.on_death(src)
 	return ..()
 					
 /mob/living/critter/xenomorph_larva/hand_attack(var/mob/living/L)

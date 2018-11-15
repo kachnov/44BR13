@@ -1,3 +1,4 @@
+REPO_LIST(amerimutts, list())
 /mob/living/carbon/human/mutt
 	icon = 'icons/mob/mutt.dmi'
 	abilityHolder = /abilityHolder/mutt
@@ -35,14 +36,14 @@
 	// WIP 
 	stats.setStat(STAT_IQ, 60)
 
-	amerimutts += src
+	REPO.amerimutts += src
 
-	mutt_hivemind.announce_after("[name] has been born.", 0.3 SECONDS)
+	REPO.mutt_hivemind.announce_after("[name] has been born.", 0.3 SECONDS)
 
 	abilityHolder.addAbility(/targetable/mutt/communicate)
 
 /mob/living/carbon/human/mutt/dispose()
-	amerimutts -= src 
+	REPO.amerimutts -= src 
 	..()
 
 /mob/living/carbon/human/mutt/Life(controller/process/mobs/parent)
@@ -95,7 +96,7 @@
 #undef BASIC_HEAL_AMOUNT
 
 /mob/living/carbon/human/mutt/death()
-	mutt_hivemind.announce("[name] has been slain.")
+	REPO.mutt_hivemind.announce("[name] has been slain.")
 	return ..()
 	
 /mob/living/carbon/human/mutt/get_stam_mod_regen()

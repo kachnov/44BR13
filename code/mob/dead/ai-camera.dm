@@ -96,7 +96,7 @@
 	var/list/covered = list() //list of all covered turfs.
 	var/turf/closest = null   //closest covered turf
 
-	for (var/obj/machinery/camera/C in cameras)
+	for (var/obj/machinery/camera/C in REPO.cameras)
 		if (get_dist(src, C) <= world.view * 2)
 
 			var/def_lum = C.luminosity //Temporarily cranking up the camera luminosity because only mobs have see_in_dark. its either this or making cameras mobs.

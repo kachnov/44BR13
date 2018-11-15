@@ -5,6 +5,8 @@
 #define ABILITY_BUILD_RESIN 8
 #define ABILITY_CRAFT_RESIN 16
 
+REPO_LIST(grown_xenomorphs, list())
+
 /mob/living/carbon/human/xenomorph 
 	max_health = 175
 	blood_color = "#00FF00"
@@ -23,7 +25,7 @@
 	..()
 	name = "[caste_name] ([++xenomorph_number])"
 	real_name = name
-	grown_xenomorphs += src
+	REPO.grown_xenomorphs += src
 	// add EPIC abilities
 	abilityHolder.addAbility(/targetable/xenomorph/hivemind)
 	abilityHolder.addAbility(/targetable/xenomorph/communicate)
@@ -39,13 +41,13 @@
 	update_icon()
 
 	// hivemind message
-	xenomorph_hivemind.announce_after("[name] has evolved!", 0.3 SECONDS)
+	REPO.xenomorph_hivemind.announce_after("[name] has evolved!", 0.3 SECONDS)
 
 	// hivemind stuff 
-	xenomorph_hivemind.on_birth(src)
+	REPO.xenomorph_hivemind.on_birth(src)
 	
 /mob/living/carbon/human/xenomorph/dispose()
-	grown_xenomorphs -= src 
+	REPO.grown_xenomorphs -= src 
 	..()
 
 #define BASIC_HEAL_AMOUNT 3
@@ -72,8 +74,8 @@
 #undef BASIC_HEAL_AMOUNT
 
 /mob/living/carbon/human/xenomorph/death()
-	xenomorph_hivemind.announce("[name] has been slain!")
-	xenomorph_hivemind.on_death(src)
+	REPO.xenomorph_hivemind.announce("[name] has been slain!")
+	REPO.xenomorph_hivemind.on_death(src)
 	return ..()
 
 // regenerate stamina 3x as fast as a normal human (6x as fast on weeds)
@@ -135,8 +137,8 @@
 	switch (type)
 		if (/mob/living/carbon/human/xenomorph/hunter)
 			mind.transfer_to((new /mob/living/carbon/human/xenomorph/praetorian(get_turf(src))))
-	xenomorph_hivemind.on_death(src)
-	--xenomorph_hivemind.total_xenomorphs
+	REPO.xenomorph_hivemind.on_death(src)
+	--REPO.xenomorph_hivemind.total_xenomorphs
 	qdel(src)
 
 /mob/living/carbon/human/xenomorph/proc/spawn_mutt()

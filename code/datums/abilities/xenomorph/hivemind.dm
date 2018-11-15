@@ -13,7 +13,7 @@
 	object = F
 	
 /targetable/xenomorph/hivemind/cast()
-	return xenomorph_hivemind.display_info(usr)
+	return REPO.xenomorph_hivemind.display_info(usr)
 
 /obj/screen/ability/xenomorph/hivemind
 /obj/screen/ability/xenomorph/hivemind/clicked(params)
