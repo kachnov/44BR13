@@ -79,7 +79,6 @@ var/global
 
 	list/cameras = list()
 	list/clients = list()
-	list/movement_queue = list()
 	list/mobs = list()
 	list/lawnmowers = list()
 	list/amerimutts = list()

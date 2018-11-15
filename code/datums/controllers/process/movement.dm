@@ -1,3 +1,4 @@
+REPO_LIST(movement_queue, list())
 /controller/process/movement
 	is_high_priority = TRUE
 	var/list/clients = null
@@ -5,7 +6,7 @@
 /controller/process/movement/setup()
 	name = "Client Movement"
 	schedule_interval = world.tick_lag
-	clients = global.movement_queue
+	clients = REPO.movement_queue
 
 /controller/process/movement/doWork()
 	for (var/client in clients)

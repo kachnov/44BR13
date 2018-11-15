@@ -367,13 +367,13 @@ var/global/curr_day = null
 #define fastMove(dir) set instant = TRUE; \
 	set hidden = TRUE; \
 	moving_in_dir |= dir; \
-	movement_queue[src] = TRUE
+	REPO.movement_queue[src] = TRUE
 
 #define fastStopMoving(dir) set instant = TRUE; \
 	set hidden = TRUE; \
 	moving_in_dir &= ~dir; \
-	if (movement_queue[src]) { \
-		movement_queue -= src; \
+	if (REPO.movement_queue[src]) { \
+		REPO.movement_queue -= src; \
 	}
 
 /client/verb/fastNorth()
@@ -492,8 +492,8 @@ var/global/curr_day = null
 	// stop moving or we might move in one direction forever
 	if (hotkey_mode_was)
 		moving_in_dir &= ~(NORTH|SOUTH|EAST|WEST)
-		if (movement_queue[src])
-			movement_queue -= src
+		if (REPO.movement_queue[src])
+			REPO.movement_queue -= src
 
 /client/verb/hotkeyModeExecute(arg as text)
 	set hidden = TRUE
