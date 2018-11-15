@@ -709,6 +709,7 @@ var/global/curr_day = null
 			move_delay = world.time
 			if ((j_pack && j_pack < 1))
 				move_delay += 2
+
 			switch(mob.m_intent)
 				if ("run")
 					if (mob.drowsyness > 0)
@@ -720,7 +721,7 @@ var/global/curr_day = null
 				if ("walk")
 					move_delay += 4.00 // 5.20
 
-				
+
 			if (istype (mob, /mob/living/carbon/human/))
 				var/mob/living/carbon/human/H = mob
 				if (H.find_ailment_by_type(/ailment/disease/vamplague))
@@ -738,6 +739,7 @@ var/global/curr_day = null
 						boutput(src, "<span style=\"color:blue\">You're restrained! You can't move!</span>")
 						return FALSE
 			moving = 1
+
 			if (locate(/obj/item/grab, mob))
 				move_delay = max(move_delay, world.time + 7)
 				var/list/L = mob.ret_grab()
@@ -771,6 +773,11 @@ var/global/curr_day = null
 								M.animate_movement = 2
 								return
 			else
+
+				// moving in ordinal directions is a bit slower to compensate for moving more tiles
+				if (direct == NORTHEAST || direct == NORTHWEST || direct == SOUTHEAST || direct == SOUTHWEST)
+					move_delay *= sqrt(2)
+
 				if (istype(mob,/mob/living))
 					var/mob/living/L = mob
 					if (!isturf(mob.loc))
@@ -781,6 +788,8 @@ var/global/curr_day = null
 						. = ..()
 				else
 					. = ..()
+
+
 			moving = null
 			return
 		// If the person is inside an object .
