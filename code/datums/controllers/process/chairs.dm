@@ -1,6 +1,6 @@
-var/global/controller/process/chairs/chairs_process = null
+REPO_LIST(lawnmowers, list())
 
-/controller/process/chairs
+PROCESS(chairs)
 	is_high_priority = TRUE
 	var/preparing = FALSE
 	var/locked = FALSE
@@ -14,9 +14,8 @@ var/global/controller/process/chairs/chairs_process = null
 /controller/process/chairs/setup()
 	name = "Chair Movement"
 	schedule_interval = world.tick_lag
-	lawnmowers = global.lawnmowers
+	lawnmowers = REPO.lawnmowers
 	rlawnmowers = reverse_list(lawnmowers)
-	chairs_process = src
 
 /controller/process/chairs/doWork()
 	for (var/chair in get_lawnmowers())

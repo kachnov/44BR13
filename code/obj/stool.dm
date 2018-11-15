@@ -634,10 +634,10 @@
 
 /obj/stool/chair/lawnmower/New()
 	..()
-	global.lawnmowers += src 
+	REPO.lawnmowers += src 
 
 /obj/stool/chair/lawnmower/disposing()
-	global.lawnmowers -= src
+	REPO.lawnmowers -= src
 
 /obj/stool/chair/lawnmower/proc/_Move()
 	

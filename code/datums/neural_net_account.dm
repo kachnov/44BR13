@@ -57,9 +57,9 @@
 
 /neural_net_account/jew/proc/send_lawnmowers()
 
-	if (chairs_process.preparing)
+	if (PSPchairs.preparing)
 		boutput(owner, "<span style = \"color:red\"><strong>The lawnmowers are already fueling up.</strong></span>")
-	else if (chairs_process.locked)
+	else if (PSPchairs.locked)
 		boutput(owner, "<span style = \"color:red\"><strong>The lawnmowers are not ready to move again yet.</strong></span>")
 	else
 
@@ -68,15 +68,15 @@
 			if (jew)
 				var/auths_left = number_of_jews_to_send() - lawnmower_authorizations
 				boutput(jew, "<big>[owner.real_name] has authorized the Lawnmowers to be sent " + \
-					"[chairs_process.backwards_or_forwards]. [auths_left] more " + \
+					"[PSPchairs.backwards_or_forwards]. [auths_left] more " + \
 					"authorization[auths_left != 1 ? "s" : ""] are needed.</big>")
 			else
 				jews -= jew
 
 		if (lawnmower_authorizations >= number_of_jews_to_send())
 			boutput(world, "<big>The Jews have authorized the sending of the lawnmowers! The lawnmowers will be sent " + \
-				 "[chairs_process.backwards_or_forwards] in [chairs_process.time_desc()]!")
-			chairs_process.prepare()
+				 "[PSPchairs.backwards_or_forwards] in [PSPchairs.time_desc()]!")
+			PSPchairs.prepare()
 			lawnmower_authorizations = 0
 
 /neural_net_account/jew/proc/number_of_jews_to_send()

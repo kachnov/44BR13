@@ -80,7 +80,6 @@ var/global
 	list/cameras = list()
 	list/clients = list()
 	list/mobs = list()
-	list/lawnmowers = list()
 	list/amerimutts = list()
 	list/grown_xenomorphs = list()
 	list/xenomorph_larvae = list()
