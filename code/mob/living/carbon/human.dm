@@ -137,6 +137,8 @@
 
 	var/list/random_emotes = list("drool", "blink", "yawn", "burp", "twitch", "twitch_v",\
 	"cough", "sneeze", "shiver", "shudder", "shake", "hiccup", "sigh", "flinch", "blink_r", "nosepick")
+
+	var/has_custom_lying_death_icons = FALSE
 	
 	// stats 
 	var/statHolder/stats = null

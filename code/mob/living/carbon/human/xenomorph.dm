@@ -11,6 +11,7 @@
 	icon = 'icons/mob/xeno/xeno.dmi'
 	icon_state = null
 	abilityHolder = /abilityHolder/xenomorph
+	has_custom_lying_death_icons = TRUE 
 	var/base_icon_state = null
 	var/caste_name = "Xenomorph"
 	var/abilities = 0

@@ -1,6 +1,7 @@
 /mob/living/carbon/human/mutt
 	icon = 'icons/mob/mutt.dmi'
 	abilityHolder = /abilityHolder/mutt
+	has_custom_lying_death_icons = TRUE
 
 	var/base_icon_state = null
 	var/good_boy_points = 50
