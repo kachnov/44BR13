@@ -138,7 +138,7 @@
 
 	// shout something in amerimutt then fly off
 	animate_spin(src, T = 0.3 SECONDS)
-	say("<strong>[uppertext(pick(mutt_phrases))]</strong>")
+	say("[uppertext(pick(mutt_phrases))]")
 	sleep(0.5 SECONDS)
 
 	var/turf/target = pick(mutt_noclip_locations)
