@@ -64,7 +64,7 @@ for path in pathlist:
 		procargscheck = lambda line: "(" in line and ")" in line and line.rfind(")") > line.rfind("=")
 		procargscheck2 = lambda line: not "list(" in line or line.count(")") > 1
 
-		sline = line.strip().strip("\t")
+		sline = strip_comments_and_whitespace(line.lstrip())
 
 		tabcount = strip_comments_and_whitespace(line).count("\t")
 		if searching and defcheck(sline) and tabcount == 0:
