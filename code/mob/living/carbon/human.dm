@@ -1496,8 +1496,8 @@
 							message = "<strong>[src]</strong> pulls both arms outwards in front of their chest and pumps them behind their back, then repeats this motion in a smaller range of motion down to their hips two times once more all while sliding their legs in a faux walking motion, claps their hands together in front of them while both their knees knock together, pumps their arms downward, pronating their wrists and abducting their fingers outward while crossing their legs back and forth, repeats this motion again two times while keeping their shoulders low and hunching over, proceeding to finger gun with right hand with left hand bent on their hip while looking directly forward and putting their left leg forward then crossing their arms and leaning back a little while bending their knees at an angle."
 							playsound(get_turf(src), 'sound/effects/defaultdance.ogg', 100)
 							spawn (0)
+								canmove = FALSE
 								for (var/v in 1 to 4)
-									canmove = FALSE
 									for (var/i = 0, i < 4, i++)
 										pixel_x+= 2
 										dir = turn(dir, 90)
@@ -1506,7 +1506,7 @@
 										pixel_x-= 2
 										dir = turn(dir, 90)
 										sleep(0.2 SECONDS)
-									canmove = TRUE
+								canmove = TRUE
 
 							spawn (5)
 								var/beeMax = 15
