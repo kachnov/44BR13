@@ -503,7 +503,7 @@ REPO_VAR(curr_day, null)
 		if (REPO.movement_queue[src])
 			REPO.movement_queue -= src
 
-/client/verb/hotkeyModeExecute(arg1 as text, arg2 as null|text)
+/client/verb/hotkeyModeExecute(arg1 as text, arg2 as null|num|text)
 	set hidden = TRUE
 	set instant = TRUE
 	set name = ".hotkeyModeExecute"
