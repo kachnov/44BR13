@@ -1,3 +1,9 @@
+REPO_OBJECT(plmaster, /obj/overlay)
+REPO_OBJECT(slmaster, /obj/overlay)
+REPO_OBJECT(w1master, /obj/overlay)
+REPO_OBJECT(w2master, /obj/overlay)
+REPO_OBJECT(w3master, /obj/overlay)
+
 /world
 	mob = /mob/new_player
 	turf = /turf/space
@@ -293,36 +299,31 @@ var/f_color_selector_handler/F_Color_Selector = null
 		screenOverlayLibrary.Add(over)
 		screenOverlayLibrary[over] = E
 
-	plmaster = new /obj/overlay(  )
-	plmaster.icon = 'icons/effects/tile_effects.dmi'
-	plmaster.icon_state = "plasma"
-	plmaster.layer = FLY_LAYER
-	plmaster.mouse_opacity = 0
+	REPO.plmaster.icon = 'icons/effects/tile_effects.dmi'
+	REPO.plmaster.icon_state = "plasma"
+	REPO.plmaster.layer = FLY_LAYER
+	REPO.plmaster.mouse_opacity = 0
 
-	slmaster = new /obj/overlay(  )
-	slmaster.icon = 'icons/effects/tile_effects.dmi'
-	slmaster.icon_state = "sleeping_agent"
-	slmaster.layer = FLY_LAYER
-	slmaster.mouse_opacity = 0
+	REPO.slmaster.icon = 'icons/effects/tile_effects.dmi'
+	REPO.slmaster.icon_state = "sleeping_agent"
+	REPO.slmaster.layer = FLY_LAYER
+	REPO.slmaster.mouse_opacity = 0
 
 	/*
-	w1master = new /obj/overlay(  )
-	w1master.icon = 'icons/effects/tile_effects.dmi'
-	w1master.icon_state = "water1"
-	w1master.layer = TURF_LAYER + 0.1
-	w1master.mouse_opacity = 0
+	REPO.w1master.icon = 'icons/effects/tile_effects.dmi'
+	REPO.w1master.icon_state = "water1"
+	REPO.w1master.layer = TURF_LAYER + 0.1
+	REPO.w1master.mouse_opacity = 0
 
-	w2master = new /obj/overlay(  )
-	w2master.icon = 'icons/effects/tile_effects.dmi'
-	w2master.icon_state = "water2"
-	w2master.layer = OBJ_LAYER + 0.5
-	w2master.mouse_opacity = 0
+	REPO.w2master.icon = 'icons/effects/tile_effects.dmi'
+	REPO.w2master.icon_state = "water2"
+	REPO.w2master.layer = OBJ_LAYER + 0.5
+	REPO.w2master.mouse_opacity = 0
 
-	w3master = new /obj/overlay(  )
-	w3master.icon = 'icons/effects/tile_effects.dmi'
-	w3master.icon_state = "water3"
-	w3master.layer = FLY_LAYER
-	w3master.mouse_opacity = 0
+	REPO.w3master.icon = 'icons/effects/tile_effects.dmi'
+	REPO.w3master.icon_state = "water3"
+	REPO.w3master.layer = FLY_LAYER
+	REPO.w3master.mouse_opacity = 0
 	*/
 
 	spawn (world.tick_lag)

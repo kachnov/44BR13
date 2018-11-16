@@ -179,9 +179,9 @@
 
 						visuals_state = new_visuals_state
 						if (visuals_state & 1)
-							gas_icon_overlay.overlays.Add(plmaster)
+							gas_icon_overlay.overlays.Add(REPO.plmaster)
 						if (visuals_state & 2)
-							gas_icon_overlay.overlays.Add(slmaster)
+							gas_icon_overlay.overlays.Add(REPO.slmaster)
 				else
 					if (gas_icon_overlay)
 						pool(gas_icon_overlay)

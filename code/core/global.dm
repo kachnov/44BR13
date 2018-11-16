@@ -66,12 +66,6 @@ var/global/list/queue_stat_list = list()
 
 var/global
 	
-	obj/overlay/plmaster = null
-	obj/overlay/slmaster = null
-	obj/overlay/w1master = null
-	obj/overlay/w2master = null
-	obj/overlay/w3master = null
-
 	turf/buzztile = null
 
 	//obj/hud/main_hud1 = null
