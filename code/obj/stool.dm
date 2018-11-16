@@ -681,7 +681,7 @@
 						L.gib()
 			else
 				moving = !moving
-				ste_dir(opposite_dir(dir))
+				set_dir(opposite_dir(dir))
 			break
 
 /* ========================================================== */
