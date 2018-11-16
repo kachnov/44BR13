@@ -6,10 +6,6 @@ REPO_OBJECT(xenomorph_hivemind, /xenomorph_hivemind)
 	var/total_larvae = 0
 	var/total_xenomorphs = 0
 
-/xenomorph_hivemind/New()
-	..()
-	REPO.xenomorph_hivemind = src
-
 /xenomorph_hivemind/proc/communicate(x)
 	for (var/xenomorph in REPO.facehuggers|REPO.xenomorph_larvae|REPO.grown_xenomorphs)
 		var/mob/living/xeno = xenomorph 

@@ -2,10 +2,6 @@ REPO_OBJECT(mutt_hivemind, /mutt_hivemind)
 
 /mutt_hivemind
 
-/mutt_hivemind/New()
-	..()
-	REPO.mutt_hivemind = src
-
 /mutt_hivemind/proc/communicate(x)
 	for (var/mutt in REPO.amerimutts)
 		var/mob/living/carbon/human/mutt/M = mutt 

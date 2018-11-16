@@ -85,7 +85,7 @@
 				break;
 			
 			// Check spawn limits
-			if (!limiter.canIspawn (/obj/effects/sparks))
+			if (limiter && !limiter.canIspawn (/obj/effects/sparks))
 				continue
 			// Create sparks
 			var/obj/effects/sparks/sparks = unpool(/obj/effects/sparks)

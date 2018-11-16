@@ -32,7 +32,8 @@
 	mechanics.master = src
 	mechanics.addInput("toggle", "toggleinput")
 	spawn (10)
-		frequency = radio_controller.return_frequency(alarm_frequency)
+		if (radio_controller)
+			frequency = radio_controller.return_frequency(alarm_frequency)
 
 /obj/machinery/firealarm/proc/toggleinput(var/mechanicsMessage/inp)
 	if (icon_state == "fire0")

@@ -405,7 +405,8 @@
 			radio_connection = radio_controller.add_object(src, "[frequency]")
 		if (!net_id)
 			net_id = generate_net_id(src)
-			mechanic_controls.rkit_addresses += net_id
+			if (mechanic_controls)
+				mechanic_controls.rkit_addresses += net_id
 
 /obj/machinery/rkit/disposing()
 	if (radio_controller)

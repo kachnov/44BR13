@@ -75,7 +75,7 @@ PROCESS(movement)
 		return FALSE
 
 	// muh grace walls (extra () because fuck BYOND)
-	else if ((locate(/obj/chair_path_helper/wall) in T) && !PSPchairs.launched)
+	else if ((locate(/obj/chair_path_helper/wall) in T) && PSPchairs && !PSPchairs.launched)
 		boutput(C, "<span style = \"color:red\">You cannot move there until the lawnmowers have been sent by the Jews.</span>")
 		return FALSE
 
