@@ -92,7 +92,7 @@
 		if (custom_cell_max_capacity && (b:max_charge > custom_cell_max_capacity))
 			user.show_text("This power cell won't fit!", "red")
 			return
-		if (istype(b, /obj/item/ammo/power_cell) && !rechargeable)
+		if (istype(b, /obj/item/ammo/power_cell) && rechargeable)
 			logme_temp(user, src, b)
 			if (istype(b, /obj/item/ammo/power_cell/self_charging) && !(src in processing_items)) // Again, we want dynamic updates here (Convair880).
 				processing_items.Add(src)
