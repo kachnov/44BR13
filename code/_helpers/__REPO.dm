@@ -9,6 +9,9 @@
 // immediately creates a constant REPO variable with the name ``name`` set to ``value``
 #define REPO_CONST(name, value) /global_object_repository/var/const/##name = value;
 
+// immediately creates a normal REPO variable with the name ``name`` set to ``value``
+#define REPO_VAR(name, value) /global_object_repository/var/##name = value;
+
 // creates a new REPO process of type ``type`` with the name PSP``type`` (PSP = processSchedulerProcess)
 #define PROCESS(type) /var/global/controller/process/##type/PSP##type = null; \
 	/global_object_repository/var/controller/process/##type/PSP##type = null; \

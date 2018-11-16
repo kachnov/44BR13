@@ -270,33 +270,33 @@
 /client/proc/use_antag_token()
 	set_antag_tokens(--antag_tokens)
 
-var/global/curr_year = null
-var/global/curr_month = null
-var/global/curr_day = null
+REPO_VAR(curr_year, null)
+REPO_VAR(curr_month, null)
+REPO_VAR(curr_day, null)
 
 /client/proc/jd_warning(var/jd)
-	if (!curr_year)
-		curr_year = text2num(time2text(world.realtime, "YYYY"))
-	if (!curr_month)
-		curr_month = text2num(time2text(world.realtime, "MM"))
-	if (!curr_day)
-		curr_day = text2num(time2text(world.realtime, "DD"))
+	if (!REPO.curr_year)
+		REPO.curr_year = text2num(time2text(world.realtime, "YYYY"))
+	if (!REPO.curr_month)
+		REPO.curr_month = text2num(time2text(world.realtime, "MM"))
+	if (!REPO.curr_day)
+		REPO.curr_day = text2num(time2text(world.realtime, "DD"))
 	var/deliver_warning = 0
 	var/y = text2num(copytext(jd, 1, 5))
 	var/m = text2num(copytext(jd, 6, 8))
 	var/d = text2num(copytext(jd, 9, 11))
-	if (curr_month == 1 && curr_day <= 4)
-		if (y == curr_year - 1 && m == 12 && d >= 31 - (4 - curr_day))
+	if (REPO.curr_month == 1 && REPO.curr_day <= 4)
+		if (y == REPO.curr_year - 1 && m == 12 && d >= 31 - (4 - REPO.curr_day))
 			deliver_warning = 1
-		else if (y == curr_year && m == 1)
+		else if (y == REPO.curr_year && m == 1)
 			deliver_warning = 1
-	else if (curr_day <= 4)
-		if (y == curr_year)
-			if (m == curr_month - 1 && d >= 28 - (4 - curr_day))
+	else if (REPO.curr_day <= 4)
+		if (y == REPO.curr_year)
+			if (m == REPO.curr_month - 1 && d >= 28 - (4 - REPO.curr_day))
 				deliver_warning = 1
-			else if (m == curr_month)
+			else if (m == REPO.curr_month)
 				deliver_warning = 1
-	else if (y == curr_year && m == curr_month && d >= curr_day - 4)
+	else if (y == REPO.curr_year && m == REPO.curr_month && d >= REPO.curr_day - 4)
 		deliver_warning = 1
 	if (deliver_warning)
 		var/msg = "(IP: [address], ID: [computer_id]) has a recent join date of [jd]."
