@@ -50,6 +50,7 @@ REPO_CONST(fortnite_dance_fluff, "<strong>{}</strong> pulls both arms outwards i
 	var/can_bleed = 1
 	blood_id = "blood"
 	var/blood_volume = 500
+	var/max_blood_volume = 500
 	var/blood_color = DEFAULT_BLOOD_COLOR
 	var/bleeding = 0
 	var/bleeding_internal = 0

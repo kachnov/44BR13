@@ -93,12 +93,12 @@ REPO_LIST(mutt_upgrades, list(MUTT_UPGRADE_AZUL, MUTT_UPGRADE_SSj, MUTT_UPGRADE_
 		// heal 9 damage if we're on weeds 
 		for (var/obj/mutt/weeds/W in get_turf(src))
 			HealDamage("All", BASIC_HEAL_AMOUNT*3, BASIC_HEAL_AMOUNT*3, BASIC_HEAL_AMOUNT*3)
-			blood_volume = min(blood_volume, blood_volume + BASIC_HEAL_AMOUNT*3)
+			blood_volume = min(max_blood_volume, blood_volume + BASIC_HEAL_AMOUNT*3)
 			break 
 		// heal 3 damage anyway
 		if (health < max_health)
 			HealDamage("All", BASIC_HEAL_AMOUNT, BASIC_HEAL_AMOUNT, BASIC_HEAL_AMOUNT)
-			blood_volume = min(blood_volume, blood_volume + BASIC_HEAL_AMOUNT)
+			blood_volume = min(max_blood_volume, blood_volume + BASIC_HEAL_AMOUNT)
 			if (bleeding)
 				--bleeding
 			if (bleeding_internal)
