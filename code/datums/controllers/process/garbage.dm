@@ -1,3 +1,5 @@
+REPO_OBJECT(delete_queue, /dynamicQueue)
+
 PROCESS(garbage)
 	priority = PROCESS_PRIORITY_GARBAGE
 	doWorkAt = GAME_STATE_PREGAME|GAME_STATE_SETTING_UP|GAME_STATE_PLAYING|GAME_STATE_FINISHED
@@ -6,7 +8,7 @@ PROCESS(garbage)
 	var/deleteChunkSize = MIN_DELETE_CHUNK_SIZE	
 	//var/tmp/delpause = 1
 	#ifdef DELETE_QUEUE_DEBUG
-	var/dynamicQueue/delete_queue = 0
+	var/dynamicQueue/delete_queue = null
 	#endif
 
 	// Timing vars
@@ -20,22 +22,22 @@ PROCESS(garbage)
 	timeTaken = list()
 
 /controller/process/garbage/doWork()
-	if (!global.delete_queue)
+	if (!REPO.delete_queue)
 		boutput(world, "Error: there is no delete queue!")
 		return FALSE
 
 	#ifdef DELETE_QUEUE_DEBUG
 	if (!delete_queue)
-		delete_queue = global.delete_queue
+		delete_queue = REPO.delete_queue
 	#endif
 
 	//var/dynamicQueue/queue =
-	if (global.delete_queue.isEmpty())
+	if (REPO.delete_queue.isEmpty())
 		return
 
 	start = world.timeofday
 
-	var/list/toDeleteRef = delete_queue.dequeueMany(deleteChunkSize)
+	var/list/toDeleteRef = REPO.delete_queue.dequeueMany(deleteChunkSize)
 	var/numItems = toDeleteRef.len
 	#ifdef DELETE_QUEUE_DEBUG
 	var/t
@@ -107,5 +109,5 @@ PROCESS(garbage)
 			stats += "[thing] gracefully deleted [count] times.<br>"
 		boutput(usr, "<br>[stats]")
 	#endif
-	boutput(usr, "<strong>Current Queue Length:</strong> [delete_queue.count()]")
+	boutput(usr, "<strong>Current Queue Length:</strong> [REPO.delete_queue.count()]")
 	boutput(usr, "<strong>Total Items Deleted:</strong> [delcount] (Explictly) [gccount] (Gracefully GC'd)")

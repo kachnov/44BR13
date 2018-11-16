@@ -36,11 +36,11 @@
 	spawn(world.tick_lag*2)
 		for(var/obj/mutt/weeds/W in range(src,1))
 			W.do_Autojoin()
-	xenomorph_weeds += src
+	REPO.xenomorph_weeds += src
 		
 /obj/mutt/weeds/Del()
 	..()
-	xenomorph_weeds -= src
+	REPO.xenomorph_weeds -= src
 
 /obj/mutt/weeds/proc/do_Autojoin()
 	overlays = list()

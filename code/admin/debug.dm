@@ -53,7 +53,7 @@
 	}
 	</script>
 	</head><body onload="display()">
-	<h1>Delete Queue Length: [global.delete_queue.count()]</h1>
+	<h1>Delete Queue Length: [REPO.delete_queue.count()]</h1>
 	<h1>[deletionWhat]</h1>
 	<ul id="listing"></ul>
 	</body></html>"}

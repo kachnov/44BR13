@@ -5,7 +5,7 @@ PROCESS(weeds)
 
 /controller/process/weeds/setup()
 	name = "Xenomorph/Mutt Weeds"
-	weeds = global.xenomorph_weeds
+	weeds = REPO.xenomorph_weeds
 	schedule_interval = 2 SECONDS
 
 /controller/process/weeds/doWork()

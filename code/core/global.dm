@@ -17,11 +17,18 @@ var/global/list/queue_stat_list = list()
  * if used on /world, /list, /client, or /savefile, it just skips the queue.
  */
 /proc/qdel(var/datum/O)
+
+	set waitfor = FALSE
+
 	if (!O)
 		return
 
-	if (!delete_queue)
-		delete_queue = new /dynamicQueue(100)
+	// kind of shitty but prevents runtimes with REPO not existing, maybe hard-dels too?
+	while (world.time < 1 SECOND)
+		sleep(world.tick_lag)
+
+	if (!REPO.delete_queue)
+		REPO.delete_queue = new /dynamicQueue(100)
 
 	if (istype(O))
 		O:dispose()
@@ -45,7 +52,7 @@ var/global/list/queue_stat_list = list()
 		 * We will only enqueue the ref for deletion. This gives the GC time to work,
 		 * and makes less work for the delete queue to do.
 		 */
-		delete_queue.enqueue("\ref[O]")
+		REPO.delete_queue.enqueue("\ref[O]")
 	else
 		if (islist(O))
 			O:len = 0
@@ -76,10 +83,9 @@ var/global
 	list/allcables = list()
 	list/atmos_machines = list() // need another list to pull atmos machines out of the main machine loop and in with the pipe networks
 	list/processing_items = list()
-	list/xenomorph_weeds = list()
+	
 		//items that ask to be called every cycle
 
-	dynamicQueue/delete_queue //List of items that want to be deleted
 
 	//list/total_deletes = list() //List of things totally deleted
 	list/critters = list()

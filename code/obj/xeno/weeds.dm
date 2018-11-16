@@ -1,4 +1,5 @@
 #define PIXEL_OFFSETS list("1" = list(0,-32),"2" = list(0,32),"4" = list(-32,0),"8" = list(32,0))
+REPO_LIST(xenomorph_weeds, list())
 
 /obj/xeno/weeds/proc/Special_Autojoin(var/typeG)
 	var/list/junctions = list(NORTH,SOUTH,EAST,WEST)
@@ -34,11 +35,11 @@
 	spawn(world.tick_lag*2)
 		for(var/obj/xeno/weeds/W in range(src,1))
 			W.do_Autojoin()
-	xenomorph_weeds += src
+	REPO.xenomorph_weeds += src
 		
 /obj/xeno/weeds/Del()
 	..()
-	xenomorph_weeds -= src
+	REPO.xenomorph_weeds -= src
 
 /obj/xeno/weeds/proc/do_Autojoin()
 	overlays = list()

@@ -193,8 +193,8 @@ var/f_color_selector_handler/F_Color_Selector = null
 	changelog = new /changelog()
 	admin_changelog = new /admin_changelog()
 
-	if (!delete_queue)
-		delete_queue = new /dynamicQueue(100)
+	if (!REPO.delete_queue)
+		REPO.delete_queue = new /dynamicQueue(100)
 
 	initLimiter()
 
@@ -834,7 +834,7 @@ var/f_color_selector_handler/F_Color_Selector = null
 			if ("health")
 				var/ircmsg[] = new()
 				ircmsg["cpu"] = world.cpu
-				ircmsg["queue_len"] = delete_queue ? delete_queue.count() : 0
+				ircmsg["queue_len"] = REPO.delete_queue ? REPO.delete_queue.count() : 0
 				var/curtime = world.timeofday
 				sleep(10)
 				ircmsg["time"] = (world.timeofday - curtime) / 10
