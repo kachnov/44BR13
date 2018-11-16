@@ -12,7 +12,7 @@
 // creates a new REPO process of type ``type`` with the name PSP``type`` (PSP = processSchedulerProcess)
 #define PROCESS(type) /var/global/controller/process/##type/PSP##type = null; \
 	/global_object_repository/var/controller/process/##type/PSP##type = null; \
-	/global_object_repository/proc/init_PSP##type(){PSP##type = new; processes += PSP##type} \
+	/global_object_repository/proc/init_PSP##type(){global.PSP##type = new; src.PSP##type = global.PSP##type; processes += PSP##type} \
 	/controller/process/##type
 
 // only thing that should be initialized with a raw new, to avoid init overhead
