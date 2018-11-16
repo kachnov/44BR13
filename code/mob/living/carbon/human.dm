@@ -1494,22 +1494,19 @@
 					else
 						if (!restrained())
 							message = "<strong>[src]</strong> pulls both arms outwards in front of their chest and pumps them behind their back, then repeats this motion in a smaller range of motion down to their hips two times once more all while sliding their legs in a faux walking motion, claps their hands together in front of them while both their knees knock together, pumps their arms downward, pronating their wrists and abducting their fingers outward while crossing their legs back and forth, repeats this motion again two times while keeping their shoulders low and hunching over, proceeding to finger gun with right hand with left hand bent on their hip while looking directly forward and putting their left leg forward then crossing their arms and leaning back a little while bending their knees at an angle."
-							playsound(get_turf(src), 'sound/effects/defaultdance.ogg', 100, 1)
+							playsound(get_turf(src), 'sound/effects/defaultdance.ogg', 100)
 							spawn (0)
-								for (var/i = 0, i < 4, i++)
-									pixel_x+= 2
-									dir = turn(dir, 90)
-									sleep(2)
-								for (var/i = 0, i < 4, i++)
-									pixel_x-= 2
-									dir = turn(dir, 90)
-									sleep(2)
-
-						else
-							message = pick("<strong>[src]</strong> gets on down.","<strong>[src]</strong> dances!", "<strong>[src]</strong> cranks out some dizzying windmills.")
-							// expand this too, however much
-							// todo: add context-sensitive break dancing and some other goofy shit
-
+								for (var/v in 1 to 4)
+									canmove = FALSE
+									for (var/i = 0, i < 4, i++)
+										pixel_x+= 2
+										dir = turn(dir, 90)
+										sleep(0.2 SECONDS)
+									for (var/i = 0, i < 4, i++)
+										pixel_x-= 2
+										dir = turn(dir, 90)
+										sleep(0.2 SECONDS)
+									canmove = TRUE
 
 							spawn (5)
 								var/beeMax = 15
@@ -1540,9 +1537,6 @@
 									reagents.add_reagent("spiders", ant_amt + mut_amt)
 									boutput(src, "<span style=\"color:blue\">The ants arachnify.</span>")
 									playsound(get_turf(src), "sound/effects/bubbles.ogg", 80, 1)
-
-						else
-							message = "<strong>[src]</strong> twitches feebly in time to music only they can hear."
 
 			if ("flip")
 				if (emote_check(voluntary, 50) && !shrunk)
