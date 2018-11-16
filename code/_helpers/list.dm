@@ -39,3 +39,24 @@
 		if (ispath(thing, type) || istype(thing, type))
 			return thing 
 	return null
+
+/proc/sort_list_by_datum_variable(list/I, variable)
+	. = list()
+
+	var/list/L = I.Copy()
+	while (length(L))
+
+		var/next = null
+		var/max = -INFINITY
+
+		for (var/thing in L)
+			var/datum/D = thing
+			if (D.vars[variable] > max)
+				max = D.vars[variable]
+				next = D
+
+		L -= next
+		. += next
+
+		next = null 
+		max = -INFINITY

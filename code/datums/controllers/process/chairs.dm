@@ -1,7 +1,7 @@
 REPO_LIST(lawnmowers, list())
 
 PROCESS(chairs)
-	is_high_priority = TRUE
+	priority = PROCESS_PRIORITY_CHAIRS
 	var/preparing = FALSE
 	var/locked = FALSE
 	var/backwards_or_forwards = "forwards"

@@ -1,4 +1,5 @@
 PROCESS(particles)
+	priority = PROCESS_PRIORITY_PARTICLES
 	var/particleMaster/master
 
 /controller/process/particles/setup()

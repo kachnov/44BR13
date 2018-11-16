@@ -1,5 +1,6 @@
 // handles mobs
 PROCESS(mobs)
+	priority = PROCESS_PRIORITY_MOBS
 	var/tmp/list/detailed_count
 	var/tmp/tick_counter
 	var/list/mobs = null

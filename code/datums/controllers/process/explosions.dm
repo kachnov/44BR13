@@ -1,4 +1,5 @@
 PROCESS(explosions)
+	priority = PROCESS_PRIORITY_EXPLOSIONS
 	var/explosion_controller/explosion_controller
 
 /controller/process/explosions/setup()

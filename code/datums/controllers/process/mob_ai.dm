@@ -1,5 +1,6 @@
 // handles critters
 PROCESS(mob_ai)
+	priority = PROCESS_PRIORITY_MOB_AI
 
 /controller/process/mob_ai/setup()
 	name = "Mob AI"

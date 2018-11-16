@@ -1,5 +1,6 @@
 // handles only materials research right now.
 PROCESS(research)
+	priority = PROCESS_PRIORITY_RESEARCH
 	var/materialResearchHolder/researchMaster
 
 /controller/process/research/setup()

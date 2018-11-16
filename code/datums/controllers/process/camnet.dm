@@ -1,4 +1,5 @@
 PROCESS(camnets)
+	priority = PROCESS_PRIORITY_CAMNET
 
 /controller/process/camnets/setup()
 	name = "Camera Networks"

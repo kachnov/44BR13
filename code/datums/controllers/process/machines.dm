@@ -1,5 +1,6 @@
 // handles machines
 PROCESS(machines)
+	priority = PROCESS_PRIORITY_MACHINES
 	var/list/machines
 	var/list/pipe_networks
 	var/list/powernets

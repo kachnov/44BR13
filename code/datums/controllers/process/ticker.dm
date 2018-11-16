@@ -1,5 +1,6 @@
 // handles the game ticker
 PROCESS(ticker)
+	priority = PROCESS_PRIORITY_TICKER
 	
 /controller/process/ticker/setup()
 	name = "Game"

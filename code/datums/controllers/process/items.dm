@@ -1,5 +1,6 @@
 // handles items
 PROCESS(items)
+	priority = PROCESS_PRIORITY_ITEMS
 	var/list/detailed_count
 	var/list/processing_items
 	var/tick_counter = null

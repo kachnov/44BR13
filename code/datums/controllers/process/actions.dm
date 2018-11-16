@@ -1,5 +1,6 @@
 // handles timed player actions
 PROCESS(actions)
+	priority = PROCESS_PRIORITY_ACTIONS
 	var/action_controller
 
 /controller/process/actions/setup()

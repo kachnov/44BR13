@@ -1,5 +1,6 @@
 // handles telescope signals and whatnot
 PROCESS(telescope)
+	priority = PROCESS_PRIORITY_TELESCOPE
 	var/telescope_manager/manager
 
 /controller/process/telescope/setup()

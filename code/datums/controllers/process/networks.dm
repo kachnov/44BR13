@@ -1,4 +1,5 @@
 PROCESS(networks)
+	priority = PROCESS_PRIORITY_NETWORKS
 	var/updateQueue/networkUpdateQueue
 	
 /controller/process/networks/setup()

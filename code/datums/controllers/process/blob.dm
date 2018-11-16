@@ -1,5 +1,6 @@
 //Handles blobs without being pissy about it
 PROCESS(blob)
+	priority = PROCESS_PRIORITY_BLOB
 	var/list/blobs = list()
 	var/list/detailed_count = null
 	var/updateQueue/blobUpdateQueue = null

@@ -1,4 +1,5 @@
 PROCESS(stock_market)
+	priority = PROCESS_PRIORITY_STOCK_MARKET
 	
 /controller/process/stock_market/setup()
 	name = "Stock Market"

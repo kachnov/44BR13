@@ -463,22 +463,6 @@ var/const
 #define DAMAGE_CRUSH 16					// crushing damage is technically blunt damage, but it causes bleeding
 #define DEFAULT_BLOOD_COLOR "#990000"	// speak for yourself, as a shapeshifting illuminati lizard, my blood is somewhere between lime and leaf green
 
-// Process Scheduler defines
-// Process status defines
-#define PROCESS_STATUS_IDLE 1
-#define PROCESS_STATUS_QUEUED 2
-#define PROCESS_STATUS_RUNNING 3
-#define PROCESS_STATUS_MAYBE_HUNG 4
-#define PROCESS_STATUS_PROBABLY_HUNG 5
-#define PROCESS_STATUS_HUNG 6
-
-// Process time thresholds
-#define PROCESS_DEFAULT_HANG_WARNING_TIME 	3000 // 300 seconds
-#define PROCESS_DEFAULT_HANG_ALERT_TIME 	6000 // 600 seconds
-#define PROCESS_DEFAULT_HANG_RESTART_TIME 	9000 // 900 seconds
-#define PROCESS_DEFAULT_SCHEDULE_INTERVAL 	50  // 50 ticks
-#define PROCESS_DEFAULT_TICK_ALLOWANCE		66	// 66% of one tick
-
 /** Delete queue defines */
 #define MIN_DELETE_CHUNK_SIZE 100
 

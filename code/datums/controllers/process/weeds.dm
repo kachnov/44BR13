@@ -1,5 +1,6 @@
 // the process for mutt and xeno weeds
 PROCESS(weeds)
+	priority = PROCESS_PRIORITY_WEEDS
 	var/list/weeds = null
 
 /controller/process/weeds/setup()

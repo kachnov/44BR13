@@ -1,7 +1,7 @@
 REPO_LIST(movement_queue, list())
 
 PROCESS(movement)
-	is_high_priority = TRUE
+	priority = PROCESS_PRIORITY_MOVEMENT
 	doWorkAt = GAME_STATE_PREGAME|GAME_STATE_SETTING_UP|GAME_STATE_PLAYING|GAME_STATE_FINISHED
 	var/list/clients = null
 	var/list/footsteps = null

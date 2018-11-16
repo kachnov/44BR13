@@ -1,5 +1,6 @@
 // handles critters
 PROCESS(critters)
+	priority = PROCESS_PRIORITY_CRITTERS
 	var/list/detailed_count = null
 	var/list/critters = null
 	var/tick_counter = null

@@ -94,6 +94,9 @@ REPO_OBJECT(processScheduler, /controller/processScheduler)
 	while (!ticker)
 		sleep(world.tick_lag)
 
+	// sort processes from lowest -> highest priority 
+	processes = sort_list_by_datum_variable(processes, "priority")
+
 	start()
 
 /controller/processScheduler/proc/start()
@@ -152,17 +155,9 @@ REPO_OBJECT(processScheduler, /controller/processScheduler)
 
 /controller/processScheduler/proc/runQueuedProcesses()
 
-	// run high-priority processes first
-	for (var/process in reverse_list(queued)) // temporary hack to make movement run before chairs
-		var/controller/process/P = process
-		if (P.is_high_priority)
-			runProcess(P)
-
 	// run low-priority processes second
 	for (var/process in queued)
-		var/controller/process/P = process
-		if (!P.is_high_priority)
-			runProcess(P)
+		runProcess(process)
 
 /controller/processScheduler/proc/addProcess(var/controller/process/process)
 	processes.Add(process)

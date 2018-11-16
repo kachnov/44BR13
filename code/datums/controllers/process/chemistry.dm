@@ -1,4 +1,5 @@
 PROCESS(chemistry)
+	priority = PROCESS_PRIORITY_CHEMISTRY
 	var/updateQueue/chemistryUpdateQueue = null
 
 /controller/process/chemistry/setup()

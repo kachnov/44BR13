@@ -1,5 +1,6 @@
 // handles air processing.
 PROCESS(air_system)
+	priority = PROCESS_PRIORITY_AIR
 	
 /controller/process/air_system/setup()
 	name = "Atmos"
