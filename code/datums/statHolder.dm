@@ -24,6 +24,9 @@
 	
 /statHolder/proc/setStat(name, val)
 	stats[name] = val
+
+/statHolder/proc/incStat(name, val)
+	stats[name] += val
 	
 /statHolder/proc/getStat(n)
 	return stats[n]
