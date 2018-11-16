@@ -137,8 +137,8 @@
 
 	var/list/random_emotes = list("drool", "blink", "yawn", "burp", "twitch", "twitch_v",\
 	"cough", "sneeze", "shiver", "shudder", "shake", "hiccup", "sigh", "flinch", "blink_r", "nosepick")
-	
-	// stats 
+
+	// stats
 	var/statHolder/stats = null
 
 	// neural net memes (its normal for this to be null for non-Boomers)
@@ -174,7 +174,7 @@
 			sims = new /simsHolder/destiny(src)
 		else
 			sims = new /simsHolder/human(src)
-			
+
 	stats = new(src)
 
 	health_mon = image('icons/effects/healthgoggles.dmi',src,"100",10)
@@ -209,7 +209,7 @@
 		update_body()
 		update_face()
 		UpdateDamageIcon()
-		
+
 
 /human_limbs
 	var/mob/living/carbon/human/holder = null
@@ -384,7 +384,7 @@
 				holder.set_body_icon_dirty()
 			return
 		return FALSE
-		
+
 /mob/living/carbon/human/proc/is_changeling()
 	return get_ability_holder(/abilityHolder/changeling)
 
@@ -1490,52 +1490,22 @@
 
 					else
 						if (!restrained())
+							message = "<strong>[src]</strong> pulls both arms outwards in front of their chest and pumps them behind their back, then repeats this motion in a smaller range of motion down to their hips two times once more all while sliding their legs in a faux walking motion, claps their hands together in front of them while both their knees knock together, pumps their arms downward, pronating their wrists and abducting their fingers outward while crossing their legs back and forth, repeats this motion again two times while keeping their shoulders low and hunching over, proceeding to finger gun with right hand with left hand bent on their hip while looking directly forward and putting their left leg forward then crossing their arms and leaning back a little while bending their knees at an angle."
+							playsound(get_turf(src), 'sound/effects/defaultdance.ogg', 100, 1)
+							spawn (0)
+								for (var/i = 0, i < 4, i++)
+									pixel_x+= 2
+									dir = turn(dir, 90)
+									sleep(2)
+								for (var/i = 0, i < 4, i++)
+									pixel_x-= 2
+									dir = turn(dir, 90)
+									sleep(2)
 
-							// implement some special visual moves
-							var/dancemove = rand(1,5)
-
-							switch(dancemove)
-								if (1)
-									message = "<strong>[src]</strong> busts out some mad moves."
-									spawn (0)
-										for (var/i = 0, i < 4, i++)
-											dir = turn(dir, 90)
-											sleep(2)
-
-								if (2)
-									message = "<strong>[src]</strong> does the twist, like they did last summer."
-									spawn (0)
-										for (var/i = 0, i < 4, i++)
-											dir = turn(dir, -90)
-											sleep(2)
-
-								if (3)
-									message = "<strong>[src]</strong> moonwalks."
-									spawn (0)
-										for (var/i = 0, i < 4, i++)
-											pixel_x+= 2
-											sleep(2)
-										for (var/i = 0, i < 4, i++)
-											pixel_x-= 2
-											sleep(2)
-
-								if (4)
-									message = "<strong>[src]</strong> boogies!"
-									spawn (0)
-										for (var/i = 0, i < 4, i++)
-											pixel_x+= 2
-											dir = turn(dir, 90)
-											sleep(2)
-										for (var/i = 0, i < 4, i++)
-											pixel_x-= 2
-											dir = turn(dir, 90)
-											sleep(2)
-
-								else
-									message = pick("<strong>[src]</strong> gets on down.","<strong>[src]</strong> dances!", "<strong>[src]</strong> cranks out some dizzying windmills.")
-									// expand this too, however much
-
-								// todo: add context-sensitive break dancing and some other goofy shit
+						else
+							message = pick("<strong>[src]</strong> gets on down.","<strong>[src]</strong> dances!", "<strong>[src]</strong> cranks out some dizzying windmills.")
+							// expand this too, however much
+							// todo: add context-sensitive break dancing and some other goofy shit
 
 
 							spawn (5)
@@ -1568,8 +1538,8 @@
 									boutput(src, "<span style=\"color:blue\">The ants arachnify.</span>")
 									playsound(get_turf(src), "sound/effects/bubbles.ogg", 80, 1)
 
-						else
-							message = "<strong>[src]</strong> twitches feebly in time to music only they can hear."
+							else
+								message = "<strong>[src]</strong> twitches feebly in time to music only they can hear."
 
 			if ("flip")
 				if (emote_check(voluntary, 50) && !shrunk)
@@ -2422,7 +2392,7 @@
 			// we aren't meant to wear shoes
 			// so give us - 1.0 slowdown either way
 			if (ismutt(src) || isxenomorph(src))
-				tally -= 1.0 
+				tally -= 1.0
 			else
 				if (istype(shoes, /obj/item/clothing/shoes))
 					if (shoes.chained)
