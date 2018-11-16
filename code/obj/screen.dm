@@ -129,6 +129,7 @@
 	switch(name)
 		if ("stamina")
 			out(usr, desc)
+
 		if ("act_intent")
 			if (params.Find("left"))
 				switch(usr.a_intent)

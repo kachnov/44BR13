@@ -249,7 +249,7 @@
 
 /client/Command(command)
 	command = html_encode(command)
-	out(src, "<span class='alert'>Command \"[command]\" not recognised</span>")
+	out(src, "<span class='alert'>Command \"[command]\" not recognised.</span>")
 
 /client/proc/load_antag_tokens()
 	var/savefile/AT = LoadSavefile("data/AntagTokens.sav")
@@ -474,6 +474,14 @@ REPO_VAR(curr_day, null)
 		mob:toggle_throw_mode()
 	return
 
+/client/verb/swaphands()
+	set hidden = 1
+	return mob.swap_hand()
+
+/client/verb/setintent(intent as text)
+	set hidden = 1
+	return mob.set_intent(intent)
+
 /client/verb/togglepoint(force_off as num) // force_off is set to 1 when the button for this is released in WASD mode (currently B), else it's 0
 	set hidden = 1
 	if (!mob.stat && isliving(mob) && !mob.restrained())
@@ -495,20 +503,20 @@ REPO_VAR(curr_day, null)
 		if (REPO.movement_queue[src])
 			REPO.movement_queue -= src
 
-/client/verb/hotkeyModeExecute(arg as text)
+/client/verb/hotkeyModeExecute(arg1 as text, arg2 as null|text)
 	set hidden = TRUE
 	set instant = TRUE
 	set name = ".hotkeyModeExecute"
 	if (hotkey_mode)
 		// client verb
-		if (hascall(src, arg))
-			call(src, arg)()
+		if (hascall(src, arg1))
+			call(src, arg1)(arg2)
 		// mob verb
-		else if (!isnewplayer(mob) && hascall(mob, arg))
-			call(mob, arg)()
+		else if (!isnewplayer(mob) && hascall(mob, arg1))
+			call(mob, arg1)(arg2)
 		// eye verb? you never know
-		else if (eye && eye != mob && hascall(eye, arg))
-			call(eye, arg)()
+		else if (eye && eye != mob && hascall(eye, arg1))
+			call(eye, arg1)(arg2)
 
 /*
 /client/verb/togglewasdzqsd()

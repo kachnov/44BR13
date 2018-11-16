@@ -1021,6 +1021,13 @@
 /mob/proc/swap_hand()
 	return
 
+/mob/proc/set_intent(intent)
+	a_intent = intent
+	if (client)
+		for (var/obj/screen/hud/H in client.screen)
+			if (findtext(H.icon_state, "intent-"))
+				H.icon_state = "intent-"+a_intent
+
 /mob/proc/u_equip(W as obj)
 
 // I think this bit is handled by each method of dropping it, and it prevents dropping items in your hands and other procs using u_equip so I'll get rid of it for now.
