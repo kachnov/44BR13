@@ -6,7 +6,7 @@
 #define GREAT_SPEED_THRESHOLD 1.5
 
 #define OK_STRENGTH_THRESHOLD 0.7  
-#define GREAT_STRENGTH_THRESHOLD 1.5 
+#define GREAT_STRENGTH_THRESHOLD 1.5
 
 #define PILL_BOTTLE_IQ_REQUIREMENT 65
 
@@ -32,3 +32,9 @@
 	. = getStat(STAT_STRENGTH)
 	if (owner && isxenomorph(owner))
 		. *= 10
+
+// since people go so fucking fast by default
+// in fact I'm not sure they can get faster
+// this simply nerfs people's speed if they're slower than STAT_SPEED = 1.5 (speed of a hunter)
+/statHolder/proc/getSpeedTallyIncrease()
+	return (1.5 - stats[STAT_SPEED])/2

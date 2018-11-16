@@ -77,14 +77,8 @@ var/global
 
 	//obj/hud/main_hud1 = null
 
-	list/cameras = list()
 	list/clients = list()
 	list/mobs = list()
-	list/lawnmowers = list()
-	list/amerimutts = list()
-	list/grown_xenomorphs = list()
-	list/xenomorph_larvae = list()
-	list/facehuggers = list()
 	list/machines = list()
 	list/allcables = list()
 	list/atmos_machines = list() // need another list to pull atmos machines out of the main machine loop and in with the pipe networks

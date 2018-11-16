@@ -87,7 +87,7 @@
 
 		while (!disposed)
 			do_step()
-			sleep(1)
+			sleep(world.tick_lag)
 
 	proc/collide(atom/A as mob|obj|turf|area)
 		if (!A)

@@ -366,11 +366,15 @@ var/global/curr_day = null
 // new epic movement system by Kachnov, hope it fixes movement lag for me
 #define fastMove(dir) set instant = TRUE; \
 	set hidden = TRUE; \
-	moving_in_dir |= dir
+	moving_in_dir |= dir; \
+	REPO.movement_queue[src] = TRUE
 
 #define fastStopMoving(dir) set instant = TRUE; \
 	set hidden = TRUE; \
-	moving_in_dir &= ~dir
+	moving_in_dir &= ~dir; \
+	if (REPO.movement_queue[src]) { \
+		REPO.movement_queue -= src; \
+	}
 
 /client/verb/fastNorth()
 	fastMove(NORTH)
@@ -479,15 +483,33 @@ var/global/curr_day = null
 /client/verb/hotkeyMode()
 	set hidden = TRUE
 	set name = ".hotkeyMode"
+
+	// swap hotkey mode
+	var/hotkey_mode_was = hotkey_mode
 	hotkey_mode = !hotkey_mode
 	boutput(src, "<span style = \"color: purple\">Hotkey mode is [hotkey_mode ? "now on" : "no longer on"].</span>")
+
+	// stop moving or we might move in one direction forever
+	if (hotkey_mode_was)
+		moving_in_dir &= ~(NORTH|SOUTH|EAST|WEST)
+		if (REPO.movement_queue[src])
+			REPO.movement_queue -= src
 
 /client/verb/hotkeyModeExecute(arg as text)
 	set hidden = TRUE
 	set instant = TRUE
 	set name = ".hotkeyModeExecute"
 	if (hotkey_mode)
-		call(src, arg)()
+		// client verb
+		if (hascall(src, arg))
+			call(src, arg)()
+		// mob verb
+		else if (!isnewplayer(mob) && hascall(mob, arg))
+			call(mob, arg)()
+		// eye verb? you never know
+		else if (eye && eye != mob && hascall(eye, arg))
+			call(eye, arg)()
+
 /*
 /client/verb/togglewasdzqsd()
 	set hidden = 1
@@ -693,19 +715,22 @@ var/global/curr_day = null
 						if (!isnull(mob:ion_trail))
 							mob:ion_trail.stop()
 							mob:jeton = 0
-			move_delay = world.time
+
+			move_delay = 0
 			if ((j_pack && j_pack < 1))
 				move_delay += 2
+
 			switch(mob.m_intent)
 				if ("run")
 					if (mob.drowsyness > 0)
 						move_delay += 6
-					move_delay += 2.00 // 3.20
+					move_delay += 1.00 // 2.20
 				if ("face")
 					mob.dir = direct
 					return
 				if ("walk")
-					move_delay += 8
+					move_delay += 4.00 // 5.20
+
 
 			if (istype (mob, /mob/living/carbon/human/))
 				var/mob/living/carbon/human/H = mob
@@ -724,6 +749,7 @@ var/global/curr_day = null
 						boutput(src, "<span style=\"color:blue\">You're restrained! You can't move!</span>")
 						return FALSE
 			moving = 1
+
 			if (locate(/obj/item/grab, mob))
 				move_delay = max(move_delay, world.time + 7)
 				var/list/L = mob.ret_grab()
@@ -757,6 +783,13 @@ var/global/curr_day = null
 								M.animate_movement = 2
 								return
 			else
+
+				// moving in ordinal directions is a bit slower to compensate for moving more tiles
+				if (direct == NORTHEAST || direct == NORTHWEST || direct == SOUTHEAST || direct == SOUTHWEST)
+					move_delay *= sqrt(2)
+
+				move_delay += world.time
+
 				if (istype(mob,/mob/living))
 					var/mob/living/L = mob
 					if (!isturf(mob.loc))
@@ -767,6 +800,8 @@ var/global/curr_day = null
 						. = ..()
 				else
 					. = ..()
+
+
 			moving = null
 			return
 		// If the person is inside an object .

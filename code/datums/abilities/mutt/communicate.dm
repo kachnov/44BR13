@@ -15,7 +15,7 @@
 /targetable/mutt/communicate/cast()
 	var/x = trim(copytext(sanitize(input(usr, "Say what?") as text), 1, MAX_MESSAGE_LEN))
 	if (x)
-		mutt_hivemind.communicate("<em><strong>[usr.name]</strong>: [x]</em>")
+		REPO.mutt_hivemind.communicate("<em><strong>[usr.name]</strong>: [x]</em>")
 
 /obj/screen/ability/mutt/communicate
 /obj/screen/ability/mutt/communicate/clicked(params)

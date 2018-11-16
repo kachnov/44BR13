@@ -1,6 +1,8 @@
+REPO_LIST(amerimutts, list())
 /mob/living/carbon/human/mutt
 	icon = 'icons/mob/mutt.dmi'
 	abilityHolder = /abilityHolder/mutt
+	has_custom_lying_death_icons = TRUE
 
 	var/base_icon_state = null
 	var/good_boy_points = 50
@@ -15,7 +17,7 @@
 		"I'm 100% pure Swedish."
 	)
 
-	var/static/mutts = 0 
+	var/static/mutts = 0
 
 	var/mob/living/carbon/human/father = null
 
@@ -31,21 +33,24 @@
 	// the Mutt is a slow, lumbering beast
 	stats.setStat(STAT_SPEED, 0.75)
 
-	amerimutts += src
+	// WIP
+	stats.setStat(STAT_IQ, 60)
 
-	mutt_hivemind.announce("[name] has been born.")
+	REPO.amerimutts += src
+
+	REPO.mutt_hivemind.announce_after("[name] has been born.", 0.3 SECONDS)
 
 	abilityHolder.addAbility(/targetable/mutt/communicate)
 
 /mob/living/carbon/human/mutt/dispose()
-	amerimutts -= src 
+	REPO.amerimutts -= src
 	..()
 
 /mob/living/carbon/human/mutt/Life(controller/process/mobs/parent)
 	..(parent)
 
 	if (stat == CONSCIOUS)
-	
+
 		// spawn literal shit every 10 seconds or so
 		if (prob(20))
 			var/turf/T = get_turf(src)
@@ -73,11 +78,11 @@
 
 	// if we're hurt
 	if (health < max_health)
-		// heal 9 damage if we're on weeds 
+		// heal 9 damage if we're on weeds
 		for (var/obj/mutt/weeds/W in get_turf(src))
 			HealDamage("All", BASIC_HEAL_AMOUNT*3, BASIC_HEAL_AMOUNT*3, BASIC_HEAL_AMOUNT*3)
 			blood_volume = min(blood_volume, blood_volume + BASIC_HEAL_AMOUNT*3)
-			break 
+			break
 		// heal 3 damage anyway
 		if (health < max_health)
 			HealDamage("All", BASIC_HEAL_AMOUNT, BASIC_HEAL_AMOUNT, BASIC_HEAL_AMOUNT)
@@ -86,19 +91,19 @@
 				--bleeding
 			if (bleeding_internal)
 				--bleeding_internal
-			
+
 	update_icon()
 #undef BASIC_HEAL_AMOUNT
 
 /mob/living/carbon/human/mutt/death()
-	mutt_hivemind.announce("[name] has been slain.")
+	REPO.mutt_hivemind.announce("[name] has been slain.")
 	return ..()
-	
+
 /mob/living/carbon/human/mutt/get_stam_mod_regen()
 	var/weeds = locate(/obj/mutt/weeds) in get_turf(src)
 	if (weeds)
 		weeds = 2
-	else 
+	else
 		weeds = 1
 	return (STAMINA_REGEN * 3) * weeds
 
@@ -119,7 +124,7 @@
 		if (CONSCIOUS)
 			if (lying)
 				icon_state = "[base_icon_state]_unconscious"
-			else 
+			else
 				icon_state = base_icon_state
 		if (UNCONSCIOUS)
 			icon_state = "[base_icon_state]_unconscious"
@@ -135,7 +140,7 @@
 
 	// shout something in amerimutt then fly off
 	animate_spin(src, T = 0.3 SECONDS)
-	say(uppertext(pick(mutt_phrases)))
+	say("[uppertext(pick(mutt_phrases))]")
 	sleep(0.5 SECONDS)
 
 	var/turf/target = pick(mutt_noclip_locations)
@@ -158,8 +163,8 @@
 	canmove = TRUE
 
 /mob/living/carbon/human/mutt/proc/parent_client_check(var/client/parent)
-	set waitfor = FALSE 
-	sleep(0.5 SECONDS)
+	set waitfor = FALSE
+	sleep(0.2 SECONDS)
 	if (!client && parent && isobserver(parent.mob))
 		parent.mob.mind.transfer_to(src)
 
@@ -190,5 +195,5 @@
 		random_burn_damage(L, 20)
 		if (ishuman(L))
 			L.emote("scream")
-	else 
+	else
 		return ..(L)

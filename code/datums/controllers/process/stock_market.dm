@@ -1,9 +1,10 @@
-/controller/process/stock_market
-	setup()
-		name = "Stock Market"
-		schedule_interval = 15
+PROCESS(stock_market)
+	
+/controller/process/stock_market/setup()
+	name = "Stock Market"
+	schedule_interval = 1.5 SECONDS
 
-	doWork()
-		if (stockExchange)
-			stockExchange.process()
+/controller/process/stock_market/doWork()
+	if (stockExchange)
+		stockExchange.process()
 

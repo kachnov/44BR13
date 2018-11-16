@@ -329,7 +329,7 @@ var/f_color_selector_handler/F_Color_Selector = null
 
 	spawn (world.tick_lag)
 		processScheduler = new
-		processScheduler.deferSetupfor (/controller/process/ticker)
+		processScheduler.deferSetupfor(list_find_type(REPO.processes, /controller/process/ticker))
 		processSchedulerView = new
 
 		for (var/area/Ar in world)

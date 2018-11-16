@@ -1,3 +1,4 @@
+REPO_LIST(facehuggers, list())
 /mob/living/critter/facehugger
 	icon = 'icons/mob/xeno/xeno.dmi'
 	icon_state = "facehugger_sentient"
@@ -14,27 +15,33 @@
 	name = "[name] ([++xenomorph_number])"
 	real_name = name
 
+	abilityHolder.addAbility(/targetable/facehugger/hivemind)
 	abilityHolder.addAbility(/targetable/facehugger/communicate)
 	abilityHolder.addAbility(/targetable/facehugger/crawl)
 	abilityHolder.addAbility(/targetable/facehugger/hide)
 	abilityHolder.addAbility(/targetable/facehugger/leap)
 	abilityHolder.addAbility(/targetable/facehugger/scream)
-	facehuggers += src
+
+	REPO.facehuggers += src
 	spawn (50)
-		if (facehuggers.len >= 3 && src == shuffle(facehuggers)[1])
+		if (REPO.facehuggers.len >= 3 && src == shuffle(REPO.facehuggers)[1])
 			var/game_mode/_44BR13/mode = ticker.mode
 			if (!mode.facehugger_traitors.len)
 				mode.add_facehugger_traitor(src)
 				
 	// hivemind message
-	xenomorph_hivemind.announce("[name] has been born!")
+	REPO.xenomorph_hivemind.announce_after("[name] has been born!", 0.3 SECONDS)
+
+	// hivemind stuff 
+	REPO.xenomorph_hivemind.on_birth(src)
 	
 /mob/living/critter/facehugger/dispose()
-	facehuggers -= src 
+	REPO.facehuggers -= src 
 	..()
 
 /mob/living/critter/facehugger/death()
-	xenomorph_hivemind.announce("[name] has been slain!")
+	REPO.xenomorph_hivemind.announce("[name] has been slain!")
+	REPO.xenomorph_hivemind.on_death(src)
 	return ..()
 	
 /mob/living/critter/facehugger/setup_healths()

@@ -9,6 +9,18 @@ from pathlib import Path
 import os
 import re
 
+def strip_comments_and_whitespace(string):
+	allow_tabs = True # once a non-tab character is counted, disallow further tabs
+	newstring = ""
+	for char in string:
+		if char != "\t" or allow_tabs:
+			newstring += char
+			if char != "\t":
+				allow_tabs = False
+		else:
+			break
+	return newstring.split("//", 1)[0]
+
 # gets the main 44BR13 directory
 dir = os.path.abspath(os.path.join(os.getcwd(), os.pardir)) + "/44BR13"
 
@@ -41,18 +53,23 @@ for path in pathlist:
 	file2lines[path] = []
 
 	searching = False
-	procmode = None
+	procmode = False
+	varmode = False
+
+	# stuff like var/const
+	varmode_enabled = True
 
 	for line in lines:
 
 		defcheck = lambda line: line.startswith("/") and not line.startswith("//") and not line.startswith("/*")
 		comcheck = lambda line: line.startswith("//") or line.startswith("/*") or line.startswith("*/")
 		linecheck = lambda line : not "(" in line and not ")" in line and not "=" in line and not "\\" in line and not "," in line
-		procargscheck = lambda line: "(" in line and ")" in line and not "list(" in line 
+		procargscheck = lambda line: "(" in line and ")" in line and line.rfind(")") > line.rfind("=")
+		procargscheck2 = lambda line: not "list(" in line or line.count(")") > 1
 
-		sline = line.strip()
+		sline = strip_comments_and_whitespace(line.lstrip())
 
-		tabcount = line.count("\t")
+		tabcount = strip_comments_and_whitespace(line).count("\t")
 		if searching and defcheck(sline) and tabcount == 0:
 			searching = False
 
@@ -71,25 +88,39 @@ for path in pathlist:
 		else:
 			# probably a subtype (that doesn't start with /) or a proc definition/override
 			# no vars allowed
-			if tabcount == 1 and sline[:1].isalpha() or sline[:1] == "_":
+			if tabcount == 1 and (sline[:1].isalpha() or sline[:1] == "_"):
 
 				# since var/ absolute pathing is ok, these cases are completely ignored.
-				if not sline.startswith("var/"):
+				if not sline.startswith("var/") or (sline.startswith("var/static") or sline.startswith("var/const") or sline.startswith("var/global")):
 
-					if (not "=" in line) or procargscheck(sline):
+					if (not "=" in line) or (procargscheck(sline) and procargscheck2(sline)):
+
+						varmode = False
 
 						if not sline in ["var", "proc"]:
 
 							procmode = False
-							# remove one tab 
-							line = line.replace("\t", "", 1)
-							# make the line absolutely pathed
-							line = searching+"/"+line
+
+							# stuff like var/const
+							if "var/" in sline:
+								if varmode_enabled:
+									line = ""
+								varmode = sline.strip("\n")
+							else:
+								# remove one tab 
+								line = line.replace("\t", "", 1)
+								# make the line absolutely pathed
+								line = searching+"/"+line
 
 						else:
 
-							line = ""
-							procmode = True
+							if sline == "proc":
+								line = ""
+								procmode = True
+							else:
+								if varmode_enabled:
+									line = ""
+								varmode = "var"
 
 			# something in the definition
 			elif tabcount > 1:
@@ -98,10 +129,14 @@ for path in pathlist:
 						# remove all tabs
 						line = line.replace("\t", "")
 						# make the line absolutely pathed
-						line = searching+"/"+line
+						line = searching+"/proc/"+line.lstrip()
 					else:
-						# remove one tab
+						# remove two tabs
 						line = line.replace("\t", "", 2)
+				elif varmode:
+					if varmode_enabled:
+						# make the line absolutely pathed
+						line = "\t"+varmode+"/"+sline.lstrip()
 				else:
 					# remove one tab
 					line = line.replace("\t", "", 1)

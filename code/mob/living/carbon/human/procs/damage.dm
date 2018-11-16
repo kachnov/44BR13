@@ -1,11 +1,32 @@
 
 /mob/living/carbon/human/bullet_act(var/obj/projectile/P)
+
 	log_shot(P,src)
-	if (ismob(P.shooter))
-		if (ismob(P.shooter))
-			var/mob/living/M = P.shooter
-			if (P.name != "energy bolt" && M && M.mind)
-				M.mind.violated_hippocratic_oath = 1
+	
+	if (isliving(P.shooter))
+
+		// stupid stuff
+		var/mob/living/M = P.shooter
+		if (P.name != "energy bolt" && M && M.mind)
+			M.mind.violated_hippocratic_oath = 1
+
+		// anti-FF mechanic
+		if (ishuman(P.shooter))
+			var/mob/living/carbon/human/S = P.shooter
+
+			var/S_faction = null 
+			var/src_faction = null
+
+			if (S.job)
+				var/job/S_job = find_job_in_controller_by_string(S.job)
+				S_faction = S_job.faction
+
+			if (job)
+				var/job/src_job = find_job_in_controller_by_string(job)
+				src_faction = src_job.faction 
+
+			if (S_faction && src_faction && S_faction == src_faction)
+				return
 
 	if (nodamage) return
 	if (spellshield)

@@ -286,32 +286,37 @@ var/global
 	if (istype(message, /image) || istype(message, /sound) || istype(target, /savefile))
 		target << message
 		CRASH("DEBUG: Boutput called with invalid message")
-		return
+		return FALSE
 
 	//Otherwise, we're good to throw it at the user
-	else if (istext(message))
-		if (istext(target)) return
+	else if (istext(message) || ispath(message) || isnum(message))
 
-		//Some macros remain in the string even after parsing and fuck up the eventual output
-		if (findtext(message, "\improper"))
-			message = replacetext(message, "\improper", "")
-		if (findtext(message, "\proper"))
-			message = replacetext(message, "\proper", "")
+		message = "[message]"
 
-		//Grab us a client if possible
-		var/client/C
-		if (istype(target, /client))
-			C = target
-		else if (istype(target, /mob))
-			C = target:client
-		else if (istype(target, /mind) && target:current)
-			C = target:current:client
+		if (!istext(target))
 
-		if (C && C.chatOutput && !C.chatOutput.loaded && C.chatOutput.messageQueue && islist(C.chatOutput.messageQueue))
-			//Client sucks at loading things, put their messages in a queue
-			C.chatOutput.messageQueue.Add(message)
-		else
-			target << output(url_encode(message), "browseroutput:output")
+			//Some macros remain in the string even after parsing and fuck up the eventual output
+			if (findtext(message, "\improper"))
+				message = replacetext(message, "\improper", "")
+			if (findtext(message, "\proper"))
+				message = replacetext(message, "\proper", "")
+
+			//Grab us a client if possible
+			var/client/C
+			if (istype(target, /client))
+				C = target
+			else if (istype(target, /mob))
+				C = target:client
+			else if (istype(target, /mind) && target:current)
+				C = target:current:client
+
+			if (C && C.chatOutput && !C.chatOutput.loaded && C.chatOutput.messageQueue && islist(C.chatOutput.messageQueue))
+				//Client sucks at loading things, put their messages in a queue
+				C.chatOutput.messageQueue.Add(message)
+			else
+				target << output(url_encode(message), "browseroutput:output")
+
+		return TRUE
 
 //Aliases for boutput
 /proc/bout(target, message, banMsg = 0)

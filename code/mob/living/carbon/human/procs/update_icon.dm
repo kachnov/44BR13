@@ -51,7 +51,7 @@
 
 	UpdateOverlays(fire_standing, "fire")
 
-	if (lying != lying_old)
+	if (!has_custom_lying_death_icons && lying != lying_old)
 		lying_old = lying
 		animate_rest(src, !lying)
 

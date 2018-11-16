@@ -33,3 +33,9 @@
 		if (v > 1 && list[v-1] == thing)
 			return list[v]
 	return list[1]
+
+/proc/list_find_type(list, type)
+	for (var/thing in list)
+		if (ispath(thing, type) || istype(thing, type))
+			return thing 
+	return null

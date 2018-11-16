@@ -1,7 +1,9 @@
-/controller/process/lighting
-	setup()
-		name = "Lighting"
-		schedule_interval = 22
+PROCESS(lighting)
 
-	doWork()
-		// TODO
+/controller/process/lighting/setup()
+	name = "Lighting"
+	schedule_interval = 2.2 SECONDS
+
+/controller/process/lighting/doWork()
+	// TODO
+	return

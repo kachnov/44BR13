@@ -1,12 +1,11 @@
 // handles timed player actions
-/controller/process/actions
-	var/action_controler
+PROCESS(actions)
+	var/action_controller
 
-	setup()
-		name = "Actions"
-		schedule_interval = 5
+/controller/process/actions/setup()
+	name = "Actions"
+	schedule_interval = 0.5 SECONDS
+	action_controller = actions
 
-		action_controler = actions
-
-	doWork()
-		actions.process()
+/controller/process/actions/doWork()
+	actions.process()

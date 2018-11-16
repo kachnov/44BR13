@@ -5,24 +5,29 @@
 #define ABILITY_BUILD_RESIN 8
 #define ABILITY_CRAFT_RESIN 16
 
+REPO_LIST(grown_xenomorphs, list())
+
 /mob/living/carbon/human/xenomorph 
 	max_health = 175
 	blood_color = "#00FF00"
 	icon = 'icons/mob/xeno/xeno.dmi'
 	icon_state = null
 	abilityHolder = /abilityHolder/xenomorph
+	has_custom_lying_death_icons = TRUE 
 	var/base_icon_state = null
 	var/caste_name = "Xenomorph"
 	var/abilities = 0
 	var/next_evolution = -1
 	var/mob/living/carbon/human/babydaddy = null 
+	var/slash_strength = 1.00
 
 /mob/living/carbon/human/xenomorph/New()
 	..()
 	name = "[caste_name] ([++xenomorph_number])"
 	real_name = name
-	grown_xenomorphs += src
-	// add EPIC abilities 
+	REPO.grown_xenomorphs += src
+	// add EPIC abilities
+	abilityHolder.addAbility(/targetable/xenomorph/hivemind)
 	abilityHolder.addAbility(/targetable/xenomorph/communicate)
 	if (abilities & ABILITY_PLANT_WEEDS)
 		abilityHolder.addAbility(/targetable/xenomorph/plant_weeds)
@@ -32,14 +37,17 @@
 		abilityHolder.addAbility(/targetable/xenomorph/build_resin_structure)
 	if (abilities & ABILITY_CRAFT_RESIN)
 		abilityHolder.addAbility(/targetable/xenomorph/craft)
-	// also evolution regardless of ability flags 
 	abilityHolder.addAbility(/targetable/xenomorph/evolve)
 	update_icon()
+
 	// hivemind message
-	xenomorph_hivemind.announce("[name] has evolved!")
+	REPO.xenomorph_hivemind.announce_after("[name] has evolved!", 0.3 SECONDS)
+
+	// hivemind stuff 
+	REPO.xenomorph_hivemind.on_birth(src)
 	
 /mob/living/carbon/human/xenomorph/dispose()
-	grown_xenomorphs -= src 
+	REPO.grown_xenomorphs -= src 
 	..()
 
 #define BASIC_HEAL_AMOUNT 3
@@ -66,7 +74,8 @@
 #undef BASIC_HEAL_AMOUNT
 
 /mob/living/carbon/human/xenomorph/death()
-	xenomorph_hivemind.announce("[name] has been slain!")
+	REPO.xenomorph_hivemind.announce("[name] has been slain!")
+	REPO.xenomorph_hivemind.on_death(src)
 	return ..()
 
 // regenerate stamina 3x as fast as a normal human (6x as fast on weeds)
@@ -91,14 +100,15 @@
 /mob/living/carbon/human/xenomorph/melee_attack(var/mob/living/target)
 	visible_message("<span style = \"color:red\"><strong>[src]</strong> slashes [target]!</span>")
 	playsound(target, 'sound/weapons/slashcut.ogg', 100, 1)
-	if (!random_brute_damage(target, rand(12,15)))
+
+	if (!random_brute_damage(target, slash_strength * rand(12,15)))
 		if (isbot(target))
 			var/obj/machinery/bot/B = target 
 			B.explode()
 	else
 		target.emote("scream")
 		target.weakened = max(target.weakened+1, 1)
-		take_bleeding_damage(target, null, 5, DAMAGE_STAB, 1, get_turf(target))
+		take_bleeding_damage(target, null, slash_strength * 5, DAMAGE_STAB, 1, get_turf(target))
 
 // self explanatory
 /mob/living/carbon/human/xenomorph/proc/update_icon()
@@ -127,6 +137,8 @@
 	switch (type)
 		if (/mob/living/carbon/human/xenomorph/hunter)
 			mind.transfer_to((new /mob/living/carbon/human/xenomorph/praetorian(get_turf(src))))
+	REPO.xenomorph_hivemind.on_death(src)
+	--REPO.xenomorph_hivemind.total_xenomorphs
 	qdel(src)
 
 /mob/living/carbon/human/xenomorph/proc/spawn_mutt()
@@ -170,6 +182,7 @@
 	caste_name = "Xenomorph Drone"
 	abilities = ABILITY_REGENERATION|ABILITY_PLANT_WEEDS|ABILITY_SECRETE_RESIN|ABILITY_BUILD_RESIN
 	max_health = 225
+	slash_strength = 1.10 // 10% stronger than the crafter but nothing special
 
 /mob/living/carbon/human/xenomorph/drone/New()
 	..()
@@ -183,6 +196,7 @@
 	caste_name = "Xenomorph Crafter"
 	abilities = ABILITY_REGENERATION|ABILITY_CRAFT_RESIN
 	max_health = 200
+	// default slash_strength - weakest ayy
 	
 /mob/living/carbon/human/xenomorph/crafter/New()
 	..()
@@ -196,11 +210,12 @@
 	caste_name = "Xenomorph Hunter"
 	abilities = ABILITY_REGENERATION
 	max_health = 275
+	slash_strength = 1.40 // far stronger than crafters and drones
 
 /mob/living/carbon/human/xenomorph/hunter/New()
 	..()
-	// 25 minutes
-	next_evolution = world.time + 15000
+	// 15 minutes
+	next_evolution = world.time + 9000
 	// stats
 	stats.setStat(STAT_SPEED, 1.5)
 	stats.setStat(STAT_STRENGTH, 1.9)
@@ -214,13 +229,14 @@
 	abilities = ABILITY_REGENERATION
 	pixel_x = -16
 	max_health = 325
+	slash_strength = 1.60 // considerably stronger than the hunter
 
 /mob/living/carbon/human/xenomorph/praetorian/New()
 	..()
 	stats.setStat(STAT_SPEED, 1.3)
 	stats.setStat(STAT_STRENGTH, 2.2)
 	stats.setStat(STAT_IQ, 60)
-	
+
 /mob/living/carbon/human/xenomorph/praetorian/death()
 	. = ..()
 	var/game_mode/_44BR13/mode = ticker.mode
@@ -234,6 +250,7 @@
 	abilities = ABILITY_REGENERATION|ABILITY_PLANT_WEEDS|ABILITY_SECRETE_RESIN|ABILITY_BUILD_RESIN
 	pixel_x = -16
 	max_health = 400
+	slash_strength = 1.30 // a bit weaker than the hunter
 
 #undef ABILITY_CRAFT_RESIN
 #undef ABILITY_BUILD_RESIN

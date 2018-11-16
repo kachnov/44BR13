@@ -1280,6 +1280,7 @@
 	return health
 
 /mob/bullet_act(var/obj/projectile/P)
+
 	var/damage = 0
 	damage = round((P.power*P.proj_data.ks_ratio), 1.0)
 	var/stun = 0
@@ -2170,7 +2171,7 @@
 /mob/proc/emote(var/act, var/voluntary = 0)
 	return
 
-/mob/proc/emote_check(var/voluntary = 1, var/time = 10, var/admin_bypass = 1, var/dead_check = 1)
+/mob/proc/emote_check(var/voluntary = 1, var/time = 10, var/admin_bypass = 0, var/dead_check = 1)
 	if (emote_allowed)
 		if (dead_check && stat == 2)
 			emote_allowed = 0

@@ -1,6 +1,6 @@
 // carbon-based lifeforms
 
-/mob/living/carbon/
+/mob/living/carbon
 	gender = MALE
 	var/list/stomach_contents = list()
 	var/last_eating = 0

@@ -11,8 +11,6 @@
 	CPROF_STACK += list()
 		//CPROF_ACTV  =
 
-//TODO; #ifdef BTIME
 #define CPROF_GTIME (world.timeofday)
 #define CPROF_PRECISION 10//10 GTIME/s
-
 #define CPROF(name) CPROFILER.begin(name)

@@ -15,7 +15,7 @@
 /targetable/xenomorph/communicate/cast()
 	var/x = trim(copytext(sanitize(input(usr, "Say what?") as text), 1, MAX_MESSAGE_LEN))
 	if (x)
-		xenomorph_hivemind.communicate("<em><strong>[usr.name]</strong>: [x]</em>")
+		REPO.xenomorph_hivemind.communicate("<em><strong>[usr.name]</strong>: [x]</em>")
 
 /obj/screen/ability/xenomorph/communicate
 /obj/screen/ability/xenomorph/communicate/clicked(params)

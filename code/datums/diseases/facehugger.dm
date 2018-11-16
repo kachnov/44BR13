@@ -71,6 +71,7 @@
 					boutput(affected_mob, "<span style=\"color:red\">You feel something pushing at your spine...</span>")
 					var/atom/larva = new /mob/living/critter/xenomorph_larva (get_turf(affected_mob))
 					facehugger.mind.transfer_to(larva)
+					REPO.xenomorph_hivemind.on_death(facehugger)
 					qdel(facehugger)
 					larva.visible_message("<span style = \"color:red\"><big>[larva] bursts out of [affected_mob]!</big></span>")
 					affected_mob.gib()

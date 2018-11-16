@@ -1,66 +1,65 @@
 // handles machines
-/controller/process/machines
-	var/tmp/list/machines
-	var/tmp/list/pipe_networks
-	var/tmp/list/powernets
-	var/tmp/list/atmos_machines
+PROCESS(machines)
+	var/list/machines
+	var/list/pipe_networks
+	var/list/powernets
+	var/list/atmos_machines
 
-	setup()
-		name = "Machine"
-		schedule_interval = 33
+/controller/process/machines/setup()
+	name = "Machine"
+	schedule_interval = 3.3 SECONDS
+	Station_VNet = new /v_space/v_space_network()
 
-		Station_VNet = new /v_space/v_space_network()
+/controller/process/machines/doWork()
+	src.atmos_machines = global.atmos_machines
+	var/c = 0
+	for (var/obj/machinery/atmospherics/machine in atmos_machines)
+		#ifdef MACHINE_PROCESSING_DEBUG
+		var/t = world.time
+		#endif
+		machine.process()
+		#ifdef MACHINE_PROCESSING_DEBUG
+		register_machine_time(machine, world.time - t)
+		#endif
 
-	doWork()
-		src.atmos_machines = global.atmos_machines
-		var/c = 0
-		for (var/obj/machinery/atmospherics/machine in atmos_machines)
-			#ifdef MACHINE_PROCESSING_DEBUG
-			var/t = world.time
-			#endif
-			machine.process()
-			#ifdef MACHINE_PROCESSING_DEBUG
-			register_machine_time(machine, world.time - t)
-			#endif
+		if (!(c++ % 100))
+			scheck()
 
-			if (!(c++ % 100))
-				scheck()
+	pipe_networks = global.pipe_networks
+	for (var/pipe_network/network in pipe_networks)
+		#ifdef MACHINE_PROCESSING_DEBUG
+		var/t = world.time
+		#endif
+		network.process()
+		#ifdef MACHINE_PROCESSING_DEBUG
+		register_machine_time(network, world.time - t)
+		#endif
+		if (!(c++ % 100))
+			scheck()
 
-		pipe_networks = global.pipe_networks
-		for (var/pipe_network/network in pipe_networks)
-			#ifdef MACHINE_PROCESSING_DEBUG
-			var/t = world.time
-			#endif
-			network.process()
-			#ifdef MACHINE_PROCESSING_DEBUG
-			register_machine_time(network, world.time - t)
-			#endif
-			if (!(c++ % 100))
-				scheck()
+	src.powernets = global.powernets
+	for (var/powernet/PN in src.powernets)
+		#ifdef MACHINE_PROCESSING_DEBUG
+		var/t = world.time
+		#endif
+		PN.reset()
+		#ifdef MACHINE_PROCESSING_DEBUG
+		register_machine_time(PN, world.time - t)
+		#endif
+		if (!(c++ % 100))
+			scheck()
 
-		src.powernets = global.powernets
-		for (var/powernet/PN in src.powernets)
-			#ifdef MACHINE_PROCESSING_DEBUG
-			var/t = world.time
-			#endif
-			PN.reset()
-			#ifdef MACHINE_PROCESSING_DEBUG
-			register_machine_time(PN, world.time - t)
-			#endif
-			if (!(c++ % 100))
-				scheck()
-
-		src.machines = global.machines
-		for (var/obj/machinery/machine in src.machines)
-			#ifdef MACHINE_PROCESSING_DEBUG
-			var/t = world.time
-			#endif
-			machine.process()
-			#ifdef MACHINE_PROCESSING_DEBUG
-			register_machine_time(machine, world.time - t)
-			#endif
-			if (!(c++ % 100))
-				scheck()
+	src.machines = global.machines
+	for (var/obj/machinery/machine in src.machines)
+		#ifdef MACHINE_PROCESSING_DEBUG
+		var/t = world.time
+		#endif
+		machine.process()
+		#ifdef MACHINE_PROCESSING_DEBUG
+		register_machine_time(machine, world.time - t)
+		#endif
+		if (!(c++ % 100))
+			scheck()
 
 
 #ifdef MACHINE_PROCESSING_DEBUG
