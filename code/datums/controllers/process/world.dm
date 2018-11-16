@@ -4,7 +4,7 @@ PROCESS(world)
 
 /controller/process/world/setup()
 	name = "World"
-	schedule_interval = 23
+	schedule_interval = 2.3 SECONDS
 
 	setupgenetics()
 	if (genResearch) genResearch.setup()

@@ -3,7 +3,7 @@ PROCESS(ticker)
 	
 /controller/process/ticker/setup()
 	name = "Game"
-	schedule_interval = 5
+	schedule_interval = 0.5 SECONDS
 
 	if (!ticker)
 		ticker = new /controller/gameticker()

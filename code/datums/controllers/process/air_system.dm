@@ -3,7 +3,7 @@ PROCESS(air_system)
 	
 /controller/process/air_system/setup()
 	name = "Atmos"
-	schedule_interval = 10 // 2.5 seconds
+	schedule_interval = 1 SECOND
 	
 	if (!air_master)
 		air_master = new /controller/air_system()

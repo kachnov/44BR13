@@ -3,7 +3,7 @@ PROCESS(arena)
 
 /controller/process/arena/setup()
 	name = "Arena"
-	schedule_interval = 8 // 0.8 seconds
+	schedule_interval = 0.8 SECONDS
 
 	arenas += gauntlet_controller
 	arenas += colosseum_controller

@@ -1,20 +1,21 @@
 PROCESS(garbage)
-	var/tmp/delcount = 0
-	var/tmp/gccount = 0
-	var/tmp/deleteChunkSize = MIN_DELETE_CHUNK_SIZE	
+	var/delcount = 0
+	var/gccount = 0
+	var/deleteChunkSize = MIN_DELETE_CHUNK_SIZE	
 	//var/tmp/delpause = 1
 	#ifdef DELETE_QUEUE_DEBUG
-	var/tmp/dynamicQueue/delete_queue = 0
+	var/dynamicQueue/delete_queue = 0
 	#endif
 
 	// Timing vars
-	var/tmp/start = 0
-	var/tmp/list/timeTaken = new
+	var/start = 0
+	var/list/timeTaken = null
 
 /controller/process/garbage/setup()
 	name = "Garbage Collector"
 	schedule_interval = 5
 	tick_allowance = 25
+	timeTaken = list()
 
 /controller/process/garbage/doWork()
 	if (!global.delete_queue)

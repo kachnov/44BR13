@@ -1,13 +1,13 @@
 // handles machines
 PROCESS(machines)
-	var/tmp/list/machines
-	var/tmp/list/pipe_networks
-	var/tmp/list/powernets
-	var/tmp/list/atmos_machines
+	var/list/machines
+	var/list/pipe_networks
+	var/list/powernets
+	var/list/atmos_machines
 
 /controller/process/machines/setup()
 	name = "Machine"
-	schedule_interval = 33
+	schedule_interval = 3.3 SECONDS
 	Station_VNet = new /v_space/v_space_network()
 
 /controller/process/machines/doWork()

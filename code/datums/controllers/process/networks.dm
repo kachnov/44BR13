@@ -3,8 +3,8 @@ PROCESS(networks)
 	
 /controller/process/networks/setup()
 	name = "Networks"
-	schedule_interval = 11
-	networkUpdateQueue = new
+	schedule_interval = 1.1 SECONDS
+	networkUpdateQueue = list()
 
 /controller/process/networks/doWork()
 	for (var/node_network in node_networks)

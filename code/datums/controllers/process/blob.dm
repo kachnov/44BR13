@@ -1,14 +1,14 @@
 //Handles blobs without being pissy about it
 PROCESS(blob)
 	var/list/blobs = list()
-	var/tmp/list/detailed_count
-	var/tmp/updateQueue/blobUpdateQueue
+	var/list/detailed_count = null
+	var/updateQueue/blobUpdateQueue = null
 
 /controller/process/blob/setup()
 	name = "Blob"
-	schedule_interval = 31 // 3.1 seconds
-	detailed_count = new
-	blobUpdateQueue = new
+	schedule_interval = 3.1 SECONDS
+	detailed_count = list()
+	blobUpdateQueue = list()
 
 /controller/process/blob/doWork()
 	for (var/obj/blob/B in blobs)

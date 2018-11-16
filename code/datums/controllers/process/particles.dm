@@ -3,7 +3,7 @@ PROCESS(particles)
 
 /controller/process/particles/setup()
 	name = "Particles"
-	schedule_interval = 12
+	schedule_interval = 1.2 SECONDS
 	
 	// putting this in a var so main loop varedit can get into the particleMaster
 	master = particleMaster

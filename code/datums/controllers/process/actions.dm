@@ -4,7 +4,7 @@ PROCESS(actions)
 
 /controller/process/actions/setup()
 	name = "Actions"
-	schedule_interval = 5
+	schedule_interval = 0.5 SECONDS
 	action_controller = actions
 
 /controller/process/actions/doWork()

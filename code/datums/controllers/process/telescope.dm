@@ -4,7 +4,7 @@ PROCESS(telescope)
 
 /controller/process/telescope/setup()
 	name = "Telescope"
-	schedule_interval = 100
+	schedule_interval = 10 SECONDS
 
 /controller/process/telescope/doWork()
 	if (tele_man)

@@ -4,7 +4,7 @@ PROCESS(research)
 
 /controller/process/research/setup()
 	name = "Research"
-	schedule_interval = 10
+	schedule_interval = 1 SECOND
 	researchMaster = materialsResearch
 
 /controller/process/research/doWork()

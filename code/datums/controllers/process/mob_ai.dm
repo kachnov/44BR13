@@ -3,7 +3,7 @@ PROCESS(mob_ai)
 
 /controller/process/mob_ai/setup()
 	name = "Mob AI"
-	schedule_interval = 16 // 1.6 seconds
+	schedule_interval = 1.6 SECONDS
 
 /controller/process/mob_ai/doWork()
 	for (var/mob/living/carbon/human/H in mobs)

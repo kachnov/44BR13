@@ -1,10 +1,10 @@
 PROCESS(chemistry)
-	var/updateQueue/chemistryUpdateQueue
+	var/updateQueue/chemistryUpdateQueue = null
 
 /controller/process/chemistry/setup()
 	name = "Chemistry"
-	schedule_interval = 10
-	chemistryUpdateQueue = new
+	schedule_interval = 1 SECOND
+	chemistryUpdateQueue = list()
 
 /controller/process/chemistry/doWork()
 	for (var/reagents in active_reagent_holders)

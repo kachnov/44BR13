@@ -1,8 +1,8 @@
 // handles items
 PROCESS(items)
-	var/tmp/list/detailed_count
-	var/tmp/tick_counter
-	var/tmp/list/processing_items
+	var/list/detailed_count
+	var/list/processing_items
+	var/tick_counter = null
 
 /controller/process/items/setup()
 	name = "Item"
@@ -11,11 +11,12 @@ PROCESS(items)
 	for (var/obj/object in world)
 		object.initialize()
 
-	detailed_count = new
+	detailed_count = list()
 	
 	src.processing_items = global.processing_items
 
 /controller/process/items/doWork()
+
 	var/c = 0
 	for (var/item in global.processing_items)
 		var/obj/item/I = item

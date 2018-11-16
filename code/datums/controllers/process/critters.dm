@@ -1,16 +1,17 @@
 // handles critters
 PROCESS(critters)
-	var/tmp/list/detailed_count
-	var/tmp/tick_counter
-	var/tmp/list/critters
+	var/list/detailed_count = null
+	var/list/critters = null
+	var/tick_counter = null
 
 /controller/process/critters/setup()
 	name = "Critter"
-	schedule_interval = 16 // 1.6 seconds
-	detailed_count = new
+	schedule_interval = 1.6 SECONDS
+	detailed_count = list()
 	critters = global.critters
 
 /controller/process/critters/doWork()
+
 	var/i = 0
 	for (var/critter in global.critters)
 		var/obj/critter/C = critter
