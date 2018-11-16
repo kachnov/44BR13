@@ -96,6 +96,9 @@
 	// High-priority processes run first.
 	var/is_high_priority = FALSE
 
+	// when does the process run
+	var/doWorkAt = GAME_STATE_PLAYING|GAME_STATE_FINISHED
+
 /controller/process/New(var/controller/processScheduler/scheduler)
 	..()
 	if (scheduler)
@@ -149,9 +152,11 @@
 	onFinish()
 
 /controller/process/proc/doWork()
+	return
 
 /controller/process/proc/setup()
-
+	return 
+	
 /controller/process/proc/process()
 	started()
 	doWork()

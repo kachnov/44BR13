@@ -23,7 +23,7 @@
 	general_report()
 		set category = "Debug"
 
-		if (!processScheduler)
+		if (!REPO.processScheduler)
 			usr << alert("Process Scheduler not found.")
 
 		var/mobs = 0
@@ -44,7 +44,7 @@
 	air_report()
 		set category = "Debug"
 
-		if (!processScheduler || !air_master)
+		if (!REPO.processScheduler || !air_master)
 			alert(usr,"processScheduler or air_master not found.","Air Report")
 			return FALSE
 

@@ -20,10 +20,10 @@
 	set category = "Debug"
 	set name = "Edit Main Loop Variables"
 
-	if (processScheduler == null)
+	if (!REPO.processScheduler)
 		boutput(src, "Main loop hasn't started yet.")
 	else
-		debug_variables(processScheduler)
+		debug_variables(REPO.processScheduler)
 
 /client/proc/mod_list_add_ass(var/list/L, var/index) //haha
 	var/class = input("What kind of variable?","Variable Type") as null|anything in list("text",

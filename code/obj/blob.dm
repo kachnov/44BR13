@@ -1192,7 +1192,7 @@
 	return null
 
 /proc/get_master_blob_controller()
-	for (var/controller/process/blob/B in processScheduler.processes)
+	for (var/controller/process/blob/B in REPO.processScheduler.processes)
 		return B
 	return null
 

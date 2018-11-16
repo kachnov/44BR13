@@ -11,15 +11,15 @@ var/global/processSchedulerView/processSchedulerView = null
 	switch (href_list["action"])
 		if ("kill")
 			var/toKill = href_list["name"]
-			processScheduler.killProcess(toKill)
+			REPO.processScheduler.killProcess(toKill)
 			refreshProcessTable()
 		if ("enable")
 			var/toEnable = href_list["name"]
-			processScheduler.enableProcess(toEnable)
+			REPO.processScheduler.enableProcess(toEnable)
 			refreshProcessTable()
 		if ("disable")
 			var/toDisable = href_list["name"]
-			processScheduler.disableProcess(toDisable)
+			REPO.processScheduler.disableProcess(toDisable)
 			refreshProcessTable()
 		if ("refresh")
 			refreshProcessTable()
@@ -33,7 +33,7 @@ var/global/processSchedulerView/processSchedulerView = null
 /processSchedulerView/proc/getProcessTable()
 	var/text = "<table class=\"table table-striped\"><thead><tr><td>Name</td><td>Avg(s)</td><td>Last(s)</td><td>Highest(s)</td><td>Tickcount</td><td>Tickrate</td><td>State</td><td>Action</td></tr></thead><tbody>"
 	// and the context of each
-	for (var/list/data in processScheduler.getStatusData())
+	for (var/list/data in REPO.processScheduler.getStatusData())
 		text += "<tr>"
 		text += "<td>[data["name"]]</td>"
 		text += "<td>[num2text(data["averageRunTime"]/10,3)]</td>"
@@ -73,7 +73,7 @@ var/global/processSchedulerView/processSchedulerView = null
 	<button id="btn-refresh" class="btn">Refresh</button>
 	</div>
 
-	<h3>The process scheduler controls [processScheduler.getProcessCount()] loops.<h3>"}
+	<h3>The process scheduler controls [REPO.processScheduler.getProcessCount()] loops.<h3>"}
 
 	text += "<div id=\"processTable\">"
 	text += getProcessTable()

@@ -24,7 +24,7 @@
 			return
 		if (holder.rank in list("Coder", "Host"))
 			boutput(src, "Dumping detailed tick counters...")
-			for (var/controller/process/child in processScheduler.processes)
+			for (var/controller/process/child in REPO.processScheduler.processes)
 				child.tickDetail()
 		else
 			alert("Fuck off, no crashing dis server")

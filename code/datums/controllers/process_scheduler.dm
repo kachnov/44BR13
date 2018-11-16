@@ -1,52 +1,59 @@
-// Singleton instance of game_controller_new, setup in world.New()
-var/global/controller/processScheduler/processScheduler = null
+REPO_OBJECT(processScheduler, /controller/processScheduler)
 
 /controller/processScheduler
 	// Processes known by the scheduler
-	var/tmp/controller/process/list/processes = new
+	var/list/processes = null
 
 	// Processes that are currently running
-	var/tmp/controller/process/list/running = new
+	var/list/running = null
 
 	// Processes that are idle
-	var/tmp/controller/process/list/idle = new
+	var/list/idle = null
 
 	// Processes that are queued to run
-	var/tmp/controller/process/list/queued = new
+	var/list/queued = null
 
 	// Process name -> process object map
-	var/tmp/controller/process/list/nameToProcessMap = new
+	var/list/nameToProcessMap = null
 
 	// Process last start times
-	var/tmp/controller/process/list/last_start = new
+	var/list/last_start = null
 
 	// Process last run durations
-	var/tmp/controller/process/list/last_run_time = new
+	var/list/last_run_time = null
 
 	// Per process list of the last 20 durations
-	var/tmp/controller/process/list/last_twenty_run_times = new
+	var/list/last_twenty_run_times = null
 
 	// Process highest run time
-	var/tmp/controller/process/list/highest_run_time = new
-
-	// Sleep 1 tick -- This may be too aggressive.
-	var/tmp/scheduler_sleep_interval = 1
-
-	// Controls whether the scheduler is running or not
-	var/tmp/isRunning = 0
+	var/list/highest_run_time = null
 
 	// Setup for these processes will be deferred until all the other processes are set up.
-	var/tmp/list/deferredSetupList = new
+	var/list/deferredSetupList = null
 
-	var/tmp/currentTick = 0
+	// Controls whether the scheduler is running or not
+	var/isRunning = FALSE
 
-	var/tmp/currentTickStart = 0
+	// tick stuff
+	var/currentTick = 0
 
-	var/tmp/cpuAverage = 0
+	var/currentTickStart = 0
+
+	var/cpuAverage = 0
 
 /controller/processScheduler/New()
 	..()
-	scheduler_sleep_interval = world.tick_lag
+	processes = list()
+	running = list()
+	idle = list()
+	queued = list()
+	nameToProcessMap = list()
+	last_start = list()
+	last_run_time = list()
+	last_twenty_run_times = list()
+	highest_run_time = list()
+	deferredSetupList = list()
+
 
 /**
  * deferSetupFor
@@ -56,15 +63,11 @@ var/global/controller/processScheduler/processScheduler = null
  * this treatment.
  */
 /controller/processScheduler/proc/deferSetupfor(var/processPath)
-	if (!(processPath in deferredSetupList))
-		deferredSetupList += processPath
+	deferredSetupList |= processPath
 
 /controller/processScheduler/proc/setup()
 
-	// There can be only one
-	if (processScheduler && processScheduler != src)
-		del(src)
-		return FALSE
+	set waitfor = FALSE
 
 	// REPO already makes the processes for us, so just add them
 	if (REPO)
@@ -87,8 +90,14 @@ var/global/controller/processScheduler/processScheduler = null
 		for (var/process in deferredSetupList)
 			addProcess(new process(src))
 
+	// this has to be done to prevent massive runtimes
+	while (!ticker)
+		sleep(world.tick_lag)
+
+	start()
+
 /controller/processScheduler/proc/start()
-	isRunning = 1
+	isRunning = TRUE
 	process()
 
 /controller/processScheduler/proc/process()
@@ -97,46 +106,49 @@ var/global/controller/processScheduler/processScheduler = null
 		checkRunningProcesses()
 		queueProcesses()
 		runQueuedProcesses()
-		sleep(scheduler_sleep_interval)
+		sleep(world.tick_lag)
 
 /controller/processScheduler/proc/stop()
-	isRunning = 0
+	isRunning = FALSE
 
 /controller/processScheduler/proc/checkRunningProcesses()
 	for (var/process in running)
-		var/controller/process/p = process
-		p.update()
+		var/controller/process/P = process
+		P.update()
 
-		if (!p) // Process was killed
+		if (isnull(P)) // Process was killed
 			continue
 
-		var/status = p.getStatus()
-		var/previousStatus = p.getPreviousStatus()
+		var/status = P.getStatus()
+		var/previousStatus = P.getPreviousStatus()
 
 		// Check status changes
 		if (status != previousStatus)
 			//Status changed.
 			switch(status)
 				if (PROCESS_STATUS_PROBABLY_HUNG)
-					message_admins("Process '[p.name]' may be hung.")
+					message_admins("Process '[P.name]' may be hung.")
 				if (PROCESS_STATUS_HUNG)
-					message_admins("Process '[p.name]' is hung and will be restarted.")
+					message_admins("Process '[P.name]' is hung and will be restarted.")
 
 /controller/processScheduler/proc/queueProcesses()
 	for (var/process in processes)
-		var/controller/process/p = process
+		var/controller/process/P = process
 
 		// Don't double-queue, don't queue running processes
-		if (p.disabled || p.running || p.queued || !p.idle)
+		if (P.disabled || P.running || P.queued || !P.idle)
 			continue
 
-		// If world.timeofday has rolled over, then we need to adjust.
-		if (TimeOfHour < last_start[p])
-			last_start[p] -= 36000
+		// Processes can only run during specified gameticker states
+		if (P.doWorkAt & ticker.current_state)
 
-		// If the process should be running by now, go ahead and queue it
-		if (TimeOfHour > last_start[p] + p.schedule_interval)
-			setQueuedProcessState(p)
+			// If world.timeofday has rolled over, then we need to adjust.
+			if (TimeOfHour < last_start[P])
+				last_start[P] -= 36000
+
+			// If the process should be running by now, go ahead and queue it
+			if (TimeOfHour > last_start[P] + P.schedule_interval)
+				setQueuedProcessState(P)
 
 /controller/processScheduler/proc/runQueuedProcesses()
 
@@ -221,31 +233,22 @@ var/global/controller/processScheduler/processScheduler = null
 	recordEnd(process)
 
 /controller/processScheduler/proc/setIdleProcessState(var/controller/process/process)
-	if (process in running)
-		running -= process
-	if (process in queued)
-		queued -= process
-	if (!(process in idle))
-		idle += process
+	running -= process
+	queued -= process 
+	idle |= process
 
 /controller/processScheduler/proc/setQueuedProcessState(var/controller/process/process)
-	if (process in running)
-		running -= process
-	if (process in idle)
-		idle -= process
-	if (!(process in queued))
-		queued += process
+	running -= process 
+	idle -= process 
+	queued |= process
 
 	// The other state transitions are handled internally by the process.
 	process.queued()
 
 /controller/processScheduler/proc/setRunningProcessState(var/controller/process/process)
-	if (process in queued)
-		queued -= process
-	if (process in idle)
-		idle -= process
-	if (!(process in running))
-		running += process
+	queued -= process 
+	idle -= process 
+	running |= process
 
 /controller/processScheduler/proc/recordStart(var/controller/process/process, var/time = null)
 	if (isnull(time))
@@ -278,10 +281,11 @@ var/global/controller/processScheduler/processScheduler = null
 		highest_run_time[process] = time
 
 	var/list/lastTwenty = last_twenty_run_times[process]
-	if (lastTwenty.len == 20)
+	if (length(lastTwenty) == 20)
 		lastTwenty.Cut(1, 2)
-	lastTwenty.len++
-	lastTwenty[lastTwenty.len] = time
+
+	++lastTwenty.len
+	lastTwenty[length(lastTwenty)] = time
 
 /**
  * averageRunTime
@@ -298,23 +302,23 @@ var/global/controller/processScheduler/processScheduler = null
 
 	if (c > 0)
 		return t / c
+
 	return c
 
 /controller/processScheduler/proc/getStatusData()
-	var/list/data = new
+	var/list/data = list()
 
 	for (var/controller/process/p in processes)
-		data.len++
-		data[data.len] = p.getContextData()
+		++data.len
+		data[length(data)] = p.getContextData()
 
 	return data
 
 /controller/processScheduler/proc/getProcessCount()
-	return processes.len
+	return length(processes)
 
 /controller/processScheduler/proc/hasProcess(var/processName as text)
-	if (nameToProcessMap[processName])
-		return TRUE
+	return nameToProcessMap[processName] != null
 
 /controller/processScheduler/proc/killProcess(var/processName as text)
 	restartProcess(processName)

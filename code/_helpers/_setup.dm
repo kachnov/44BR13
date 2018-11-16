@@ -343,11 +343,11 @@ var/const
 //TESTING A LAYOUT
 */
 
-// gameticker
+// gameticker (these are now bitflags due to being used in the PS)
 #define GAME_STATE_PREGAME		1
 #define GAME_STATE_SETTING_UP	2
-#define GAME_STATE_PLAYING		3
-#define GAME_STATE_FINISHED		4
+#define GAME_STATE_PLAYING		4
+#define GAME_STATE_FINISHED		8
 
 //States for airlock_control
 #define ACCESS_STATE_INTERNAL	-1

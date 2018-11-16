@@ -328,8 +328,8 @@ var/f_color_selector_handler/F_Color_Selector = null
 	*/
 
 	spawn (world.tick_lag)
-		processScheduler = new
-		processScheduler.deferSetupfor(list_find_type(REPO.processes, /controller/process/ticker))
+
+		REPO.processScheduler.deferSetupfor(list_find_type(REPO.processes, /controller/process/ticker))
 		processSchedulerView = new
 
 		for (var/area/Ar in world)
@@ -338,7 +338,7 @@ var/f_color_selector_handler/F_Color_Selector = null
 
 		url_regex = new("(https?|byond|www)(\\.|:\\/\\/)", "i")
 
-		processScheduler.setup()
+		REPO.processScheduler.setup()
 
 		update_status()
 
@@ -348,7 +348,6 @@ var/f_color_selector_handler/F_Color_Selector = null
 		if (time2text(world.realtime,"DDD") == "Fri")
 			NT |= mentors
 
-	
 
 	spawn (world.tick_lag*30)
 		Optimize()
@@ -397,7 +396,7 @@ var/f_color_selector_handler/F_Color_Selector = null
 
 //Crispy fullban
 /proc/Reboot_server()
-	processScheduler.stop()
+	REPO.processScheduler.stop()
 
 	save_intraround_jars()
 	if (ticker && ticker.current_state < GAME_STATE_FINISHED)

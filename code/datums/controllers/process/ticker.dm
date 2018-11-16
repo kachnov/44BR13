@@ -6,7 +6,7 @@ PROCESS(ticker)
 	schedule_interval = 0.5 SECONDS
 
 	if (!ticker)
-		ticker = new /controller/gameticker()
+		ticker = new /controller/gameticker
 
 	// start the pregame process
 	spawn (1)

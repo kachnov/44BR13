@@ -1,5 +1,6 @@
 // handles various global init and the position of the sun.
 PROCESS(world)
+	doWorkAt = GAME_STATE_PREGAME|GAME_STATE_SETTING_UP|GAME_STATE_PLAYING|GAME_STATE_FINISHED
 	var/shuttle
 
 /controller/process/world/setup()
