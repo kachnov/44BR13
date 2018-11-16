@@ -627,6 +627,10 @@ REPO_VAR(curr_day, null)
 		return
 	if (istype(mob, /mob/dead/observer) || istype(mob, /mob/dead/hhghost)) //what the shit
 		return mob.Move(n,direct)
+	if (ishuman(mob))
+		var/mob/living/carbon/human/H = mob 
+		if (H.dancing)
+			return FALSE
 	if (moving)
 		return FALSE
 	if (!( mob ))
