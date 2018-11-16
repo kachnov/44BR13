@@ -202,6 +202,7 @@ var/preMapLoad/preMapLoad = new
 #include "code\datums\abilities\misc\werewolf_attack.dm"
 #include "code\datums\abilities\misc\werewolf_transform.dm"
 #include "code\datums\abilities\mutt\communicate.dm"
+#include "code\datums\abilities\mutt\hivemind.dm"
 #include "code\datums\abilities\vampire\blood_tracking.dm"
 #include "code\datums\abilities\vampire\call_bats.dm"
 #include "code\datums\abilities\vampire\cancel_stun.dm"

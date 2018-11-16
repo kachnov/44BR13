@@ -41,6 +41,7 @@ REPO_LIST(amerimutts, list())
 	REPO.mutt_hivemind.announce_after("[name] has been born.", 0.3 SECONDS)
 
 	abilityHolder.addAbility(/targetable/mutt/communicate)
+	abilityHolder.addAbility(/targetable/mutt/hivemind)
 
 /mob/living/carbon/human/mutt/dispose()
 	REPO.amerimutts -= src 
