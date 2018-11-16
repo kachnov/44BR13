@@ -98,6 +98,10 @@
 
 /controller/process/New(var/controller/processScheduler/scheduler)
 	..()
+	if (scheduler)
+		init(scheduler)
+
+/controller/process/proc/init(var/controller/processScheduler/scheduler)
 	main = scheduler
 	previousStatus = "idle"
 	idle()

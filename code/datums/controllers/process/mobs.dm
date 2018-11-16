@@ -11,7 +11,7 @@ PROCESS(mobs)
 /controller/process/mobs/setup()
 	name = "Mob"
 	schedule_interval = 2 SECONDS
-	detailed_count = new
+	detailed_count = list()
 	src.mobs = global.mobs
 
 /controller/process/mobs/copyStateFrom(var/controller/process/mobs/other)

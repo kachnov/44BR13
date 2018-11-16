@@ -55,24 +55,37 @@ var/global/controller/processScheduler/processScheduler = null
  * the deferred setup list. On goonstation, only the ticker needs to have
  * this treatment.
  */
-/controller/processScheduler/proc/deferSetupfor (var/processPath)
+/controller/processScheduler/proc/deferSetupfor(var/processPath)
 	if (!(processPath in deferredSetupList))
 		deferredSetupList += processPath
 
 /controller/processScheduler/proc/setup()
+
 	// There can be only one
 	if (processScheduler && processScheduler != src)
 		del(src)
 		return FALSE
 
-	var/process
-	// Add all the processes we can find, except for the ticker
-	for (process in subtypesof(/controller/process))
-		if (!(process in deferredSetupList))
-			addProcess(new process(src))
+	// REPO already makes the processes for us, so just add them
+	if (REPO)
+		for (var/process in REPO.processes)
+			if (!(process in deferredSetupList))
+				var/controller/process/P = process
+				P.init(src)
+				addProcess(process)
 
-	for (process in deferredSetupList)
-		addProcess(new process(src))
+		for (var/process in deferredSetupList)
+			var/controller/process/P = process
+			P.init(src)
+			addProcess(process)
+	else
+		// Add all the processes we can find, except for the ticker
+		for (var/process in subtypesof(/controller/process))
+			if (!(process in deferredSetupList))
+				addProcess(new process(src))
+
+		for (var/process in deferredSetupList)
+			addProcess(new process(src))
 
 /controller/processScheduler/proc/start()
 	isRunning = 1
