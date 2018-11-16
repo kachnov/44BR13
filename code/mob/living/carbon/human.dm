@@ -6494,7 +6494,14 @@ REPO_CONST(fortnite_dance_fluff, "<strong>{}</strong> pulls both arms outwards i
 	if (gender == MALE && stat == CONSCIOUS)
 
 		if (nut >= 0)
-			for (var/mob/living/carbon/human/xenomorph/X in get_step(src, dir))
+			var/list/possible_targets = list()
+
+			for (var/thing in get_turf(src))
+				possible_targets += thing
+			for (var/thing in get_step(src, dir))
+				possible_targets += thing 
+
+			for (var/mob/living/carbon/human/xenomorph/X in possible_targets)
 				visible_message("[SPANSEX][src] [pick("shoves", "thrusts", "pushes", "forces")] his [schlong] [pick("schlong", "weiner", "dong")] into [X]'s pussy!</span>")
 				X.weakened = max(X.weakened, min(4, X.weakened+1))
 				if (++nut >= rand(10,20))
