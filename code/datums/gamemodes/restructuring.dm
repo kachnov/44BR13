@@ -67,7 +67,7 @@
 
 /game_mode/restructuring/proc/get_target_desc(mob/target) //return a useful string describing the target
 	var/targetrank = null
-	for (var/data/record/R in data_core.general)
+	for (var/data/record/R in REPO.data_core.general)
 		if (R.fields["name"] == target.real_name)
 			targetrank = R.fields["rank"]
 	if (!targetrank)

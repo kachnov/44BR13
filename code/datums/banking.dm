@@ -144,7 +144,7 @@
 		// Everyone gets paid into their bank accounts
 		if (!wagesystem.pay_active) return // some greedy prick suspended the payroll!
 		if (station_budget < 1) return // we don't have any money so don't bother!
-		for (var/data/record/t in data_core.bank)
+		for (var/data/record/t in REPO.data_core.bank)
 			if (station_budget >= t.fields["wage"])
 				t.fields["current_money"] += t.fields["wage"]
 				station_budget -= t.fields["wage"]
@@ -294,7 +294,7 @@
 
 
 	proc/TryToFindRecord()
-		for (var/data/record/B in data_core.bank)
+		for (var/data/record/B in REPO.data_core.bank)
 			if (scan && (B.fields["name"] == scan.registered) )
 				accessed_record = B
 				return TRUE
@@ -411,7 +411,7 @@
 					if (1.0)
 						var/payroll = 0
 						var/totalfunds = wagesystem.station_budget + wagesystem.research_budget + wagesystem.shipping_budget
-						for (var/data/record/R in data_core.bank)
+						for (var/data/record/R in REPO.data_core.bank)
 							payroll += R.fields["wage"]
 						dat += {"
 						<u><strong>Total Station Funds:</strong> $[num2text(totalfunds,50)]</u>
@@ -431,7 +431,7 @@
 						<BR><br>"}
 					if (2.0)
 						dat += "<strong>Record List</strong>:<HR>"
-						for (var/data/record/R in data_core.bank)
+						for (var/data/record/R in REPO.data_core.bank)
 							dat += text("<BR><strong>Name:</strong> <A href='?src=\ref[src];Fname=\ref[R]'>[R.fields["name"]]</A> <strong>Job:</strong> <A href='?src=\ref[src];Fjob=\ref[R]'>[R.fields["job"]]</A>")
 							dat += text("<BR><strong>Current Wage:</strong> <A href='?src=\ref[src];Fwage=\ref[R]'>[R.fields["wage"]]</A>")
 							dat += text("<BR><strong>Current Balance:</strong> <A href='?src=\ref[src];Fmoney=\ref[R]'>[R.fields["current_money"]]</A><BR>")
@@ -446,7 +446,7 @@
 	Topic(href, href_list)
 		if (..())
 			return
-		if (!( data_core.bank.Find(active1) ))
+		if (!( REPO.data_core.bank.Find(active1) ))
 			active1 = null
 		if ((usr.contents.Find(src) || (in_range(src, usr) && istype(loc, /turf))) || (istype(usr, /mob/living/silicon)))
 			usr.machine = src
@@ -668,7 +668,7 @@
 
 
 	proc/TryToFindRecord()
-		for (var/data/record/B in data_core.bank)
+		for (var/data/record/B in REPO.data_core.bank)
 			if (scan && (B.fields["name"] == scan.registered) )
 				accessed_record = B
 				return TRUE
@@ -782,7 +782,7 @@
 
 /proc/FindBankAccountByName(var/nametosearch)
 	if (!nametosearch) return
-	for (var/data/record/B in data_core.bank)
+	for (var/data/record/B in REPO.data_core.bank)
 		if (B.fields["name"] == nametosearch)
 			return B
 	return

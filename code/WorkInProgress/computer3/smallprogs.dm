@@ -1352,7 +1352,7 @@ file_save - Save file to local disk."}
 
 		var/dat = "Crew Manifest<br>Entries cannot be modified from this terminal.<br>"
 
-		for (var/data/record/t in data_core.general)
+		for (var/data/record/t in REPO.data_core.general)
 			dat += "[t.fields["name"]] - [t.fields["rank"]]<br>"
 
 		master.temp = null

@@ -196,19 +196,19 @@
 	return
 
 /mob/proc/showtickets()
-	if (!data_core.tickets.len && !data_core.fines.len) return
+	if (!REPO.data_core.tickets.len && !REPO.data_core.fines.len) return
 
 	var/dat = {"<strong>Tickets</strong><BR><HR>"}
 
-	if (data_core.tickets.len)
+	if (REPO.data_core.tickets.len)
 		var/list/people_with_tickets = list()
-		for (var/ticket/T in data_core.tickets)
+		for (var/ticket/T in REPO.data_core.tickets)
 			if (!(T.target in people_with_tickets))
 				people_with_tickets += T.target
 
 		for (var/N in people_with_tickets)
 			dat += "<strong>[N]</strong><br><br>"
-			for (var/ticket/T in data_core.tickets)
+			for (var/ticket/T in REPO.data_core.tickets)
 				if (T.target == N)
 					dat += "[T.text]<br>"
 		dat += "<br>"
@@ -217,15 +217,15 @@
 
 	dat += {"<strong>Fines</strong><BR><HR>"}
 
-	if (data_core.fines.len)
+	if (REPO.data_core.fines.len)
 		var/list/people_with_fines = list()
-		for (var/fine/F in data_core.fines)
+		for (var/fine/F in REPO.data_core.fines)
 			if (!(F.target in people_with_fines))
 				people_with_fines += F.target
 
 		for (var/N in people_with_fines)
 			dat += "<strong>[N]</strong><br><br>"
-			for (var/fine/F in data_core.fines)
+			for (var/fine/F in REPO.data_core.fines)
 				if (F.target == N)
 					dat += "[F.target]: [F.amount] credits<br>Reason: [F.reason]<br>[F.approver ? "[F.issuer != F.approver ? "Requested by: [F.issuer] - [F.issuer_job]<br>Approved by: [F.approver] - [F.approver_job]" : "Issued by: [F.approver] - [F.approver_job]"]" : "Not Approved"]<br>Paid: [F.paid_amount] credits<br><br>"
 	else

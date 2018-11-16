@@ -70,7 +70,7 @@
 					dat += text("<A href='?src=\ref[];search=1'>Search Records</A><BR><br><A href='?src=\ref[];list=1'>List Records</A><BR><br><A href='?src=\ref[];search_f=1'>Search Fingerprints</A><BR><br><A href='?src=\ref[];new_r=1'>New Record</A><BR><br><BR><br><A href='?src=\ref[];rec_m=1'>Record Maintenance</A><BR><br><A href='?src=\ref[];logout=1'>{Log Out}</A><BR><br>", src, src, src, src, src, src)
 				if (2.0)
 					dat += "<strong>Record List</strong>:<HR>"
-					for (var/data/record/R in data_core.general)
+					for (var/data/record/R in REPO.data_core.general)
 						dat += text("<A href='?src=\ref[];d_rec=\ref[]'>[]: []<BR>", src, R, R.fields["id"], R.fields["name"])
 						//Foreach goto(136)
 					dat += text("<HR><A href='?src=\ref[];main=1'>Back</A>", src)
@@ -78,11 +78,11 @@
 					dat += text("<strong>Records Maintenance</strong><HR><br><A href='?src=\ref[];back=1'>Backup To Disk</A><BR><br><A href='?src=\ref[];u_load=1'>Upload From disk</A><BR><br><A href='?src=\ref[];del_all=1'>Delete All Records</A><BR><br><BR><br><A href='?src=\ref[];main=1'>Back</A>", src, src, src, src)
 				if (4.0)
 					dat += "<CENTER><strong>Security Record</strong></CENTER><BR>"
-					if ((istype(active1, /data/record) && data_core.general.Find(active1)))
+					if ((istype(active1, /data/record) && REPO.data_core.general.Find(active1)))
 						dat += text("Name: <A href='?src=\ref[];field=name'>[]</A> ID: <A href='?src=\ref[];field=id'>[]</A><BR><br>Sex: <A href='?src=\ref[];field=sex'>[]</A><BR><br>Age: <A href='?src=\ref[];field=age'>[]</A><BR><br>Rank: <A href='?src=\ref[];field=rank'>[]</A><BR><br>Fingerprint: <A href='?src=\ref[];field=fingerprint'>[]</A><br><br>DNA: []<BR><br>Physical Status: []<BR><br>Mental Status: []<BR>", src, active1.fields["name"], src, active1.fields["id"], src, active1.fields["sex"], src, active1.fields["age"], src, active1.fields["rank"], src, active1.fields["fingerprint"], active1.fields["dna"], active1.fields["p_stat"], active1.fields["m_stat"])
 					else
 						dat += "<strong>General Record Lost!</strong><BR>"
-					if ((istype(active2, /data/record) && data_core.security.Find(active2)))
+					if ((istype(active2, /data/record) && REPO.data_core.security.Find(active2)))
 						dat += text("<BR><br><CENTER><strong>Security Data</strong></CENTER><BR><br>Criminal Status: <A href='?src=\ref[];field=criminal'>[]</A><BR><br><BR><br>Minor Crimes: <A href='?src=\ref[];field=mi_crim'>[]</A><BR><br>Details: <A href='?src=\ref[];field=mi_crim_d'>[]</A><BR><br><BR><br>Major Crimes: <A href='?src=\ref[];field=ma_crim'>[]</A><BR><br>Details: <A href='?src=\ref[];field=ma_crim_d'>[]</A><BR><br><BR><br>Important Notes:<BR><br>&emsp;<A href='?src=\ref[];field=notes'>[]</A><BR><br><BR><br><CENTER><strong>Comments/Log</strong></CENTER><BR>", src, active2.fields["criminal"], src, active2.fields["mi_crim"], src, active2.fields["mi_crim_d"], src, active2.fields["ma_crim"], src, active2.fields["ma_crim_d"], src, active2.fields["notes"])
 						var/counter = 1
 						while (active2.fields[text("com_[]", counter)])
@@ -104,9 +104,9 @@
 /obj/machinery/computer/secure_data/Topic(href, href_list)
 	if (..())
 		return
-	if (!( data_core.general.Find(active1) ))
+	if (!( REPO.data_core.general.Find(active1) ))
 		active1 = null
-	if (!( data_core.security.Find(active2) ))
+	if (!( REPO.data_core.security.Find(active2) ))
 		active2 = null
 	if ((usr.contents.Find(src) || (in_range(src, usr) && istype(loc, /turf))) || (istype(usr, /mob/living/silicon)))
 		usr.machine = src
@@ -158,7 +158,7 @@
 						temp = text("Are you sure you wish to delete all records?<br><br>&emsp;<A href='?src=\ref[];temp=1;del_all2=1'>Yes</A><br><br>&emsp;<A href='?src=\ref[];temp=1'>No</A><br>", src, src)
 					else
 						if (href_list["del_all2"])
-							for (var/data/record/R in data_core.security)
+							for (var/data/record/R in REPO.data_core.security)
 								//R = null
 								qdel(R)
 								//Foreach goto(497)
@@ -319,7 +319,7 @@
 															temp = text("Are you sure you wish to delete the record (ALL)?<br><br>&emsp;<A href='?src=\ref[];temp=1;dela_r2=1'>Yes</A><br><br>&emsp;<A href='?src=\ref[];temp=1'>No</A><br>", src, src)
 													else
 														if (href_list["dela_r2"])
-															for (var/data/record/R in data_core.medical)
+															for (var/data/record/R in REPO.data_core.medical)
 																if ((R.fields["name"] == active1.fields["name"] || R.fields["id"] == active1.fields["id"]))
 																	//R = null
 																	qdel(R)
@@ -334,10 +334,10 @@
 															if (href_list["d_rec"])
 																var/data/record/R = locate(href_list["d_rec"])
 																var/S = locate(href_list["d_rec"])
-																if (!( data_core.general.Find(R) ))
+																if (!( REPO.data_core.general.Find(R) ))
 																	temp = "Record Not Found!"
 																	return
-																for (var/data/record/E in data_core.security)
+																for (var/data/record/E in REPO.data_core.security)
 																	if ((E.fields["name"] == R.fields["name"] || E.fields["id"] == R.fields["id"]))
 																		S = E
 																	else
@@ -356,7 +356,7 @@
 																	G.fields["fingerprint"] = "Unknown"
 																	G.fields["p_stat"] = "Active"
 																	G.fields["m_stat"] = "Stable"
-																	data_core.general += G
+																	REPO.data_core.general += G
 																	active1 = G
 																	active2 = null
 																else
@@ -372,7 +372,7 @@
 																			R.fields["ma_crim"] = "None"
 																			R.fields["ma_crim_d"] = "No major crime convictions."
 																			R.fields["notes"] = "No notes."
-																			data_core.security += R
+																			REPO.data_core.security += R
 																			active2 = R
 																			screen = 4
 																	else
@@ -401,7 +401,7 @@
 																					active1 = null
 																					active2 = null
 																					t1 = lowertext(t1)
-																					for (var/data/record/R in data_core.general)
+																					for (var/data/record/R in REPO.data_core.general)
 																						if (lowertext(R.fields["fingerprint"]) == t1)
 																							active1 = R
 																						else
@@ -409,7 +409,7 @@
 																					if (!( active1 ))
 																						temp = text("Could not locate record [].", t1)
 																					else
-																						for (var/data/record/E in data_core.security)
+																						for (var/data/record/E in REPO.data_core.security)
 																							if ((E.fields["name"] == active1.fields["name"] || E.fields["id"] == active1.fields["id"]))
 																								active2 = E
 																							else
@@ -424,7 +424,7 @@
 																						active1 = null
 																						active2 = null
 																						t1 = lowertext(t1)
-																						for (var/data/record/R in data_core.general)
+																						for (var/data/record/R in REPO.data_core.general)
 																							if ((lowertext(R.fields["name"]) == t1 || t1 == lowertext(R.fields["dna"]) || t1 == lowertext(R.fields["id"])))
 																								active1 = R
 																							else
@@ -432,7 +432,7 @@
 																						if (!( active1 ))
 																							temp = text("Could not locate record [].", t1)
 																						else
-																							for (var/data/record/E in data_core.security)
+																							for (var/data/record/E in REPO.data_core.security)
 																								if ((E.fields["name"] == active1.fields["name"] || E.fields["id"] == active1.fields["id"]))
 																									active2 = E
 																								else
@@ -445,11 +445,11 @@
 																								sleep(50)
 																								var/obj/item/paper/P = new /obj/item/paper( loc )
 																								P.info = "<CENTER><strong>Security Record</strong></CENTER><BR>"
-																								if ((istype(active1, /data/record) && data_core.general.Find(active1)))
+																								if ((istype(active1, /data/record) && REPO.data_core.general.Find(active1)))
 																									P.info += text("Name: [] ID: []<BR><br>Sex: []<BR><br>Age: []<BR><br>Fingerprint: []<BR><br>Physical Status: []<BR><br>Mental Status: []<BR>", active1.fields["name"], active1.fields["id"], active1.fields["sex"], active1.fields["age"], active1.fields["fingerprint"], active1.fields["p_stat"], active1.fields["m_stat"])
 																								else
 																									P.info += "<strong>General Record Lost!</strong><BR>"
-																								if ((istype(active2, /data/record) && data_core.security.Find(active2)))
+																								if ((istype(active2, /data/record) && REPO.data_core.security.Find(active2)))
 																									P.info += text("<BR><br><CENTER><strong>Security Data</strong></CENTER><BR><br>Criminal Status: []<BR><br><BR><br>Minor Crimes: []<BR><br>Details: []<BR><br><BR><br>Major Crimes: []<BR><br>Details: []<BR><br><BR><br>Important Notes:<BR><br>&emsp;[]<BR><br><BR><br><CENTER><strong>Comments/Log</strong></CENTER><BR>", active2.fields["criminal"], active2.fields["mi_crim"], active2.fields["mi_crim_d"], active2.fields["ma_crim"], active2.fields["ma_crim_d"], active2.fields["notes"])
 																									var/counter = 1
 																									while (active2.fields[text("com_[]", counter)])

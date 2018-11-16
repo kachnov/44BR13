@@ -24,7 +24,7 @@
 		return
 	if (mode) // accessing crew manifest
 		var/crew = ""
-		for (var/data/record/t in data_core.general)
+		for (var/data/record/t in REPO.data_core.general)
 			crew += "[t.fields["name"]] - [t.fields["rank"]]<br>"
 		dat = "<tt><strong>Crew Manifest:</strong><br>Please use security record computer to modify entries.<br>[crew]<a href='?src=\ref[src];print=1'>Print</a><br><br><a href='?src=\ref[src];mode=0'>Access ID modification console.</a><br></tt>"
 	else
@@ -237,7 +237,7 @@
 			sleep(50)
 			var/obj/item/paper/P = new /obj/item/paper( loc )
 			var/t1 = "<strong>Crew Manifest:</strong><BR>"
-			for (var/data/record/t in data_core.general)
+			for (var/data/record/t in REPO.data_core.general)
 				t1 += "<strong>[t.fields["name"]]</strong> - [t.fields["rank"]]<BR>"
 			P.info = t1
 			P.name = "paper- 'Crew Manifest'"

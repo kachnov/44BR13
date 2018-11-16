@@ -595,9 +595,9 @@
 			if (!istype(jerk))
 				return
 
-			for (var/data/record/R in data_core.general)
+			for (var/data/record/R in REPO.data_core.general)
 				if (R.fields["name"] == jerk.real_name)
-					for (var/data/record/S in data_core.security)
+					for (var/data/record/S in REPO.data_core.security)
 						if (S.fields["id"] == R.fields["id"])
 							S.fields["criminal"] = "*Arrest*"
 							S.fields["mi_crim"] = "Reading highly-confidential private information."

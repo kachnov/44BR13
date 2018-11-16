@@ -23,7 +23,7 @@
 			if (0)
 				dat += "<h4>Security Record List</h4>"
 
-				for (var/data/record/R in data_core.general)
+				for (var/data/record/R in REPO.data_core.general)
 					dat += "<a href='byond://?src=\ref[src];select_rec=\ref[R]'>[R.fields["id"]]: [R.fields["name"]]<br>"
 
 				dat += "<br>"
@@ -34,7 +34,7 @@
 
 				dat += "<a href='byond://?src=\ref[src];mode=0'>Back</a><br>"
 
-				if (istype(active1, /data/record) && data_core.general.Find(active1))
+				if (istype(active1, /data/record) && REPO.data_core.general.Find(active1))
 					dat += "Name: [active1.fields["name"]] ID: [active1.fields["id"]]<br>"
 					dat += "Sex: [active1.fields["sex"]]<br>"
 					dat += "Age: [active1.fields["age"]]<br>"
@@ -48,7 +48,7 @@
 				dat += "<br>"
 
 				dat += "<h4>Security Data</h4>"
-				if (istype(active2, /data/record) && data_core.security.Find(active2))
+				if (istype(active2, /data/record) && REPO.data_core.security.Find(active2))
 					dat += "Criminal Status: [active2.fields["criminal"]]<br>"
 
 					dat += "Minor Crimes: [active2.fields["mi_crim"]]<br>"
@@ -78,8 +78,8 @@
 			var/data/record/R = locate(href_list["select_rec"])
 			var/data/record/S = locate(href_list["select_rec"])
 
-			if (data_core.general.Find(R))
-				for (var/data/record/E in data_core.security)
+			if (REPO.data_core.general.Find(R))
+				for (var/data/record/E in REPO.data_core.security)
 					if ((E.fields["name"] == R.fields["name"] || E.fields["id"] == R.fields["id"]))
 						S = E
 						break
@@ -107,7 +107,7 @@
 			if (0)
 
 				dat += "<h4>Medical Record List</h4>"
-				for (var/data/record/R in data_core.general)
+				for (var/data/record/R in REPO.data_core.general)
 					dat += "<a href='byond://?src=\ref[src];select_rec=\ref[R]'>[R.fields["id"]]: [R.fields["name"]]<br>"
 				dat += "<br>"
 
@@ -117,7 +117,7 @@
 
 				dat += "<a href='byond://?src=\ref[src];mode=0'>Back</a><br>"
 
-				if (istype(active1, /data/record) && data_core.general.Find(active1))
+				if (istype(active1, /data/record) && REPO.data_core.general.Find(active1))
 					dat += "Name: [active1.fields["name"]] ID: [active1.fields["id"]]<br>"
 					dat += "Sex: [active1.fields["sex"]]<br>"
 					dat += "Age: [active1.fields["age"]]<br>"
@@ -131,7 +131,7 @@
 				dat += "<br>"
 
 				dat += "<h4>Medical Data</h4>"
-				if (istype(active2, /data/record) && data_core.medical.Find(active2))
+				if (istype(active2, /data/record) && REPO.data_core.medical.Find(active2))
 					dat += "Current Health: [active2.fields["h_imp"]]<br><br>"
 
 					dat += "Blood Type: [active2.fields["bioHolder.bloodType"]]<br><br>"
@@ -170,8 +170,8 @@
 			var/data/record/R = locate(href_list["select_rec"])
 			var/data/record/M = locate(href_list["select_rec"])
 
-			if (data_core.general.Find(R))
-				for (var/data/record/E in data_core.medical)
+			if (REPO.data_core.general.Find(R))
+				for (var/data/record/E in REPO.data_core.medical)
 					if ((E.fields["name"] == R.fields["name"] || E.fields["id"] == R.fields["id"]))
 						M = E
 						break

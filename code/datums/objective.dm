@@ -536,7 +536,7 @@
 			for (var/obj/item/spacecash/C in L)
 				current_cash += C.amount
 
-		for (var/data/record/Ba in data_core.bank)
+		for (var/data/record/Ba in REPO.data_core.bank)
 			if (Ba.fields["name"] == owner.current.real_name)
 				current_cash += Ba.fields["current_money"]
 

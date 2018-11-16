@@ -396,7 +396,7 @@ var/global/controller/gameticker/ticker = null
 				for (var/obj/item/device/pda2/PDA in S.contents)
 					if (PDA.ID_card) cashscore += PDA.ID_card.money
 				for (var/obj/item/spacecash/C4 in S.contents) cashscore += C4.amount
-			for (var/data/record/Ba in data_core.bank)
+			for (var/data/record/Ba in REPO.data_core.bank)
 				if (Ba.fields["name"] == E.real_name) cashscore += Ba.fields["current_money"]
 			if (cashscore > score_richestcash)
 				score_richestcash = cashscore

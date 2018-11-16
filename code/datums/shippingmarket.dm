@@ -142,7 +142,7 @@
 
 	var/payroll = 0
 	var/totalfunds = wagesystem.station_budget + wagesystem.research_budget + wagesystem.shipping_budget
-	for (var/data/record/R in data_core.bank)
+	for (var/data/record/R in REPO.data_core.bank)
 		payroll += R.fields["wage"]
 
 	var/dat = {"<strong>Budget Variables:</strong>

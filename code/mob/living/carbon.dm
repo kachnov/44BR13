@@ -242,9 +242,9 @@
 			if (src:wear_id && src:wear_id:registered)
 				perpname = src:wear_id:registered
 			// find the matching security record
-			for (var/data/record/R in data_core.general)
+			for (var/data/record/R in REPO.data_core.general)
 				if (R.fields["name"] == perpname)
-					for (var/data/record/S in data_core.security)
+					for (var/data/record/S in REPO.data_core.security)
 						if (S.fields["id"] == R.fields["id"])
 							// now add to rap sheet
 

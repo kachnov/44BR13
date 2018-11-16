@@ -95,9 +95,9 @@ Confirm Identity: <A href='?src=\ref[src];scan=1'>[src.scan ? src.scan.name : "-
 /obj/machinery/computer/research/disease/Topic(href, href_list)
 	if (..())
 		return
-	if (!( data_core.general.Find(active1) ))
+	if (!( REPO.data_core.general.Find(active1) ))
 		active1 = null
-	if (!( data_core.medical.Find(active2) ))
+	if (!( REPO.data_core.medical.Find(active2) ))
 		active2 = null
 	if ((usr.contents.Find(src) || (in_range(src, usr) && istype(loc, /turf))) || (istype(usr, /mob/living/silicon)))
 		usr.machine = src

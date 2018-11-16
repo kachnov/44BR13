@@ -4536,7 +4536,7 @@ REPO_CONST(fortnite_dance_fluff, "<strong>{}</strong> pulls both arms outwards i
 					mini_health_hud = 1
 				var/obj/item/implant/health/H = I
 				var/data/record/probably_my_record = null
-				for (var/data/record/R in data_core.medical)
+				for (var/data/record/R in REPO.data_core.medical)
 					if (R.fields["name"] == real_name)
 						probably_my_record = R
 						break

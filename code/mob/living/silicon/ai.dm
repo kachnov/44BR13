@@ -1173,7 +1173,7 @@ var/list/ai_emotions = list("Happy" = "ai_happy",\
 	set name = "View Crew Manifest"
 
 	var/crew = ""
-	for (var/data/record/t in data_core.general)
+	for (var/data/record/t in REPO.data_core.general)
 		crew += "[t.fields["name"]] - [t.fields["rank"]]<br>"
 
 	usr << browse("<head><title>Crew Manifest</title></head><body><tt><strong>Crew Manifest:</strong><hr>[crew]</tt></body>", "window=aimanifest")

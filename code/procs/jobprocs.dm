@@ -352,7 +352,7 @@
 	JOB.special_setup(src)
 
 	// Manifest stuff
-	data_core.addManifest(src)
+	REPO.data_core.addManifest(src)
 
 	spawn (0)
 		if (traitHolder && !traitHolder.hasTrait("immigrant"))

@@ -66,7 +66,6 @@ var/global/list/queue_stat_list = list()
 
 var/global
 	
-	obj/datacore/data_core = null
 	obj/overlay/plmaster = null
 	obj/overlay/slmaster = null
 	obj/overlay/w1master = null

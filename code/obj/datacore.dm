@@ -1,3 +1,4 @@
+REPO_OBJECT(data_core, /obj/datacore)
 /obj/datacore
 	name = "datacore"
 	var/list/medical = list(  )
@@ -179,7 +180,7 @@
 	New()
 		generate_ID()
 		spawn (10)
-			for (var/data/record/B in data_core.bank) //gross
+			for (var/data/record/B in REPO.data_core.bank) //gross
 				if (B.fields["name"] == target)
 					bank_record = B
 					break
@@ -214,4 +215,4 @@
 		spawn (300) process_payment()
 
 /fine/proc/generate_ID()
-	if (!ID) ID = (data_core.fines.len + 1)
+	if (!ID) ID = (REPO.data_core.fines.len + 1)

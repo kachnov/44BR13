@@ -206,8 +206,6 @@ var/f_color_selector_handler/F_Color_Selector = null
 
 	vote = new /vote()
 
-	data_core = new /obj/datacore()
-
 	init_vox()
 	if (load_intra_round_value("solarium_complete") == 1)
 		derelict_mode = 1

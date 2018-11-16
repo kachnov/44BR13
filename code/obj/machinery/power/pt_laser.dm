@@ -175,7 +175,7 @@
 			megawatt_seconds -= amount_sold
 
 	var/list/accounts = list()
-	for (var/data/record/t in data_core.bank)
+	for (var/data/record/t in REPO.data_core.bank)
 		if (t.fields["job"] == "Chief Engineer")
 			accounts += t
 			accounts += t //fuck it

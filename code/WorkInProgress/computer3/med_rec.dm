@@ -52,7 +52,7 @@
  |_|  |_\\___\\__,_|     |_| |_| \\__,_|_\\_\\</pre>"}
 */
 		authenticated = null
-		record_list = data_core.general.Copy() //Initial setting of record list.
+		record_list = REPO.data_core.general.Copy() //Initial setting of record list.
 		master.temp = null
 		menu = MENU_MAIN
 		field_input = 0
@@ -91,7 +91,7 @@
 						return
 
 					if ("1") //View records
-						record_list = data_core.general
+						record_list = REPO.data_core.general
 
 						menu = MENU_INDEX
 						print_index()
@@ -129,8 +129,8 @@
 
 				active_general = check
 				active_medical = null
-				if (data_core.general.Find(check))
-					for (var/data/record/E in data_core.medical)
+				if (REPO.data_core.general.Find(check))
+					for (var/data/record/E in REPO.data_core.medical)
 						if ((E.fields["name"] == active_general.fields["name"] || E.fields["id"] == active_general.fields["id"]))
 							active_medical = E
 							break
@@ -159,7 +159,7 @@
 
 						//Okay, let's put together something to print.
 						var/info = "<center><strong>Medical Record</strong></center><br>"
-						if (istype(active_general, /data/record) && data_core.general.Find(active_general))
+						if (istype(active_general, /data/record) && REPO.data_core.general.Find(active_general))
 							info += {"
 							Name: [active_general.fields["name"]] ID: [active_general.fields["id"]]
 							<br><br>Sex: [active_general.fields["sex"]]
@@ -171,7 +171,7 @@
 							<br><br>Mental Status: [active_general.fields["m_stat"]]"}
 						else
 							info += "<strong>General Record Lost!</strong><br>"
-						if ((istype(active_medical, /data/record) && data_core.medical.Find(active_medical)))
+						if ((istype(active_medical, /data/record) && REPO.data_core.medical.Find(active_medical)))
 							info += {"
 							<br><br><center><strong>Medical Data</strong></center><br>
 							<br><br>Current Health: [active_medical.fields["h_imp"]]
@@ -384,13 +384,13 @@
 							if ("y")
 								if (active_medical)
 									log_string += "<br>M-Record [active_medical.fields["id"]] deleted."
-									data_core.medical -= active_medical
+									REPO.data_core.medical -= active_medical
 									qdel(active_medical)
 									print_active_record()
 									menu = MENU_IN_RECORD
 
 								else if (active_general)
-									data_core.general -= active_general
+									REPO.data_core.general -= active_general
 
 									log_string += "<br>Record [active_general.fields["id"]] deleted."
 									qdel(active_general)
@@ -424,7 +424,7 @@
 						R.fields["notes"] = "No notes."
 						R.fields["h_imp"] = "No health implant detected."
 						R.fields["traits"] = "No known traits."
-						data_core.medical += R
+						REPO.data_core.medical += R
 						active_medical = R
 
 						log_string += "<br>New medical record created."
@@ -440,7 +440,7 @@
 					return
 
 				var/data/record/result = null
-				for (var/data/record/R in data_core.general)
+				for (var/data/record/R in REPO.data_core.general)
 					if ((ckey(R.fields["name"]) == searchText) || (ckey(R.fields["dna"]) == searchText) || (ckey(R.fields["id"]) == searchText) || (ckey(R.fields["fingerprint"]) == searchText))
 						result = R
 						break
@@ -452,7 +452,7 @@
 
 				active_general = result
 				active_medical = null //Time to find the accompanying medical record, if it even exists.
-				for (var/data/record/E in data_core.medical)
+				for (var/data/record/E in REPO.data_core.medical)
 					if ((E.fields["name"] == active_general.fields["name"] || E.fields["id"] == active_general.fields["id"]))
 						active_medical = E
 						break
@@ -629,7 +629,7 @@
 			<br>\[06]Physical Status: [active_general.fields["p_stat"]]
 			<br>\[07]Mental Status: [active_general.fields["m_stat"]]"}
 
-			if ((istype(active_medical, /data/record) && data_core.medical.Find(active_medical)))
+			if ((istype(active_medical, /data/record) && REPO.data_core.medical.Find(active_medical)))
 				view_string += {"<br><center><strong>Medical Data:</strong></center>
 				<br>\[__]Current Health: [active_medical.fields["h_imp"]]
 				<br>\[08]Blood Type: [active_medical.fields["bioHolder.bloodType"]]

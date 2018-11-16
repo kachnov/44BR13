@@ -184,7 +184,7 @@
 	if (M:wear_id && M:wear_id:registered)
 		patientname = M.wear_id:registered
 
-	for (var/data/record/E in data_core.general)
+	for (var/data/record/E in REPO.data_core.general)
 		if (E.fields["name"] == patientname)
 			switch (M.stat)
 				if (0)
@@ -196,7 +196,7 @@
 					E.fields["p_stat"] = "*Unconscious*"
 				if (2)
 					E.fields["p_stat"] = "*Deceased*"
-			for (var/data/record/R in data_core.medical)
+			for (var/data/record/R in REPO.data_core.medical)
 				if ((R.fields["id"] == E.fields["id"]))
 					R.fields["bioHolder.bloodType"] = M.bioHolder.bloodType
 					R.fields["cdi"] = english_list(M.ailments, "No diseases have been diagnosed at the moment.")

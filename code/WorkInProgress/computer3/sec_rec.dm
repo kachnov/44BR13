@@ -59,7 +59,7 @@
   \\/_____/_____/_____/_/  \\/_/_/\\/_/\\/_/\\/_____/ </pre>"}
 */
 		authenticated = null
-		record_list = data_core.general.Copy() //Initial setting of record list.
+		record_list = REPO.data_core.general.Copy() //Initial setting of record list.
 		master.temp = null
 		menu = MENU_MAIN
 		field_input = 0
@@ -103,7 +103,7 @@
 						return
 
 					if ("1") //View records
-						record_list = data_core.general
+						record_list = REPO.data_core.general
 
 						menu = MENU_INDEX
 						print_index()
@@ -246,8 +246,8 @@
 
 				active_general = check
 				active_secure = null
-				if (data_core.general.Find(check))
-					for (var/data/record/E in data_core.security)
+				if (REPO.data_core.general.Find(check))
+					for (var/data/record/E in REPO.data_core.security)
 						if ((E.fields["name"] == active_general.fields["name"] || E.fields["id"] == active_general.fields["id"]))
 							active_secure = E
 							break
@@ -317,7 +317,7 @@
 						R.fields["ma_crim"] = "None"
 						R.fields["ma_crim_d"] = "No major crime convictions."
 						R.fields["notes"] = "No notes."
-						data_core.security += R
+						REPO.data_core.security += R
 						active_secure = R
 
 						print_active_record()
@@ -446,13 +446,13 @@
 							if ("y")
 								if (active_secure)
 									log_string += "<br>S-Record [active_secure.fields["id"]] deleted."
-									data_core.security -= active_secure
+									REPO.data_core.security -= active_secure
 									qdel(active_secure)
 									print_active_record()
 									menu = MENU_IN_RECORD
 
 								else if (active_general)
-									data_core.general -= active_general
+									REPO.data_core.general -= active_general
 
 									log_string += "<br>Record [active_general.fields["id"]] deleted."
 									qdel(active_general)
@@ -475,7 +475,7 @@
 					return
 
 				var/data/record/result = null
-				for (var/data/record/R in data_core.general)
+				for (var/data/record/R in REPO.data_core.general)
 					if ((ckey(R.fields["name"]) == searchText) || (ckey(R.fields["dna"]) == searchText) || (ckey(R.fields["id"]) == searchText) || (ckey(R.fields["fingerprint"]) == searchText))
 						result = R
 						break
@@ -487,7 +487,7 @@
 
 				active_general = result
 				active_secure = null //Time to find the accompanying security record, if it even exists.
-				for (var/data/record/E in data_core.security)
+				for (var/data/record/E in REPO.data_core.security)
 					if ((E.fields["name"] == active_general.fields["name"] || E.fields["id"] == active_general.fields["id"]))
 						active_secure = E
 						break
@@ -602,7 +602,7 @@
 			<br>\[__]Physical Status: [active_general.fields["p_stat"]]
 			<br>\[__]Mental Status: [active_general.fields["m_stat"]]"}
 
-			if ((istype(active_secure, /data/record) && data_core.security.Find(active_secure)))
+			if ((istype(active_secure, /data/record) && REPO.data_core.security.Find(active_secure)))
 				view_string +={"
 				<br><center><strong>Security Data</strong></center>
 				<br>\[06]<strong>Criminal Status:</strong> [active_secure.fields["criminal"]]
@@ -711,7 +711,7 @@
 
 			//Okay, let's put together something to print.
 			var/info = "<center><strong>Security Record</strong></center><br>"
-			if (istype(active_general, /data/record) && data_core.general.Find(active_general))
+			if (istype(active_general, /data/record) && REPO.data_core.general.Find(active_general))
 				info += {"
 				Name: [active_general.fields["name"]] ID: [active_general.fields["id"]]
 				<br><br>Sex: [active_general.fields["sex"]]
@@ -723,7 +723,7 @@
 				<br><br>Mental Status: [active_general.fields["m_stat"]]"}
 			else
 				info += "<strong>General Record Lost!</strong><br>"
-			if ((istype(active_secure, /data/record) && data_core.security.Find(active_secure)))
+			if ((istype(active_secure, /data/record) && REPO.data_core.security.Find(active_secure)))
 				info += {"
 				<br><br><center><strong>Security Data</strong></center><br>
 				<br>Criminal Status: [active_secure.fields["criminal"]]
@@ -751,7 +751,7 @@
 			var/computer/file/record/printRecord = new
 			printRecord.fields += "title=Security Record"
 			printRecord.fields += "Security Record"
-			if (istype(active_general, /data/record) && data_core.general.Find(active_general))
+			if (istype(active_general, /data/record) && REPO.data_core.general.Find(active_general))
 
 				printRecord.fields += "Name: [active_general.fields["name"]] ID: [active_general.fields["id"]]"
 				printRecord.fields += "Sex: [active_general.fields["sex"]]"
@@ -764,7 +764,7 @@
 			else
 				printRecord.fields += "General Record Lost!"
 
-			if ((istype(active_secure, /data/record) && data_core.security.Find(active_secure)))
+			if ((istype(active_secure, /data/record) && REPO.data_core.security.Find(active_secure)))
 
 				printRecord.fields += "Security Data"
 				printRecord.fields += "Criminal Status: [active_secure.fields["criminal"]]"

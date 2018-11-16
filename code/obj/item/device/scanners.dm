@@ -84,7 +84,7 @@ Contains:
 		search = copytext(sanitize(search), 1, 200)
 		search = lowertext(search)
 
-		for (var/data/record/R in data_core.general)
+		for (var/data/record/R in REPO.data_core.general)
 			if (search == lowertext(R.fields["dna"]) || search == lowertext(R.fields["fingerprint"]) || search == lowertext(R.fields["name"]))
 
 				var/data = "--------------------------------<br>\
@@ -326,7 +326,7 @@ Contains:
 	//	return
 	boutput(user, "<span style=\"color:blue\">You scan in [M]</span>")
 	boutput(M, "<span style=\"color:red\">[user] scans you with the Securotron-5000</span>")
-	for (var/data/record/R in data_core.general)
+	for (var/data/record/R in REPO.data_core.general)
 		if (lowertext(R.fields["name"]) == lowertext(M.name))
 			//Update Information
 			R.fields["name"] = M.name
@@ -356,11 +356,11 @@ Contains:
 			active1.fields["fingerprint"] = md5(M.bioHolder.Uid)
 		active1.fields["p_stat"] = "Active"
 		active1.fields["m_stat"] = "Stable"
-		data_core.general += active1
+		REPO.data_core.general += active1
 		found = 0
 
 	////Security Records
-	for (var/data/record/E in data_core.security)
+	for (var/data/record/E in REPO.data_core.security)
 		if (E.fields["name"] == active1.fields["name"])
 			if (mode == 1)
 				E.fields["criminal"] = "Incarcerated"
@@ -385,7 +385,7 @@ Contains:
 	active2.fields["ma_crim"] = "None"
 	active2.fields["ma_crim_d"] = "No major crime convictions."
 	active2.fields["notes"] = "No notes."
-	data_core.security += active2
+	REPO.data_core.security += active2
 
 	return
 

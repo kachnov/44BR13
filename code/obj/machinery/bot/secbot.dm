@@ -856,12 +856,12 @@ Report Arrests: <A href='?src=\ref[src];operation=report'>[report_arrests ? "On"
 				threatcount -= 2
 
 		if (check_records)
-			for (var/data/record/E in data_core.general)
+			for (var/data/record/E in REPO.data_core.general)
 				var/perpname = perp.name
 				if (perp:wear_id && perp:wear_id:registered)
 					perpname = perp.wear_id:registered
 				if (E.fields["name"] == perpname)
-					for (var/data/record/R in data_core.security)
+					for (var/data/record/R in REPO.data_core.security)
 						if ((R.fields["id"] == E.fields["id"]) && (R.fields["criminal"] == "*Arrest*"))
 							threatcount = 4
 							break

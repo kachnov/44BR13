@@ -38,7 +38,7 @@
 		if (!master || !master.owner)
 			return FALSE
 
-		for (var/data/record/B in data_core.bank)
+		for (var/data/record/B in REPO.data_core.bank)
 			if (lowertext(B.fields["name"]) == lowertext(master.owner))
 				bank_record = B
 				return TRUE
@@ -58,7 +58,7 @@
 		dat += "<h4>Crew Manifest</h4>"
 		dat += "Entries cannot be modified from this terminal.<br><br>"
 
-		for (var/data/record/t in data_core.general)
+		for (var/data/record/t in REPO.data_core.general)
 			dat += "[t.fields["name"]] - [t.fields["rank"]]<br>"
 		dat += "<br>"
 
@@ -790,13 +790,13 @@ Using electronic "Detomatix" BOMB program is perhaps less simple!<br>
 
 					// this is also bad
 					var/list/people_with_tickets = list()
-					for (var/ticket/T in data_core.tickets)
+					for (var/ticket/T in REPO.data_core.tickets)
 						if (!(T.target in people_with_tickets))
 							people_with_tickets += T.target
 
 					for (var/N in people_with_tickets)
 						dat += "<strong>[N]</strong><br><br>"
-						for (var/ticket/T in data_core.tickets)
+						for (var/ticket/T in REPO.data_core.tickets)
 							if (T.target == N)
 								dat += "[T.text]<br>"
 
@@ -805,7 +805,7 @@ Using electronic "Detomatix" BOMB program is perhaps less simple!<br>
 
 					var/PDAowner = master.owner
 					var/PDAownerjob = "Unknown Job"
-					for (var/data/record/G in data_core.general) //there is probably a better way of doing this
+					for (var/data/record/G in REPO.data_core.general) //there is probably a better way of doing this
 						if (G.fields["name"] == PDAowner)
 							PDAownerjob = G.fields["rank"]
 							break
@@ -816,7 +816,7 @@ Using electronic "Detomatix" BOMB program is perhaps less simple!<br>
 
 					dat += "<h4>Fine Request List</h4>"
 
-					for (var/fine/F in data_core.fines)
+					for (var/fine/F in REPO.data_core.fines)
 						if (!F.approver)
 							dat += "[F.target]: [F.amount] credits<br>Reason: [F.reason]<br>Requested by: [F.issuer] - [F.issuer_job]"
 							if (can_approve) dat += "<br><a href='byond://?src=\ref[src];approve=\ref[F]'>Approve Fine</a>"
@@ -827,7 +827,7 @@ Using electronic "Detomatix" BOMB program is perhaps less simple!<br>
 
 					dat += "<h4>Unpaid Fine List</h4>"
 
-					for (var/fine/F in data_core.fines)
+					for (var/fine/F in REPO.data_core.fines)
 						if (!F.paid && F.approver)
 							dat += "[F.target]: [F.amount] credits<br>Reason: [F.reason]<br>[F.issuer != F.approver ? "Requested by: [F.issuer] - [F.issuer_job]<br>Approved by: [F.approver] - [F.approver_job]" : "Issued by: [F.approver] - [F.approver_job]"]<br>Paid: [F.paid_amount] credits<br><br>"
 
@@ -836,7 +836,7 @@ Using electronic "Detomatix" BOMB program is perhaps less simple!<br>
 
 					dat += "<h4>Paid Fine List</h4>"
 
-					for (var/fine/F in data_core.fines)
+					for (var/fine/F in REPO.data_core.fines)
 						if (F.paid)
 							dat += "[F.target]: [F.amount] credits<br>Reason: [F.reason]<br>[F.issuer != F.approver ? "Requested by: [F.issuer] - [F.issuer_job]<br>Approved by: [F.approver] - [F.approver_job]" : "Issued by: [F.approver] - [F.approver_job]"]<br><br>"
 		else
@@ -852,7 +852,7 @@ Using electronic "Detomatix" BOMB program is perhaps less simple!<br>
 		if (href_list["ticket"])
 			var/PDAowner = master.owner
 			var/PDAownerjob = "Unknown Job"
-			for (var/data/record/G in data_core.general) //there is probably a better way of doing this
+			for (var/data/record/G in REPO.data_core.general) //there is probably a better way of doing this
 				if (G.fields["name"] == PDAowner)
 					PDAownerjob = G.fields["rank"]
 					break
@@ -874,7 +874,7 @@ Using electronic "Detomatix" BOMB program is perhaps less simple!<br>
 			T.text = ticket_text
 			T.target_byond_key = get_byond_key(T.target)
 			T.issuer_byond_key = get_byond_key(T.issuer)
-			data_core.tickets += T
+			REPO.data_core.tickets += T
 
 			playsound(get_turf(master), "sound/machines/printer_thermal.ogg", 50, 1)
 			spawn (30)
@@ -883,7 +883,7 @@ Using electronic "Detomatix" BOMB program is perhaps less simple!<br>
 				p.info = ticket_text
 				p.icon_state = "paper_caution"
 
-/*			for (var/data/record/S in data_core.security) //there is probably a better way of doing this too
+/*			for (var/data/record/S in REPO.data_core.security) //there is probably a better way of doing this too
 				if (S.fields["name"] == ticket_target)
 					if (S.fields["notes"] == "No notes.")
 						S.fields["notes"] = ticket_text
@@ -893,7 +893,7 @@ Using electronic "Detomatix" BOMB program is perhaps less simple!<br>
 		else if (href_list["fine"])
 			var/PDAowner = master.owner
 			var/PDAownerjob = "Unknown Job"
-			for (var/data/record/G in data_core.general) //there is probably a better way of doing this
+			for (var/data/record/G in REPO.data_core.general) //there is probably a better way of doing this
 				if (G.fields["name"] == PDAowner)
 					PDAownerjob = G.fields["rank"]
 					break
@@ -902,7 +902,7 @@ Using electronic "Detomatix" BOMB program is perhaps less simple!<br>
 			if (!ticket_target) return
 			ticket_target = copytext(strip_html(ticket_target),	 1, MAX_MESSAGE_LEN)
 			var/has_bank_record = 0
-			for (var/data/record/B in data_core.bank) //this too
+			for (var/data/record/B in REPO.data_core.bank) //this too
 				if (B.fields["name"] == ticket_target)
 					has_bank_record = 1
 					break
@@ -926,7 +926,7 @@ Using electronic "Detomatix" BOMB program is perhaps less simple!<br>
 			F.issuer_job = PDAownerjob
 			F.target_byond_key = get_byond_key(F.target)
 			F.issuer_byond_key = get_byond_key(F.issuer)
-			data_core.fines += F
+			REPO.data_core.fines += F
 
 			if (PDAownerjob in list("Head of Security","Head of Personnel","Captain"))
 				var/ticket_text = "[ticket_target] has been fined [fine_amount] credits by Nanotrasen Corporate Security for [ticket_reason] on [time2text(world.realtime, "DD/MM/53")].<br>Issued and approved by: [PDAowner] - [PDAownerjob]<br>"
@@ -943,7 +943,7 @@ Using electronic "Detomatix" BOMB program is perhaps less simple!<br>
 		else if (href_list["approve"])
 			var/PDAowner = master.owner
 			var/PDAownerjob = "Unknown Job"
-			for (var/data/record/G in data_core.general) //there is probably a better way of doing this
+			for (var/data/record/G in REPO.data_core.general) //there is probably a better way of doing this
 				if (G.fields["name"] == PDAowner)
 					PDAownerjob = G.fields["rank"]
 					break

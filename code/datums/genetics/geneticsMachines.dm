@@ -1171,7 +1171,7 @@ var/list/genetics_computers = list()
 
 				info_html = "<p>"
 				var/computer/file/genetics_scan/S = null
-				for (var/data/record/R in data_core.medical)
+				for (var/data/record/R in REPO.data_core.medical)
 					S = R.fields["dnasample"]
 					if (!istype(S))
 						continue
