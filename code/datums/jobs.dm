@@ -1569,6 +1569,7 @@
 /job/jew/special_setup(var/mob/living/carbon/human/H)
 	..(H)
 	H.neural_net_account = new /neural_net_account/jew(H)
+	H.verbs += /mob/living/carbon/human/proc/breed
 
 /job/boomer_general
 	name = "Boomer General"
@@ -1590,6 +1591,7 @@
 /job/boomer_general/special_setup(var/mob/living/carbon/human/H)
 	..(H)
 	H.neural_net_account = new /neural_net_account/boomer_general(H)
+	H.verbs += /mob/living/carbon/human/proc/breed
 
 /job/boomer_officer
 	name = "Boomer Officer"
@@ -1610,6 +1612,7 @@
 /job/boomer_officer/special_setup(var/mob/living/carbon/human/H)
 	..(H)
 	H.neural_net_account = new /neural_net_account/boomer_officer(H)
+	H.verbs += /mob/living/carbon/human/proc/breed
 
 /job/boomer_mpo
 	name = "Boomer MPO"
@@ -1630,6 +1633,7 @@
 /job/boomer_mpo/special_setup(var/mob/living/carbon/human/H)
 	..(H)
 	H.neural_net_account = new /neural_net_account/boomer_mpo(H)
+	H.verbs += /mob/living/carbon/human/proc/breed
 
 /job/boomer_soldier
 	name = "Boomer Soldier"
@@ -1650,6 +1654,7 @@
 /job/boomer_soldier/special_setup(var/mob/living/carbon/human/H)
 	..(H)
 	H.neural_net_account = new /neural_net_account/boomer_soldier(H)
+	H.verbs += /mob/living/carbon/human/proc/breed
 
 // Xenomorphs
 /job/xenomorph 

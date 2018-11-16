@@ -6486,8 +6486,9 @@ REPO_CONST(fortnite_dance_fluff, "<strong>{}</strong> pulls both arms outwards i
 // hack until I get custom span classes working, reee
 #define SPANSEX "<span style = \"color: #FF69B4; font-size: 115%;\">"
 #define SPANSEX2 "<span style = \"color: #FF69B4; font-size: 130%;\">"
+
 // lmao
-/mob/living/carbon/human/verb/breed()
+/mob/living/carbon/human/proc/breed()
 	set category = "Local"
 	set name = "Breed"
 
