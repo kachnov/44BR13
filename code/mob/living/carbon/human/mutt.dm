@@ -17,7 +17,7 @@ REPO_LIST(amerimutts, list())
 		"I'm 100% pure Swedish."
 	)
 
-	var/static/mutts = 0
+	var/static/mutts = 0 
 
 	var/mob/living/carbon/human/father = null
 
@@ -33,7 +33,7 @@ REPO_LIST(amerimutts, list())
 	// the Mutt is a slow, lumbering beast
 	stats.setStat(STAT_SPEED, 0.75)
 
-	// WIP
+	// WIP 
 	stats.setStat(STAT_IQ, 60)
 
 	REPO.amerimutts += src
@@ -43,14 +43,14 @@ REPO_LIST(amerimutts, list())
 	abilityHolder.addAbility(/targetable/mutt/communicate)
 
 /mob/living/carbon/human/mutt/dispose()
-	REPO.amerimutts -= src
+	REPO.amerimutts -= src 
 	..()
 
 /mob/living/carbon/human/mutt/Life(controller/process/mobs/parent)
 	..(parent)
 
 	if (stat == CONSCIOUS)
-
+	
 		// spawn literal shit every 10 seconds or so
 		if (prob(20))
 			var/turf/T = get_turf(src)
@@ -78,11 +78,11 @@ REPO_LIST(amerimutts, list())
 
 	// if we're hurt
 	if (health < max_health)
-		// heal 9 damage if we're on weeds
+		// heal 9 damage if we're on weeds 
 		for (var/obj/mutt/weeds/W in get_turf(src))
 			HealDamage("All", BASIC_HEAL_AMOUNT*3, BASIC_HEAL_AMOUNT*3, BASIC_HEAL_AMOUNT*3)
 			blood_volume = min(blood_volume, blood_volume + BASIC_HEAL_AMOUNT*3)
-			break
+			break 
 		// heal 3 damage anyway
 		if (health < max_health)
 			HealDamage("All", BASIC_HEAL_AMOUNT, BASIC_HEAL_AMOUNT, BASIC_HEAL_AMOUNT)
@@ -91,19 +91,19 @@ REPO_LIST(amerimutts, list())
 				--bleeding
 			if (bleeding_internal)
 				--bleeding_internal
-
+			
 	update_icon()
 #undef BASIC_HEAL_AMOUNT
 
 /mob/living/carbon/human/mutt/death()
 	REPO.mutt_hivemind.announce("[name] has been slain.")
 	return ..()
-
+	
 /mob/living/carbon/human/mutt/get_stam_mod_regen()
 	var/weeds = locate(/obj/mutt/weeds) in get_turf(src)
 	if (weeds)
 		weeds = 2
-	else
+	else 
 		weeds = 1
 	return (STAMINA_REGEN * 3) * weeds
 
@@ -124,7 +124,7 @@ REPO_LIST(amerimutts, list())
 		if (CONSCIOUS)
 			if (lying)
 				icon_state = "[base_icon_state]_unconscious"
-			else
+			else 
 				icon_state = base_icon_state
 		if (UNCONSCIOUS)
 			icon_state = "[base_icon_state]_unconscious"
@@ -163,7 +163,7 @@ REPO_LIST(amerimutts, list())
 	canmove = TRUE
 
 /mob/living/carbon/human/mutt/proc/parent_client_check(var/client/parent)
-	set waitfor = FALSE
+	set waitfor = FALSE 
 	sleep(0.2 SECONDS)
 	if (!client && parent && isobserver(parent.mob))
 		parent.mob.mind.transfer_to(src)
@@ -195,5 +195,5 @@ REPO_LIST(amerimutts, list())
 		random_burn_damage(L, 20)
 		if (ishuman(L))
 			L.emote("scream")
-	else
+	else 
 		return ..(L)
