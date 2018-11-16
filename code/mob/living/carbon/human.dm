@@ -3407,7 +3407,7 @@ REPO_CONST(fortnite_dance_fluff, "<strong>{}</strong> pulls both arms outwards i
 	if (loc)
 		var/gas_mixture/environment = loc.return_air()
 
-		if (stat != 2) //still breathing
+		if (stat != DEAD) //still breathing
 
 			parent.setLastTask("handle_material_triggers", src)
 			for (var/obj/item/I in src)
@@ -3445,7 +3445,7 @@ REPO_CONST(fortnite_dance_fluff, "<strong>{}</strong> pulls both arms outwards i
 
 			//First, resolve location and get a breath
 
-			if (air_master.current_cycle%2==1 && breathtimer < 15)
+			if ((air_master.current_cycle%2) == 1 && breathtimer < 15)
 				//Only try to take a breath every 4 seconds, unless suffocating
 				parent.setLastTask("breathe", src)
 				spawn (0) breathe()
@@ -3456,7 +3456,7 @@ REPO_CONST(fortnite_dance_fluff, "<strong>{}</strong> pulls both arms outwards i
 					var/obj/location_as_object = loc
 					location_as_object.handle_internal_lifeform(src, 0)
 
-		else if (stat == 2)
+		else if (stat == DEAD)
 			parent.setLastTask("handle_decomposition", src)
 			handle_decomposition()
 
@@ -3493,7 +3493,7 @@ REPO_CONST(fortnite_dance_fluff, "<strong>{}</strong> pulls both arms outwards i
 	parent.setLastTask("handle_stuns_lying", src)
 	handle_stuns_lying(parent)
 
-	if (stat != 2) // Marq was here, breaking everything.
+	if (stat != DEAD) // Marq was here, breaking everything.
 		parent.setLastTask("handle_blood", src)
 		handle_blood()
 
