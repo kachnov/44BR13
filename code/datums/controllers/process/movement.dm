@@ -130,6 +130,8 @@ PROCESS(movement)
 				sound = pick(footsteps["floor"])
 			else if (istype(T, /turf/simulated/grass))
 				sound = pick(footsteps["grass"])
+			else // /turf/simulated/bar
+				sound = pick(footsteps["floor"])
 
 		if (sound)
 			playsound(T, sound, 100, 1)
