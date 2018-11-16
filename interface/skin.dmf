@@ -193,6 +193,13 @@ macro "macro"
 		name = "4"
 		command = ".hotkeyModeExecute \"setintent\" \"harm\""
 
+	elem "stoppulling-anymode"
+		name = "CTRL+H"
+		command = "stoppulling"
+	elem "stoppulling-hotkeymode"
+		name = "H"
+		command = ".hotkeyModeExecute \"stoppulling\""
+
 menu "menu"
 	elem 
 		name = "&File"

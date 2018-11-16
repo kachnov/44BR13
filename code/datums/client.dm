@@ -482,6 +482,10 @@ REPO_VAR(curr_day, null)
 	set hidden = 1
 	return mob.set_intent(intent)
 
+/client/verb/stoppulling()
+	set hidden = 1
+	return mob.stop_pulling()
+
 /client/verb/togglepoint(force_off as num) // force_off is set to 1 when the button for this is released in WASD mode (currently B), else it's 0
 	set hidden = 1
 	if (!mob.stat && isliving(mob) && !mob.restrained())

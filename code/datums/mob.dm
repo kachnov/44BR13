@@ -1028,6 +1028,14 @@
 			if (findtext(H.icon_state, "intent-"))
 				H.icon_state = "intent-"+a_intent
 
+// I'm amazed this didn't exist already - Kachnov
+/mob/proc/stop_pulling()
+	if (pulling)
+		pulling = null
+		if ("hud" in vars)
+			src:hud.update_pulling()
+
+
 /mob/proc/u_equip(W as obj)
 
 // I think this bit is handled by each method of dropping it, and it prevents dropping items in your hands and other procs using u_equip so I'll get rid of it for now.
