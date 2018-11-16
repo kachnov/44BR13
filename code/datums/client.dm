@@ -1,6 +1,6 @@
 /client
 	parent_type = /datum
-	preload_rsc = 1
+	preload_rsc = "144.202.61.171/misc/44BR13.rsc"
 	fps = 30
 	var/admins/holder = null
 	var/preferences/preferences = null
