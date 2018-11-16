@@ -500,7 +500,16 @@ var/global/curr_day = null
 	set instant = TRUE
 	set name = ".hotkeyModeExecute"
 	if (hotkey_mode)
-		call(src, arg)()
+		// client verb
+		if (hascall(src, arg))
+			call(src, arg)()
+		// mob verb
+		else if (!isnewplayer(mob) && hascall(mob, arg))
+			call(mob, arg)()
+		// eye verb? you never know
+		else if (eye && eye != mob && hascall(eye, arg))
+			call(eye, arg)()
+
 /*
 /client/verb/togglewasdzqsd()
 	set hidden = 1
