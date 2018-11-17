@@ -37,6 +37,7 @@
 		for(var/obj/mutt/weeds/W in range(src,1))
 			W.do_Autojoin()
 	REPO.xenomorph_weeds += src
+	name = pick("grease", "poo")
 		
 /obj/mutt/weeds/Del()
 	..()
