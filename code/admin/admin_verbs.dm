@@ -212,6 +212,7 @@ var/list/admin_verbs = list(
 /client/proc/cmd_mass_modify_object_variables,\
 /client/proc/cmd_debug_mutantrace,\
 /client/proc/cmd_admin_gib,\
+/client/proc/cmd_admin_punishgib,\
 /client/proc/cmd_admin_partygib,\
 /client/proc/cmd_admin_owlgib,\
 /client/proc/cmd_admin_firegib,\

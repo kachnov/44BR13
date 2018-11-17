@@ -1184,6 +1184,7 @@
 	set name = "Hotkeys"
 	src << browse('browserassets/html/admin/hotkeys.html', "window=help")
 
+REPO_LIST(disallow_abandon_mob, list())
 /mob/verb/abandon_mob()
 	set name = "Respawn"
 
@@ -1192,6 +1193,10 @@
 
 	if (!isobserver(src) && (stat != 2 || !( ticker )))
 		boutput(usr, "<span style=\"color:blue\"><strong>You must be dead to use this!</strong></span>")
+		return
+
+	if (REPO.disallow_abandon_mob[src] && world.time < REPO.disallow_abandon_mob[src])
+		boutput(usr, "<span class = \"color:red\"><strong>You can't respawn again yet.</strong></span>")
 		return
 
 	logTheThing("diary", usr, null, "used abandon mob.", "game")

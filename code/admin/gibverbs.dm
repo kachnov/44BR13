@@ -24,6 +24,22 @@
 		spawn (35) qdel(O)
 		spawn (5) M.gib()
 
+// gibs a mob and prevents them from respawning for 15 minutes
+/client/proc/cmd_admin_punishgib(mob/M as mob in world)
+	set category = null
+	set name = "Punish Gib"
+	set popup_menu = 1
+
+	if (holder)
+		var/client/C = M.client
+		cmd_admin_gib(M)
+		// after we gib
+		spawn (0.7 SECONDS)
+			if (C)
+				REPO.disallow_abandon_mob[C.mob] = world.time + (15 MINUTES)
+	else
+		boutput(src, "Only administrators may use this command.")
+
 /client/proc/cmd_admin_partygib(mob/M as mob in world)
 	set category = null
 	set name = "Party Gib"
