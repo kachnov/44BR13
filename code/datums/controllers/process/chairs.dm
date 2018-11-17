@@ -7,8 +7,8 @@ PROCESS(chairs)
 	var/backwards_or_forwards = "forwards"
 	var/list/lawnmowers = null
 	var/list/rlawnmowers = null
-	var/send_time = 2 MINUTES
-	var/lock_time = 5 MINUTES
+	var/send_time = 1.5 MINUTES
+	var/lock_time = 3.0 MINUTES
 	var/launched = 0
 
 /controller/process/chairs/setup()
