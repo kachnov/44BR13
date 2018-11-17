@@ -1,6 +1,6 @@
 var/job_controller/job_controls = null
 
-/job_controller/
+/job_controller
 	var/list/staple_jobs = list()
 	var/list/special_jobs = list()
 	var/allow_special_jobs = 1 // hopefully this doesn't break anything!!

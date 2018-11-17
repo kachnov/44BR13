@@ -58,19 +58,21 @@ var/occupations/occupations = new
 	var/list/xenomorphs = list(
 		"Xenomorph Facehugger"
 	)
+
 	var/list/bongs = list(
 		"Space Bong",
 		"Space Chav",
 		"The Queen",
 		"Sharia Police"
 	)
+
 	var/list/assistant_jobs = list(
 	
 	)
 	
 /occupations/proc/get_all_jobs()
 	if (!all_jobs_saved)
-		all_jobs_saved = boomers+xenomorphs+bongs+assistant_jobs
+		all_jobs_saved = boomers+xenomorphs/*+bongs*/+assistant_jobs
 	return all_jobs_saved
 	
 //	"Mechanic",
