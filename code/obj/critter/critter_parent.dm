@@ -344,8 +344,8 @@
 		return
 
 	bullet_act(var/obj/projectile/P)
-		var/damage = 0
-		damage = round((P.power*P.proj_data.ks_ratio), 1.0)
+
+		var/damage = round((P.power*P.proj_data.ks_ratio), 1.0)
 
 		if (sleeping)
 			sleeping = 0

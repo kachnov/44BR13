@@ -51,7 +51,8 @@ REPO_LIST(xenomorph_larvae, list())
 	
 /mob/living/critter/xenomorph_larva/setup_healths()
 	add_hh_flesh(35, 35, 1)
-	 
+	add_hh_flesh_burn(35, 35, 1)
+
 /mob/living/critter/xenomorph_larva/Life(controller/process/mobs/parent)
 	. = ..(parent)
 	if (stat == CONSCIOUS && evolution)

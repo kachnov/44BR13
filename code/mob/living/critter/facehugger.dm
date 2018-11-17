@@ -46,6 +46,7 @@ REPO_LIST(facehuggers, list())
 	
 /mob/living/critter/facehugger/setup_healths()
 	add_hh_flesh(15, 15, 1)
+	add_hh_flesh_burn(15, 15, 1)
 
 /mob/living/critter/facehugger/hand_attack(var/mob/living/carbon/human/H) // non-special limb attack
 	if (prob(60) && istype(H) && H.stat != DEAD && !isxenomorph(H) && !locate(/mob/living/critter/facehugger) in H)
