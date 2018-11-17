@@ -31,7 +31,7 @@ REPO_LIST(xenomorph_larvae, list())
 	REPO.xenomorph_larvae += src
 	
 	nodamage = TRUE 
-	spawn (300)
+	spawn (2 SECONDS)
 		nodamage = FALSE
 		
 	abilityHolder.addAbility(/targetable/xenomorph_larva/hivemind)
