@@ -1156,14 +1156,6 @@ var/list/hasvar_type_cache = list()
 		else
 	return
 
-/proc/get_turf(turf/location as turf)
-	while (location)
-		if (istype(location, /turf))
-			return location
-
-		location = location.loc
-	return null
-
 /proc/dir2text(direction)
 	switch(direction)
 		if (NORTH)

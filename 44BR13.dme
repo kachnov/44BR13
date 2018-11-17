@@ -26,6 +26,7 @@ var/preMapLoad/preMapLoad = new
 #include "code\_helpers\dir.dm"
 #include "code\_helpers\faction.dm"
 #include "code\_helpers\list.dm"
+#include "code\_helpers\location.dm"
 #include "code\_helpers\material_properties.dm"
 #include "code\_helpers\misc.dm"
 #include "code\_helpers\mutt.dm"

@@ -1,0 +1,1 @@
+#define get_turf(thing) get_step(thing, 0)
