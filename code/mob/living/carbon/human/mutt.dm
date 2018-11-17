@@ -80,10 +80,6 @@ REPO_LIST(mutt_upgrades, list(MUTT_UPGRADE_AZUL, MUTT_UPGRADE_SSj, MUTT_UPGRADE_
 
 	update_icon()
 
-/mob/living/carbon/human/mutt/Move()
-	..()
-	update_icon()
-
 #define BASIC_HEAL_AMOUNT 3
 /mob/living/carbon/human/mutt/Life(controller/process/mobs/parent)
 	. = ..(parent)
@@ -132,6 +128,7 @@ REPO_LIST(mutt_upgrades, list(MUTT_UPGRADE_AZUL, MUTT_UPGRADE_SSj, MUTT_UPGRADE_
 /mob/living/carbon/human/mutt/proc/update_icon()
 	// fixes hair overlay memes
 	UpdateDamageIcon()
+
 	switch (stat)
 		if (CONSCIOUS)
 			if (lying)
@@ -145,9 +142,6 @@ REPO_LIST(mutt_upgrades, list(MUTT_UPGRADE_AZUL, MUTT_UPGRADE_SSj, MUTT_UPGRADE_
 
 	// reset pixel_x since a lot of things modify it
 	pixel_x = initial(pixel_x)
-
-	if (grande)
-		transform = matrix() * 1.50
 
 /mob/living/carbon/human/mutt/proc/go_to_mutt_hive()
 	set waitfor = FALSE
@@ -234,8 +228,8 @@ REPO_LIST(mutt_upgrades, list(MUTT_UPGRADE_AZUL, MUTT_UPGRADE_SSj, MUTT_UPGRADE_
 				// major boost to strength
 				stats.incStat(STAT_STRENGTH, 0.75)
 
-				// update icon 
-				update_icon()
+				// make us bloatmaxx
+				transform *= 1.50
 
 	// we have all upgrades already
 	else

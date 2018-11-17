@@ -90,6 +90,16 @@ PROCESS(movement)
 		matrices[textangle] = angle ? turn(matrix(), angle) : matrix()
 	return matrices[textangle]
 
+/controller/process/movement/proc/getMatrixNormal(angle = 0, base_matrix = null)
+	return angle ? turn(default_value(base_matrix, matrix()), angle) : default_value(base_matrix, matrix())
+
+/controller/process/movement/proc/getMatrixFor(human, angle = 0)
+	if (ismutt(human))
+		var/mob/living/carbon/human/mutt/M = human
+		if (M.grande)
+			return getMatrixNormal(angle, matrix() * 1.50)
+	return getMatrixFromPool(angle)
+
 #define WADDLE_TIME 0.20 SECONDS
 /controller/process/movement/proc/makeWaddle(var/mob/living/carbon/human/H)
 	set waitfor = FALSE
@@ -97,8 +107,8 @@ PROCESS(movement)
 	if (!animation_locked[H])
 		animation_locked[H] = TRUE
 		animate(H, pixel_z = 6, time = 0 SECONDS)
-		animate(pixel_z = 0, transform = getMatrixFromPool(nextWaddle(H)), time = WADDLE_TIME)
-		animate(pixel_z = 0, transform = getMatrixFromPool(0), time = 0 SECONDS)
+		animate(pixel_z = 0, transform = getMatrixFor(H, nextWaddle(H)), time = WADDLE_TIME)
+		animate(pixel_z = 0, transform = getMatrixFor(H, 0), time = 0 SECONDS)
 		sleep(WADDLE_TIME)
 		animation_locked[H] = FALSE
 #undef WADDLE_TIME
