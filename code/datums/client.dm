@@ -77,6 +77,8 @@
 
 	var/moving_in_dir = 0
 
+	var/lobby_music = TRUE
+
 	// hotkeys
 	var/hotkey_mode = FALSE
 
@@ -521,6 +523,14 @@ REPO_VAR(curr_day, null)
 		// eye verb? you never know
 		else if (eye && eye != mob && hascall(eye, arg1))
 			call(eye, arg1)(arg2)
+
+/client/proc/toggleLobbyMusic(yes)
+	if (yes)
+		if (isnewplayer(mob))
+			var/mob/new_player/NP = mob 
+			src << sound(NP.lobby_music, repeat = TRUE, volume = 100, channel = LOBBY_MUSIC_CHANNEL)
+	else 
+		src << sound(null, channel = LOBBY_MUSIC_CHANNEL)
 
 /*
 /client/verb/togglewasdzqsd()

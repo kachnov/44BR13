@@ -30,6 +30,7 @@
 	var/listen_looc = 1
 	var/default_wasd = 0 // do they want wasd on by default?
 	var/use_azerty = 0 // do they have an AZERTY keyboard?
+	var/lobby_music = TRUE
 
 	var/job_favorite = null
 	var/list/jobs_med_priority = list()
@@ -230,6 +231,7 @@
 		dat += "<strong>Admin Music Volume: <a href =\"byond://?src=\ref[user];preferences=1;volume=1\">[admin_music_volume]</a></strong><br>"
 		dat += "<strong>Default to WASD Mode?: <a href =\"byond://?src=\ref[user];preferences=1;default_wasd=1\">[(default_wasd ? "Yes" : "No")]</a></strong><br>"
 		dat += "<strong>Use AZERTY Layout?: <a href =\"byond://?src=\ref[user];preferences=1;use_azerty=1\">[(use_azerty ? "Yes" : "No")]</a></strong><br>"
+		dat += "<strong>Hear Lobby Music?: <a href=\"byond://?src=\ref[user];preferences=1;lobby_music=1\">[(lobby_music ? "Yes" : "No")]</a></strong><br>"
 
 		dat += "<hr>"
 		if (!IsGuestKey(user.key))
@@ -804,6 +806,11 @@
 			use_azerty = !(use_azerty)
 			if (user && user.client)
 				user.client.use_azerty = use_azerty
+
+		if (link_tags["lobby_music"])
+			lobby_music = !lobby_music
+			if (user && user.client)
+				user.client.toggleLobbyMusic(lobby_music)
 
 		if (link_tags["scores"])
 			view_score = !(view_score)

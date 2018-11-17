@@ -73,6 +73,7 @@
 	F["listen_looc"] << listen_looc
 	F["default_wasd"] << default_wasd
 	F["use_azerty"] << use_azerty
+	F["lobby_music"] << lobby_music
 
 	return TRUE
 
@@ -231,6 +232,11 @@
 		saved_wasdpref = 0
 	if (saved_wasdpref == 1)
 		default_wasd = saved_wasdpref
+
+	F["lobby_music"] >> lobby_music
+	C.preferences.lobby_music = lobby_music
+	if (!lobby_music)
+		C.toggleLobbyMusic(FALSE)
 /*
 		var/current = winget(user, "mainwindow", "macro")
 		if (current == "macro")
