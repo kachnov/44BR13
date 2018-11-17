@@ -1570,6 +1570,9 @@
 	..(H)
 	H.neural_net_account = new /neural_net_account/jew(H)
 	H.verbs += /mob/living/carbon/human/proc/breed
+	boutput(H, "<strong>You are a Space Jew, in charge of the operations of this Space Israeli colony. " + \
+		"You have the ability to send the lawnmowers to and from the Xenomorph Hive via the Neural Net.</strong>")
+
 
 /job/boomer_general
 	name = "Boomer General"
@@ -1592,6 +1595,7 @@
 	..(H)
 	H.neural_net_account = new /neural_net_account/boomer_general(H)
 	H.verbs += /mob/living/carbon/human/proc/breed
+	boutput(H, "<strong>You are a Boomer General. Rally the Boomers and get to the lawnmowers, which are located north of the bar.</strong>")
 
 /job/boomer_officer
 	name = "Boomer Officer"
@@ -1613,6 +1617,7 @@
 	..(H)
 	H.neural_net_account = new /neural_net_account/boomer_officer(H)
 	H.verbs += /mob/living/carbon/human/proc/breed
+	boutput(H, "<strong>You are a Boomer Officer. Rally the Boomers and get to the lawnmowers, which are located north of the bar.</strong>")
 
 /job/boomer_mpo
 	name = "Boomer MPO"
@@ -1634,6 +1639,7 @@
 	..(H)
 	H.neural_net_account = new /neural_net_account/boomer_mpo(H)
 	H.verbs += /mob/living/carbon/human/proc/breed
+	boutput(H, "<strong>You are a Boomer MPO. Your job is to make sure the Boomers follow military law and fearlessly charge into certain death.</strong>")
 
 /job/boomer_soldier
 	name = "Boomer Soldier"
@@ -1655,6 +1661,7 @@
 	..(H)
 	H.neural_net_account = new /neural_net_account/boomer_soldier(H)
 	H.verbs += /mob/living/carbon/human/proc/breed
+	boutput(H, "<strong>You are a Boomer Soldier. Follow the orders of the Boomer Officers, the Boomer Generals, and the Space Jews, and get to the lawnmowers north of the bar when you're geared up.</strong>")
 
 // Xenomorphs
 /job/xenomorph 
