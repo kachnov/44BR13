@@ -72,7 +72,7 @@
 
 		var/grow = istype(Vspread, /turf/simulated/floor)
 		for (var/obj/O in Vspread)
-			if (istype(O, /obj/window) || istype(O, /obj/forcefield) || istype(O, /obj/blob) || istype(O, /obj/spacevine) || istype(O, /obj/mutt/weeds)) 
+			if (istype(O, /obj/window) || istype(O, /obj/forcefield) || istype(O, /obj/blob) || istype(O, /obj/spacevine) || istype(O, /obj/xeno/weeds)  || istype(O, /obj/mutt/weeds)) 
 				grow = FALSE
 			else if (istype(O, /obj/machinery/door))
 				var/obj/machinery/door/D = O
