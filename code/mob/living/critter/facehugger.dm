@@ -45,10 +45,10 @@ REPO_LIST(facehuggers, list())
 	return ..()
 	
 /mob/living/critter/facehugger/setup_healths()
-	add_hh_flesh(25, 25, 1)
+	add_hh_flesh(15, 15, 1)
 
 /mob/living/critter/facehugger/hand_attack(var/mob/living/carbon/human/H) // non-special limb attack
-	if (istype(H) && H.stat != DEAD && !isxenomorph(H) && !locate(/mob/living/critter/facehugger) in H)
+	if (prob(60) && istype(H) && H.stat != DEAD && !isxenomorph(H) && !locate(/mob/living/critter/facehugger) in H)
 		visible_message("<big><strong><span style = \"color:red\">[src] jumps towards [H] and attaches itself to their face!</span></strong></big>")
 		H.emote("scream")
 		H.weakened = max(H.weakened, 5)
