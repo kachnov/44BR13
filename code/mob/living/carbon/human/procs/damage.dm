@@ -27,6 +27,10 @@
 
 			if (S_faction && src_faction && S_faction == src_faction)
 				return
+			else if (isxenomorph(S) && isxenomorph(src))
+				return
+			else if (ismutt(S) && ismutt(src))
+				return
 
 	if (nodamage) return
 	if (spellshield)
