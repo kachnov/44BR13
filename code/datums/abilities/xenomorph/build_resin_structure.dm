@@ -19,7 +19,7 @@
 			#define WALL "Wall"
 			#define MEMBRANE "Membrane"
 			#define COCOON "Cocoon"
-			var/structure = input(usr, "What do you want to build?") as null|anything in list(WALL, MEMBRANE, COCOON)
+			var/structure = input(usr, "What do you want to build?") as null|anything in list(WALL, MEMBRANE)
 			if (structure)
 				switch (structure)
 					if (WALL)
