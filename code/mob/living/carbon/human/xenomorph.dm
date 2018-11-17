@@ -104,7 +104,7 @@ REPO_LIST(grown_xenomorphs, list())
 
 	if (!random_brute_damage(target, slash_strength * rand(12,15)))
 		if (isbot(target))
-			var/obj/machinery/bot/B = target 
+			var/obj/machinery/bot/B = target
 			B.explode()
 	else
 		target.emote("scream")
