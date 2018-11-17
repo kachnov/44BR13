@@ -68,8 +68,9 @@
 
 	New()
 		..()
+		/* // this is fucking stupid - Kachnov
 		if (prob(10))
-			diseased = 1
+			diseased = 1*/
 		atkcarbon = diseased
 
 	CritterAttack(mob/living/M)
