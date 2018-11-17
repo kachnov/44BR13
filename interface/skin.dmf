@@ -152,21 +152,18 @@ macro "macro"
 	elem "mentorhelp"
 		name = "F3"
 		command = "mentorhelp"
-
 	elem "throw-anymode"
 		name = "CTRL+R"
 		command = "togglethrow"
 	elem "throw-hotkeymode"
 		name = "R"
 		command = ".hotkeyModeExecute \"togglethrow\""
-
 	elem "swaphand-anymode"
 		name = "CTRL+X"
 		command = "swaphands"
 	elem "swaphand-hotkeymode"
 		name = "X"
 		command = ".hotkeyModeExecute \"swaphands\""
-
 	elem "intent-help-anymode"
 		name = "CTRL+1"
 		command = "setintent \"help\""
@@ -179,7 +176,6 @@ macro "macro"
 	elem "intent-harm-anymode"
 		name = "CTRL+4"
 		command = "setintent \"harm\""
-
 	elem "intent-help-hotkeymode"
 		name = "1"
 		command = ".hotkeyModeExecute \"setintent\" \"help\""
@@ -192,13 +188,13 @@ macro "macro"
 	elem "intent-harm-hotkeymode"
 		name = "4"
 		command = ".hotkeyModeExecute \"setintent\" \"harm\""
-
 	elem "stoppulling-anymode"
 		name = "CTRL+H"
 		command = "stoppulling"
 	elem "stoppulling-hotkeymode"
 		name = "H"
 		command = ".hotkeyModeExecute \"stoppulling\""
+
 
 menu "menu"
 	elem 
@@ -1188,10 +1184,21 @@ window "rpane"
 		background-color = none
 		saved-params = "pos;size;is-minimized;is-maximized"
 		is-pane = true
+	elem "button1"
+		type = BUTTON
+		pos = 553,5
+		size = 72x20
+		anchor1 = 100,0
+		anchor2 = none
+		background-color = none
+		saved-params = "is-checked"
+		text = "Github"
+		command = "github"
+		group = "rpaneutil"
 	elem "rpanewindow"
 		type = CHILD
 		pos = 0,0
-		size = 640x499
+		size = 640x528
 		anchor1 = 0,0
 		anchor2 = 100,100
 		background-color = none
@@ -1240,7 +1247,7 @@ window "rpane"
 		button-type = pushbox
 	elem "wikib"
 		type = BUTTON
-		pos = 445,5
+		pos = 409,5
 		size = 60x20
 		anchor1 = 100,0
 		anchor2 = none
@@ -1251,7 +1258,7 @@ window "rpane"
 		group = "rpaneutil"
 	elem "discord"
 		type = BUTTON
-		pos = 512,5
+		pos = 475,5
 		size = 72x20
 		anchor1 = 100,0
 		anchor2 = none
@@ -1268,6 +1275,7 @@ window "browserwindow"
 		size = 640x480
 		anchor1 = none
 		anchor2 = none
+		background-color = none
 		saved-params = "pos;size;is-minimized;is-maximized"
 		title = "Browser"
 		is-pane = true

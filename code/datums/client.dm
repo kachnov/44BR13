@@ -1199,3 +1199,10 @@ REPO_VAR(curr_day, null)
 	set desc = "Open the Discord invite link in your browser"
 	set hidden = 1
 	src << link("https://discord.gg/zrr9wYf")
+
+/client/verb/github()
+	set category = "Commands"
+	set name = "Github"
+	set desc = "Open the Github in your browser"
+	set hidden = 1
+	src << link("https://github.com/kachnov/44BR13")
