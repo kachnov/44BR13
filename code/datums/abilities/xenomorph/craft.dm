@@ -25,7 +25,7 @@
 				items["Resin Hunting Rifle"] = /obj/item/gun/kinetic/hunting_rifle
 				items["Resin Silenced 22"] = /obj/item/gun/kinetic/silenced_22
 				items["Resin Riot Launcher"] = /obj/item/gun/kinetic/riot40mm
-				items["Resin Russian Revolver"] = /obj/item/gun/russianrevolver
+				items["Resin Revolver"] = /obj/item/gun/kinetic/revolver
 			var/buildname = input(usr, "What do you want to build?") as null|anything in items
 			if (buildname)
 				var/buildpath = items[buildname]
