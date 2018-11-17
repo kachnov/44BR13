@@ -108,7 +108,7 @@ REPO_LIST(grown_xenomorphs, list())
 			B.explode()
 	else
 		target.emote("scream")
-		target.weakened = max(target.weakened+pick(0,1), 1)
+		target.weakened = min(5, max(target.weakened+pick(0,1), 1))
 		take_bleeding_damage(target, null, slash_strength * 5, DAMAGE_STAB, 1, get_turf(target))
 
 // self explanatory
