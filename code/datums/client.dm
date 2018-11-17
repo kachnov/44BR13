@@ -527,7 +527,7 @@ REPO_VAR(curr_day, null)
 /client/proc/toggleLobbyMusic(yes)
 	if (yes)
 		if (isnewplayer(mob))
-			var/mob/new_player/NP = mob 
+			var/mob/new_player/NP = mob
 			src << sound(NP.lobby_music, repeat = TRUE, volume = 100, channel = LOBBY_MUSIC_CHANNEL)
 	else 
 		src << sound(null, channel = LOBBY_MUSIC_CHANNEL)
