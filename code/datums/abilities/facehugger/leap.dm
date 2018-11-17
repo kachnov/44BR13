@@ -1,5 +1,6 @@
 /targetable/facehugger/leap
 	name = "Leap"
+	cooldown = 0.5 SECONDS
 
 /targetable/facehugger/leap/New()
 	..()
