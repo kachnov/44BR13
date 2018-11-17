@@ -22,4 +22,6 @@ REPO_OBJECT(mutt_hivemind, /mutt_hivemind)
 	boutput(H, "<span style = \"color:#593001\"><big><strong>The Mutt Hive</strong></big></span>")
 	var/x = 0
 	for (var/basedandredpilledMAGAPede in REPO.amerimutts)
-		boutput(H, "<span style = \"color:#593001\">[++x]. <strong>[basedandredpilledMAGAPede]</strong></span>")
+		var/mob/living/carbon/human/mutt/M = basedandredpilledMAGAPede
+		var/statdesc = M.stat == CONSCIOUS ? "Alive" : M.stat == UNCONSCIOUS ? "Unconscious" : "Dead"
+		boutput(H, "<span style = \"color:#593001\">[++x]. <strong>[M]</strong> ([statdesc])</span>")
