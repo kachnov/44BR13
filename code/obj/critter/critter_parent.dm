@@ -1,6 +1,6 @@
 // p much straight up copied from secbot code =I
 
-/obj/critter/
+/obj/critter
 	name = "critter"
 	desc = "you shouldnt be able to see this"
 	icon = 'icons/misc/critter.dmi'
