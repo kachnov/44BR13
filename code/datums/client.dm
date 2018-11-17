@@ -529,6 +529,7 @@ REPO_VAR(curr_day, null)
 		if (isnewplayer(mob))
 			var/mob/new_player/NP = mob
 			src << sound(NP.lobby_music, repeat = TRUE, volume = 100, channel = LOBBY_MUSIC_CHANNEL)
+			passproc(NP) // random warning, thank you byond very cool
 	else 
 		src << sound(null, channel = LOBBY_MUSIC_CHANNEL)
 
