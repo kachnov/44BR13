@@ -132,11 +132,12 @@
 		if (proj_data.material)
 			proj_data.material.triggerOnAttack(src, shooter, A)
 
-		if (resin && ishuman(A))
-			var/mob/living/carbon/human/H = A
-			random_burn_damage(H, 5)
-			boutput(H, "<big><span style = \"color: red\">You're scalded by acid!</span></big>")
-			H.emote("scream")
+		if (resin && isliving(A))
+			var/mob/living/L = A
+			random_burn_damage(L, 5)
+			boutput(L, "<big><span style = \"color: red\">You're scalded by acid!</span></big>")
+			if (ishuman(L))
+				L.emote("scream")
 
 		if (istype(A,/turf))
 			// if we hit a turf apparently the bullet is magical and hits every single object in the tile, nice shooting tex
