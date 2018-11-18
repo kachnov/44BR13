@@ -17,46 +17,40 @@
 	var/base_icon = "wall"
 	var/health = 100
 
-	attackby(obj/item/W as obj, mob/user as mob)
-		if (!W) return
-		if (!user) return
-		health -= W.force*0.5
-		if(health < 0)
-			qdel(src)
-			return
-
-		..()
-
-	bullet_act(var/obj/projectile/P)
-		switch (P.proj_data.damage_type)
-			if (D_KINETIC,D_PIERCING,D_SLASHING)
-				health -= 20
-			if (D_ENERGY)
-				health -= 5
-			if (D_BURNING)
-				health -= 40
-			if (D_RADIOACTIVE)
-				health -= 2.5
-		if(health < 0)
-			qdel(src)
-			return
-		..()
-
-	ex_act(severity)
-		switch(severity)
-			if (1.0)
-				qdel(src)
-				return
-			if (2.0)
-				if (prob(50))
-					qdel(src)
-					return
-			if (3.0)
-				if (prob(5))
-					qdel(src)
-					return
-			else
+/obj/xeno/wall/attackby(obj/item/W as obj, mob/user as mob)
+	if (!W) return
+	if (!user) return
+	health -= W.force*0.5
+	if(health < 0)
+		qdel(src)
 		return
+	..()
+
+/obj/xeno/wall/bullet_act(var/obj/projectile/P)
+	switch (P.proj_data.damage_type)
+		if (D_KINETIC,D_PIERCING,D_SLASHING)
+			health -= 20
+		if (D_ENERGY)
+			health -= 5
+		if (D_BURNING)
+			health -= 40
+		if (D_RADIOACTIVE)
+			health -= 2.5
+	if(health < 0)
+		qdel(src)
+		return
+	..()
+
+/obj/xeno/wall/ex_act(severity)
+	switch(severity)
+		if (1.0)
+			qdel(src)
+		if (2.0)
+			if (prob(50))
+				qdel(src)
+		if (3.0)
+			if (prob(5))
+				qdel(src)
 
 /obj/xeno/wall/New()
 	..()

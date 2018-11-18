@@ -177,15 +177,15 @@ REPO_LIST(grown_xenomorphs, list())
 
 // types of Xenomorphs 
 	
-/mob/living/carbon/human/xenomorph/drone 
+/mob/living/carbon/human/xenomorph/builder 
 	icon_state = "aliend"
 	base_icon_state = "aliend"
-	caste_name = "Xenomorph Drone"
+	caste_name = "Xenomorph Builder"
 	abilities = ABILITY_REGENERATION|ABILITY_PLANT_WEEDS|ABILITY_SECRETE_RESIN|ABILITY_BUILD_RESIN
 	max_health = 225
 	slash_strength = 1.10 // 10% stronger than the crafter but nothing special
 
-/mob/living/carbon/human/xenomorph/drone/New()
+/mob/living/carbon/human/xenomorph/builder/New()
 	..()
 	stats.setStat(STAT_SPEED, 0.9)
 	stats.setStat(STAT_STRENGTH, 1.5)

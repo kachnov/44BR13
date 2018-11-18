@@ -71,8 +71,8 @@ REPO_LIST(xenomorph_larvae, list())
 		
 			// transfer the mind to a new xenomorph
 			switch (evolution)
-				if ("Drone")
-					mind.transfer_to((new /mob/living/carbon/human/xenomorph/drone(get_turf(src))))
+				if ("Builder")
+					mind.transfer_to((new /mob/living/carbon/human/xenomorph/builder(get_turf(src))))
 				if ("Crafter")
 					mind.transfer_to((new /mob/living/carbon/human/xenomorph/crafter(get_turf(src))))
 				if ("Hunter")
@@ -115,7 +115,7 @@ REPO_LIST(xenomorph_larvae, list())
 	set waitfor = FALSE 
 	sleep(after)
 	if (client)
-		evolution = input(src, "Evolve to what type of Xenomorph?", "Evolution") in list("Drone", "Crafter", "Hunter")
+		evolution = input(src, "Evolve to what type of Xenomorph?", "Evolution") in list("Builder", "Crafter", "Hunter")
 		name = replacetext(name, "Larva", "[evolution] Larva")
 		real_name = name
 		boutput(src, "You will become a <strong>Xenomorph [evolution]</strong> when you have grown. " + \

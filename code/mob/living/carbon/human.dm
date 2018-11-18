@@ -140,6 +140,7 @@ REPO_CONST(fortnite_dance_fluff, "<strong>{}</strong> pulls both arms outwards i
 	"cough", "sneeze", "shiver", "shudder", "shake", "hiccup", "sigh", "flinch", "blink_r", "nosepick")
 
 	var/has_custom_lying_death_icons = FALSE
+	var/forced_lie = FALSE
 
 	// stats
 	var/statHolder/stats = null
@@ -4751,7 +4752,7 @@ REPO_CONST(fortnite_dance_fluff, "<strong>{}</strong> pulls both arms outwards i
 		var/tmp/lying_old = lying
 		var/cant_lie = (limbs && istype(limbs.l_leg, /obj/item/parts/robot_parts/leg/left/treads) && istype(limbs.r_leg, /obj/item/parts/robot_parts/leg/right/treads) && !locate(/obj/table, loc) && !locate(/obj/machinery/optable, loc))
 
-		var/must_lie = (!cant_lie && src.limbs && !src.limbs.l_leg && !src.limbs.r_leg) //hasn't got a leg to stand on... haaa
+		var/must_lie = forced_lie || (!cant_lie && src.limbs && !src.limbs.l_leg && !src.limbs.r_leg) //hasn't got a leg to stand on... haaa
 
 		var/changeling_fakedeath = 0
 		var/abilityHolder/changeling/C = get_ability_holder(/abilityHolder/changeling)

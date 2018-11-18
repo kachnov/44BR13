@@ -1063,6 +1063,7 @@ var/preMapLoad/preMapLoad = new
 #include "code\obj\xeno\cocoon.dm"
 #include "code\obj\xeno\egg.dm"
 #include "code\obj\xeno\membrane.dm"
+#include "code\obj\xeno\nest.dm"
 #include "code\obj\xeno\wall.dm"
 #include "code\obj\xeno\weeds.dm"
 #include "code\procs\accents.dm"

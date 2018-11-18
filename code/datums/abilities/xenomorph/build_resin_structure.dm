@@ -1,6 +1,12 @@
+#define BUILDING_REQUIRES_RESIN FALSE
 // Use in-hand resin to build a wall, membrane, or cocoon. Only usable by Drones.
 /targetable/xenomorph/build_resin_structure
 	name = "Build Resin Structure"
+	#if BUILDING_REQUIRES_RESIN
+	cooldown = 0 SECONDS
+	#else
+	cooldown = 2 SECONDS
+	#endif
 
 /targetable/xenomorph/build_resin_structure/New()
 	..()
@@ -14,12 +20,15 @@
 	
 /targetable/xenomorph/build_resin_structure/cast()
 	var/obj/item/resin/R = usr.equipped()
-	if (R && istype(R))
-		if (R.can_consume(1))
+	var/bypass = !BUILDING_REQUIRES_RESIN
+
+	if (bypass || (R && istype(R)))
+		if (bypass || R.can_consume(1))
 			#define WALL "Wall"
 			#define MEMBRANE "Membrane"
 			#define COCOON "Cocoon"
-			var/structure = input(usr, "What do you want to build?") as null|anything in list(WALL, MEMBRANE)
+			#define NEST "Nest"
+			var/structure = input(usr, "What do you want to build?") as null|anything in list(WALL, MEMBRANE, NEST)
 			if (structure)
 				switch (structure)
 					if (WALL)
@@ -28,8 +37,11 @@
 						new /obj/xeno/wall/membrane(get_turf(usr))
 					if (COCOON)
 						new /obj/xeno/cocoon(get_turf(usr))
+					if (NEST)
+						new /obj/xeno/nest(get_turf(usr))
 				R.consume(1)
 				usr.visible_message("<span style = \"color: green\"><strong>[usr]</strong> builds a resin [structure].</span>")
+			#undef NEST
 			#undef WALL 
 			#undef MEMBRANE 
 			#undef COCOON
@@ -54,3 +66,4 @@
 		return
 		
 	owner.handleCast()
+#undef BUILDING_REQUIRES_RESIN
