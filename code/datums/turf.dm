@@ -159,6 +159,7 @@ var/global/client/ff_debugger = null
 	return
 
 /turf/space
+	plane = -3
 	icon = 'icons/turf/space.dmi'
 	name = "space"
 	icon_state = "placeholder"
