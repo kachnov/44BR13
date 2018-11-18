@@ -54,8 +54,9 @@ REPO_LIST(mutt_upgrades, list(MUTT_UPGRADE_AZUL, MUTT_UPGRADE_SSj, MUTT_UPGRADE_
 	REPO.amerimutts -= src 
 	..()
 
+#define BASIC_HEAL_AMOUNT 3
 /mob/living/carbon/human/mutt/Life(controller/process/mobs/parent)
-	..(parent)
+	. = ..(parent)
 
 	if (stat == CONSCIOUS)
 	
@@ -78,12 +79,6 @@ REPO_LIST(mutt_upgrades, list(MUTT_UPGRADE_AZUL, MUTT_UPGRADE_SSj, MUTT_UPGRADE_
 					C.mob.mind.transfer_to(M)
 					break
 
-	update_icon()
-
-#define BASIC_HEAL_AMOUNT 3
-/mob/living/carbon/human/mutt/Life(controller/process/mobs/parent)
-	. = ..(parent)
-
 	// if we're hurt
 	if (health < max_health)
 		// heal 9 damage if we're on weeds 
@@ -99,7 +94,7 @@ REPO_LIST(mutt_upgrades, list(MUTT_UPGRADE_AZUL, MUTT_UPGRADE_SSj, MUTT_UPGRADE_
 				--bleeding
 			if (bleeding_internal)
 				--bleeding_internal
-			
+
 	update_icon()
 #undef BASIC_HEAL_AMOUNT
 
