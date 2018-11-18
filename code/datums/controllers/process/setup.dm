@@ -5,6 +5,7 @@ PROCESS(setup)
 /controller/process/setup/setup()
 	name = "Server Setup"
 
+	return // this stuff doesn't work, WIP
 	for (var/x in 1 to world.maxx)
 		for (var/y in world.maxy to 1 step -1)
 			for (var/z in 1 to world.maxz)
