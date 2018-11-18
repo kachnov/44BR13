@@ -63,7 +63,7 @@ REPO_LIST(mutt_upgrades, list(MUTT_UPGRADE_AZUL, MUTT_UPGRADE_SSj, MUTT_UPGRADE_
 		// spawn literal shit every 10 seconds or so
 		if (prob(20))
 			var/turf/T = get_turf(src)
-			if (!locate(/obj/mutt/weeds) in T)
+			if (!locate(/obj/mutt/weeds) in range(1, T))
 				new /obj/mutt/weeds (T)
 
 		// say something every 50 seconds or so
