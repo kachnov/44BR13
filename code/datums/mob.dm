@@ -193,6 +193,7 @@
 	traitHolder = new(src)
 	. = ..()
 	mobs.Add(src)
+	sight |= SEE_BLACKNESS
 
 /mob/proc/is_spacefaring()
 	return FALSE

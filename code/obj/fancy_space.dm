@@ -1,6 +1,22 @@
 /obj/fancy_space
 	mouse_opacity = 0
 	plane = -2
-	pixel_y = -732
 	anchored = TRUE
 	icon = 'icons/fancy_space.dmi'
+	appearance_flags = TILE_BOUND
+	screen_loc = "1,1"
+
+/mob/Login()
+	..()
+	if (client && !list_find_type(client.screen, /obj/fancy_space))
+		client.screen += new /obj/fancy_space
+
+/mob/Move()
+	..()
+	if (client && !list_find_type(client.screen, /obj/fancy_space))
+		client.screen += new /obj/fancy_space
+
+/mob/forceMove()
+	..()
+	if (client && !list_find_type(client.screen, /obj/fancy_space))
+		client.screen += new /obj/fancy_space
