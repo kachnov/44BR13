@@ -2,7 +2,8 @@
 	mouse_opacity = 0
 	plane = -2
 	anchored = TRUE
-	icon = 'icons/fancy_space.dmi'
+	icon = 'icons/fancy_space736x736.dmi'
+	icon_state = "space"
 	appearance_flags = TILE_BOUND
 	screen_loc = "1,1"
 
