@@ -59,8 +59,8 @@
 
 	if (PSPchairs.preparing)
 		boutput(owner, "<span style = \"color:red\"><strong>The lawnmowers are already fueling up.</strong></span>")
-	else if (PSPchairs.locked)
-		boutput(owner, "<span style = \"color:red\"><strong>The lawnmowers are not ready to move again yet.</strong></span>")
+	else if (PSPchairs.is_moving())
+		boutput(owner, "<span style = \"color:red\"><strong>The lawnmowers are already moving.</strong></span>")
 	else
 
 		++lawnmower_authorizations

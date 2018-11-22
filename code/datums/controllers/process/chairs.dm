@@ -3,7 +3,6 @@ REPO_LIST(lawnmowers, list())
 PROCESS(chairs)
 	priority = PROCESS_PRIORITY_CHAIRS
 	var/preparing = FALSE
-	var/locked = FALSE
 	var/backwards_or_forwards = "forwards"
 	var/list/lawnmowers = null
 	var/list/rlawnmowers = null
@@ -27,7 +26,7 @@ PROCESS(chairs)
 				L.moving = FALSE
 
 /controller/process/chairs/proc/launch()
-	backwards_or_forwards = next_in_list(backwards_or_forwards, list("backwards", "forwards"))
+	backwards_or_forwards = next_in_list(backwards_or_forwards, list("back", "forwards"))
 	++launched
 
 	for (var/chair in get_lawnmowers())
@@ -36,20 +35,24 @@ PROCESS(chairs)
 	
 /controller/process/chairs/proc/prepare()
 	set waitfor = FALSE
-	locked = TRUE
 	preparing = TRUE
 	sleep(send_time)
 	launch()
 	preparing = FALSE
-	sleep(lock_time)
-	locked = FALSE
 
 /controller/process/chairs/proc/time_desc()
 	return "[send_time/(1 MINUTE)] minutes"
 
 /controller/process/chairs/proc/get_lawnmowers()
 	switch (backwards_or_forwards)
-		if ("backwards")
+		if ("back")
 			return rlawnmowers
 		if ("forwards")
 			return lawnmowers
+
+/controller/process/chairs/proc/is_moving()
+	for (var/chair in get_lawnmowers())
+		var/obj/stool/chair/lawnmower/L = chair
+		if (L.moving)
+			return TRUE 
+	return FALSE
