@@ -150,6 +150,7 @@ REPO_CONST(fortnite_dance_fluff, "<strong>{}</strong> pulls both arms outwards i
 
 	// xd
 	var/schlong = null
+	var/schlong_desc = null
 	var/nut = 0
 	var/dancing = FALSE
 
@@ -158,6 +159,7 @@ REPO_CONST(fortnite_dance_fluff, "<strong>{}</strong> pulls both arms outwards i
 
 	// xd
 	schlong = pick("fat", "tiny", "humungous")
+	schlong_desc = pick("greasy", "slimy", "hairy")
 
 	image_eyes = image('icons/mob/human_hair.dmi', layer = MOB_FACE_LAYER)
 	image_cust_one = image('icons/mob/human_hair.dmi', layer = MOB_HAIR_LAYER2)
@@ -6505,7 +6507,7 @@ REPO_CONST(fortnite_dance_fluff, "<strong>{}</strong> pulls both arms outwards i
 				possible_targets += thing 
 
 			for (var/mob/living/carbon/human/xenomorph/X in possible_targets)
-				visible_message("[SPANSEX][src] [pick("shoves", "thrusts", "pushes", "forces")] his [schlong] [pick("schlong", "weiner", "dong")] into [X]'s pussy!</span>")
+				visible_message("[SPANSEX][src] [pick("shoves", "thrusts", "pushes", "forces")] his [schlong_desc] [schlong] [pick("schlong", "weiner", "dong")] into [X]'s pussy!</span>")
 				X.weakened = max(X.weakened, min(4, X.weakened+1))
 				if (++nut >= rand(10,20))
 					visible_message("[SPANSEX2]<strong>[src] busts a fat nut in [X]'s pussy!</strong></span>")
