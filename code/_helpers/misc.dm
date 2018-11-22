@@ -1,4 +1,6 @@
-/proc/passproc()
+/proc/passproc() 
+	return TRUE
+
 #define _pass passproc()
 #define subtypesof(x) (typesof(x) - x)
 #define default_value(a, b) (a ? a : b)
