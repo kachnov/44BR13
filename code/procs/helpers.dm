@@ -160,14 +160,18 @@ proc
 	if ( user.loc == user_loc && target.loc == target_loc && user.equipped() == holding && !( user.stat ) && ( !user.stunned && !user.weakened && !user.paralysis && !user.lying ) )
 		return TRUE
 
-/proc/do_after(mob/M as mob, time as num)
+/proc/do_after(mob/M as mob, time as num, var/obj/O)
 	if (!ismob(M))
 		return FALSE
 	. = 0
+
 	var/turf/T = M.loc
+	var/turf/O_loc = O.loc
 	var/holding = M.equipped()
+
 	sleep(time)
-	if ((M.loc == T && M.equipped() == holding && !( M.stat )))
+
+	if ((M && M.loc == T && O && O.loc == O_loc && M.equipped() == holding && !( M.stat )))
 		return TRUE
 
 var/list/hasvar_type_cache = list()

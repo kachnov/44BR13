@@ -26,6 +26,13 @@
 		return
 	..()
 
+/obj/xeno/wall/attack_hand(var/mob/user)
+	if (isxenomorph(user))
+		visible_message("<span style = \"color:red\"><strong>[user] starts to tear down \the [src].</strong></span>")
+		if (do_after(user, 5 SECONDS, src))
+			visible_message("<span style = \"color:red\"><strong>[user] tears down \the [src].</strong></span>")
+			qdel(src)
+
 /obj/xeno/wall/bullet_act(var/obj/projectile/P)
 	switch (P.proj_data.damage_type)
 		if (D_KINETIC,D_PIERCING,D_SLASHING)
