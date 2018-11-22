@@ -121,9 +121,13 @@
 
 		// also run the atom's general bullet act
 		var/atom/B = A.bullet_act(src) //If bullet_act returns an atom, do all bad stuff to that atom instead
+
+		// bullshit hack for friendly fire
+		if (B == -1)
+			return die()
+
 		if (istype(B))
 			A = B
-
 
 		// if we made it this far this is a valid bump, run the specific projectile's hit code
 		proj_data.on_hit(A, angle, src)

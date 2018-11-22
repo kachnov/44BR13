@@ -25,12 +25,13 @@
 				var/job/src_job = find_job_in_controller_by_string(job)
 				src_faction = src_job.faction 
 
+			// see projectile_parent.dm for why we return -1
 			if (S_faction && src_faction && S_faction == src_faction)
-				return
+				return -1
 			else if (isxenomorph(S) && isxenomorph(src))
-				return
+				return -1
 			else if (ismutt(S) && ismutt(src))
-				return
+				return -1
 
 	if (nodamage) return
 	if (spellshield)
